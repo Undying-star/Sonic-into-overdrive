@@ -1,4 +1,4 @@
- AS V1.42 Beta [Bld 89] - source file s1.asm - page 1 - 2/27/2022 20:53:40
+ AS V1.42 Beta [Bld 89] - source file s1.asm - page 1 - 2/27/2022 20:33:18
 
 
        1/       0 :                     ; >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -49953,7 +49953,7 @@
    40860/   80FEA :                     
    40861/   80FEA :                     
    40862/   80FEA :                     		END
- AS V1.42 Beta [Bld 89] - source file s1.asm - page 2 - 2/27/2022 20:53:40
+ AS V1.42 Beta [Bld 89] - source file s1.asm - page 2 - 2/27/2022 20:33:18
 
 
   symbol table (* = unused):
@@ -51549,7 +51549,7 @@
  Sound_Play :                 72CA0 C |  Sound_notA7 :                72FC6 C |
  Sound_notB5 :                72FB2 C |  SpecialStage :                45F0 C |
  SpeedToPos :                  D6E8 C |  StartLocArray :               611E C |
- StartOfRom :                     0 C | *TIME :                    20:53:39 - |
+ StartOfRom :                     0 C | *TIME :                    20:33:17 - |
  TRUE :                           1 - |  TimeBonuses :                 EE00 C |
  TimeOver :                   1CA22 C |  TitleScreen :                 2F28 C |
  Title_ChkLevSel :             3252 C |  Title_ChkRegion :             31C6 C |
@@ -53136,7 +53136,7 @@
    6346 symbols
     262 unused symbols
 
- AS V1.42 Beta [Bld 89] - source file s1.asm - page 3 - 2/27/2022 20:53:40
+ AS V1.42 Beta [Bld 89] - source file s1.asm - page 3 - 2/27/2022 20:33:18
 
 
   defined macros:
@@ -53153,7 +53153,7 @@ trace                                 |
 
      15 macros
 
- AS V1.42 Beta [Bld 89] - source file s1.asm - page 4 - 2/27/2022 20:53:40
+ AS V1.42 Beta [Bld 89] - source file s1.asm - page 4 - 2/27/2022 20:33:18
 
 
   defined functions:
@@ -53161,7 +53161,7 @@ trace                                 |
 
 chkop                                 | notZ80                               
 
- AS V1.42 Beta [Bld 89] - source file s1.asm - page 5 - 2/27/2022 20:53:40
+ AS V1.42 Beta [Bld 89] - source file s1.asm - page 5 - 2/27/2022 20:33:18
 
 
   codepages:
@@ -53170,7 +53170,7 @@ chkop                                 | notZ80
 STANDARD (0 changed characters)
 
 
-0.81 seconds assembly time
+0.67 seconds assembly time
 
   47939 lines source file
   63523 lines incl. macro expansions
