@@ -3161,10 +3161,15 @@ Title_ClrPallet:
 		jsr	(BuildSprites).l
 		bsr.w	Pal_FadeTo
 		move	#$2700,sr
+		
+		move.l	#$5E000000,($C00004).l
+		lea	(Nem_Presta).l,a0 ; load Japanese credits
+		bsr.w	NemDec
+		
 		move.l	#$40000001,($C00004).l
 		lea	(Nem_TitleFg).l,a0 ; load title	screen patterns
 		bsr.w	NemDec
-		move.l	#$60000001,($C00004).l
+		move.l	#$6D000001,($C00004).l
 		lea	(Nem_TitleSonic).l,a0 ;	load Sonic title screen	patterns
 		bsr.w	NemDec
 		move.l	#$62000002,($C00004).l
@@ -12749,7 +12754,7 @@ Obj0E_Main:				; XREF: Obj0E_Index
 		move.w	#$F0,8(a0)
 		move.w	#$DE,$A(a0)
 		move.l	#Map_obj0E,4(a0)
-		move.w	#$2300,2(a0)
+		move.w	#$2368,2(a0)
 		move.b	#1,$18(a0)
 		move.b	#29,$1F(a0)	; set time delay to 0.5	seconds
 		lea	(Ani_obj0E).l,a1
@@ -37721,6 +37726,8 @@ Eni_SegaLogo:	binclude	mapeni/segalogo.bin	; large Sega logo (mappings)
 Eni_Title:	binclude	mapeni/titlescr.bin	; title screen foreground (mappings)
 		align 2
 Nem_TitleFg:	binclude	artnem/titlefor.bin	; title screen foreground
+		align 2
+Nem_Presta:     binclude    artnem/PressStart.bin
 		align 2
 Nem_TitleSonic:	binclude	artnem/titleson.bin	; Sonic on title screen
 		align 2
