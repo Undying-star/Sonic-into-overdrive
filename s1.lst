@@ -1,4 +1,4 @@
- AS V1.42 Beta [Bld 89] - source file s1.asm - page 1 - 3/2/2022 17:42:08
+ AS V1.42 Beta [Bld 89] - source file s1.asm - page 1 - 3/3/2022 15:18:31
 
 
        1/       0 :                     ; >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -49965,7 +49965,7 @@
    40867/   81756 :                     
    40868/   81756 :                     
    40869/   81756 :                     		END
- AS V1.42 Beta [Bld 89] - source file s1.asm - page 2 - 3/2/2022 17:42:09
+ AS V1.42 Beta [Bld 89] - source file s1.asm - page 2 - 3/3/2022 15:18:37
 
 
   symbol table (* = unused):
@@ -50052,7 +50052,7 @@
  Cont_MainLoop :               4DEC C |  ContinueScreen :              4D08 C |
  Cred_ClrObjRam :              5820 C |  Cred_ClrPallet :              5844 C |
  Cred_WaitLoop :               5892 C |  Credits :                     57E4 C |
-*DATE :                    3/2/2022 - |  DPLC_ddbf :                  221F8 C |
+*DATE :                    3/3/2022 - |  DPLC_ddbf :                  221F8 C |
 *DPLC_ddbf_0 :                221F8 C | *DPLC_ddbf_10 :               22208 C |
  DPLC_ddbf_103 :              222FB C |  DPLC_ddbf_10A :              22302 C |
  DPLC_ddbf_115 :              2230D C | *DPLC_ddbf_12 :               2220A C |
@@ -51562,7 +51562,7 @@
  Sound_notA7 :                73732 C |  Sound_notB5 :                7371E C |
  SpecialStage :                4604 C |  SpeedToPos :                  D6FC C |
  StartLocArray :               6132 C |  StartOfRom :                     0 C |
-*TIME :                    17:42:02 - |  TRUE :                           1 - |
+*TIME :                    15:18:20 - |  TRUE :                           1 - |
  TimeBonuses :                 EE14 C |  TimeOver :                   1CA36 C |
  TitleScreen :                 2F28 C |  Title_ChkLevSel :             3266 C |
  Title_ChkRegion :             31DA C |  Title_ClrObjRam :             2F74 C |
@@ -53149,7 +53149,7 @@
    6347 symbols
     262 unused symbols
 
- AS V1.42 Beta [Bld 89] - source file s1.asm - page 3 - 3/2/2022 17:42:09
+ AS V1.42 Beta [Bld 89] - source file s1.asm - page 3 - 3/3/2022 15:18:38
 
 
   defined macros:
@@ -53166,7 +53166,7 @@ trace                                 |
 
      15 macros
 
- AS V1.42 Beta [Bld 89] - source file s1.asm - page 4 - 3/2/2022 17:42:09
+ AS V1.42 Beta [Bld 89] - source file s1.asm - page 4 - 3/3/2022 15:18:38
 
 
   defined functions:
@@ -53174,7 +53174,7 @@ trace                                 |
 
 chkop                                 | notZ80                               
 
- AS V1.42 Beta [Bld 89] - source file s1.asm - page 5 - 3/2/2022 17:42:09
+ AS V1.42 Beta [Bld 89] - source file s1.asm - page 5 - 3/3/2022 15:18:38
 
 
   codepages:
@@ -53183,7 +53183,7 @@ chkop                                 | notZ80
 STANDARD (0 changed characters)
 
 
-6.23 seconds assembly time
+17.77 seconds assembly time
 
   47946 lines source file
   63552 lines incl. macro expansions
