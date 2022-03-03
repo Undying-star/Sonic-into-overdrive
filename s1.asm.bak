@@ -2856,6 +2856,7 @@ Pal_SegaBG:	binclude	pallet/sega_bg.bin
 Pal_Title:	binclude	pallet/title.bin
 Pal_LevelSel:	binclude	pallet/levelsel.bin
 Pal_Sonic:	binclude	pallet/sonic.bin
+Pal_Tails:	binclude	pallet/Tails.bin
 Pal_GHZ:	binclude	pallet/ghz.bin
 Pal_LZ:		binclude	pallet/lz.bin
 Pal_LZWater:	binclude	pallet/lz_uw.bin	; LZ underwater pallets
@@ -12420,6 +12421,8 @@ loc_A1EC:				; XREF: Obj26_Solid
 		bmi.s	loc_A20A
 		cmpi.b	#2,$1C(a1)	; is Sonic rolling?
 		beq.s	loc_A25C	; if yes, branch
+		cmpi.b	#$1F,$1C(a1)	; is Sonic spin-dashing?
+		beq.s	loc_A25C	; if yes, branch
 
 loc_A20A:
 		tst.w	d1
@@ -12549,13 +12552,18 @@ Obj2E_Move:				; XREF: Obj2E_Index
 		rts	
 ; ===========================================================================
 
-Obj2E_ChkEggman:			; XREF: Obj2E_Move
-		addq.b	#2,$24(a0)
-		move.w	#29,$1E(a0)
-		move.b	$1C(a0),d0
-		cmpi.b	#1,d0		; does monitor contain Eggman?
-		bne.s	Obj2E_ChkSonic
-		rts			; Eggman monitor does nothing
+Obj2E_ChkEggman:    ; XREF: Obj2E_Move
+        addq.b    #2,$24(a0)
+        move.w    #29,$1E(a0)
+        move.b    $1C(a0),d0
+        cmpi.b    #1,d0; does monitor contain Eggman?
+        bne.s    Obj2E_ChkSonic ; if not, go and check for the next monitor type (1-up icon)
+        move.l    a0,a1 ; move a0 to a1, because Touch_ChkHurt wants the damaging object to be in a1
+        move.l    a0,-(sp) ; push a0 on the stack, and decrement stack pointer
+        lea    ($FFFFD000).w,a0 ; put Sonic's ram address in a0, because Touch_ChkHurt wants the damaged object to be in a0
+        jsr    Touch_ChkHurt ; run the Touch_ChkHurt routine
+        move.l    (sp)+,a0 ; pop the previous value of a0 from the stack, and increment stack pointer
+        rts ; The Eggman monitor now does something!
 ; ===========================================================================
 
 Obj2E_ChkSonic:
@@ -15024,13 +15032,13 @@ Obj34_ItemData:	dc.w $D0	; y-axis position
 ; 4 bytes per item (YYYY XXXX)
 ; 4 items per level (GREEN HILL, ZONE, ACT X, oval)
 ; ---------------------------------------------------------------------------
-Obj34_ConData:	dc.w 0,	$120, $FEFC, $13C, $414, $154, $214, $154 ; GHZ
-		dc.w 0,	$120, $FEF4, $134, $40C, $14C, $20C, $14C ; LZ
-		dc.w 0,	$120, $FEE0, $120, $3F8, $138, $1F8, $138 ; MZ
-		dc.w 0,	$120, $FEFC, $13C, $414, $154, $214, $154 ; SLZ
-		dc.w 0,	$120, $FF04, $144, $41C, $15C, $21C, $15C ; SYZ
-		dc.w 0,	$120, $FF04, $144, $41C, $15C, $21C, $15C ; SBZ
-		dc.w 0,	$120, $FEE4, $124, $3EC, $3EC, $1EC, $12C ; FZ
+Obj34_ConData:	dc.w $0000,$0120, $FEFC,$013C, $0414,$0154, $0214,$0154 ; GHZ
+		dc.w $0000,$0120, $FEFC,$013C, $0414,$0154, $0214,$0154 ; LZ
+		dc.w $0000,$0120, $FEFC,$013C, $0414,$0154, $0214,$0154 ; MZ
+		dc.w $0000,$0120, $FEFC,$013C, $0414,$0154, $0214,$0154 ; SLZ
+		dc.w $0000,$0120, $FEFC,$013C, $0414,$0154, $0214,$0154 ; SYZ
+		dc.w $0000,$0120, $FEFC,$013C, $0414,$0154, $0214,$0154 ; SBZ
+		dc.w $0000,$0120, $FEE4,$0144, $03EC,$03EC, $0214,$0154 ; FZ
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object 39 - "GAME OVER" and "TIME OVER"
@@ -15574,21 +15582,16 @@ Map_obj34:	dc.w byte_C9FE-Map_obj34
 		dc.w byte_CB3C-Map_obj34
 		dc.w byte_CB47-Map_obj34
 		dc.w byte_CB8A-Map_obj34
-byte_C9FE:	dc.b $E	;  GREEN HILL | TROPICAL HILLS
-		dc.b $F8, 5, 0, $42, $80	; T
-		dc.b $F8, 5, 0, $3A, $90	; R
-		dc.b $F8, 5, 0, $32, $A0	; O
-		dc.b $F8, 5, 0, $36, $B0	; P
-		dc.b $F8, 1, 0, $20, $C0	; I
-		dc.b $F8, 5, 0, 8, $C8		; C
-		dc.b $F8, 5, 0, 0, $D8		; A
-		dc.b $F8, 5, 0, $26, $E8	; L
-		dc.b $F8, 0, 0, $56, $F8	; Space
-		dc.b $F8, 5, 0, $1C, $8	; H
-		dc.b $F8, 1, 0, $20, $18	; I
-		dc.b $F8, 5, 0, $26, $20	; L
-		dc.b $F8, 5, 0, $26, $30	; L
-		dc.b $F8, 5, 0, $3E, $40	; S
+byte_C9FE:	dc.b 9 			; GREEN HILL
+		dc.b $F8, 5, 0,	$18, $B4
+		dc.b $F8, 5, 0,	$3A, $C4
+		dc.b $F8, 5, 0,	$10, $D4
+		dc.b $F8, 5, 0,	$10, $E4
+		dc.b $F8, 5, 0,	$2E, $F4
+		dc.b $F8, 5, 0,	$1C, $14
+		dc.b $F8, 1, 0,	$20, $24
+		dc.b $F8, 5, 0,	$26, $2C
+		dc.b $F8, 5, 0,	$26, $3C
 byte_CA2C:	dc.b 9			; LABYRINTH
 		dc.b $F8, 5, 0,	$26, $BC
 		dc.b $F8, 5, 0,	0, $CC
@@ -15617,17 +15620,16 @@ byte_CA7A:	dc.b 9			; STAR	LIGHT
 		dc.b $F8, 5, 0,	$18, $1C
 		dc.b $F8, 5, 0,	$1C, $2C
 		dc.b $F8, 5, 0,	$42, $3C
-byte_CAA8:	dc.b $A			; SPRING YARD
-		dc.b $F8, 5, 0,	$3E, $AC
-		dc.b $F8, 5, 0,	$36, $BC
-		dc.b $F8, 5, 0,	$3A, $CC
-		dc.b $F8, 1, 0,	$20, $DC
-		dc.b $F8, 5, 0,	$2E, $E4
-		dc.b $F8, 5, 0,	$18, $F4
-		dc.b $F8, 5, 0,	$4A, $14
-		dc.b $F8, 5, 0,	0, $24
-		dc.b $F8, 5, 0,	$3A, $34
-		dc.b $F8, 5, 0,	$C, $44
+byte_CAA8:	dc.b 9	;  SPRING YARD | SPARKLING
+		dc.b $F8, 5, 0, $3E, $C4	; S
+		dc.b $F8, 5, 0, $36, $D4	; P
+		dc.b $F8, 5, 0, 0, $E4		; A
+		dc.b $F8, 5, 0, $3A, $F4	; R
+		dc.b $F8, 5, 0, $22, $4	; K
+		dc.b $F8, 5, 0, $26, $14	; L
+		dc.b $F8, 1, 0, $20, $24	; I
+		dc.b $F8, 5, 0, $2E, $2C	; N
+		dc.b $F8, 5, 0, $18, $3C	; G
 		dc.b 0
 byte_CADC:	dc.b $A			; SCRAP BRAIN
 		dc.b $F8, 5, 0,	$3E, $AC
@@ -37732,16 +37734,33 @@ Map_Sonic:
 		include	"_maps/Sonic.asm"
 
 ; ---------------------------------------------------------------------------
+; Sprite mappings - Tails
+; ---------------------------------------------------------------------------
+Map_Tails:
+		include	"_maps/Tails.asm"
+
+; ---------------------------------------------------------------------------
 ; Uncompressed graphics	loading	array for Sonic
 ; ---------------------------------------------------------------------------
 SonicDynPLC:
 		include	"_inc/Sonic dynamic pattern load cues.asm"
 
 ; ---------------------------------------------------------------------------
-; Uncompressed graphics	- Sonic
+; Uncompressed graphics	loading	array for Tails
 ; ---------------------------------------------------------------------------
-Art_Sonic:	binclude	artunc/sonic.bin	; Sonic
-		align 2
+TailsDynPLC:
+		include	"_inc/Tails Dynamic pattern load cues.asm"
+		
+; ---------------------------------------------------------------------------
+; Uncompressed graphics - Sonic
+; ---------------------------------------------------------------------------
+Art_Sonic:  binclude  artunc\sonic.bin    ; Sonic
+        align 2
+; ---------------------------------------------------------------------------
+; Uncompressed graphics - Tails
+; ---------------------------------------------------------------------------
+Art_Tails:  binclude  artunc\tails.bin    ; Tails' art
+        align 2
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - various
 ; ---------------------------------------------------------------------------
