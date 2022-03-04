@@ -3161,10 +3161,15 @@ Title_ClrPallet:
 		jsr	(BuildSprites).l
 		bsr.w	Pal_FadeTo
 		move	#$2700,sr
+		
+		move.l	#$5E000000,($C00004).l
+		lea	(Nem_Presta).l,a0 ; load Japanese credits
+		bsr.w	NemDec
+		
 		move.l	#$40000001,($C00004).l
 		lea	(Nem_TitleFg).l,a0 ; load title	screen patterns
 		bsr.w	NemDec
-		move.l	#$60000001,($C00004).l
+		move.l	#$6D000001,($C00004).l
 		lea	(Nem_TitleSonic).l,a0 ;	load Sonic title screen	patterns
 		bsr.w	NemDec
 		move.l	#$62000002,($C00004).l
@@ -12549,13 +12554,18 @@ Obj2E_Move:				; XREF: Obj2E_Index
 		rts	
 ; ===========================================================================
 
-Obj2E_ChkEggman:			; XREF: Obj2E_Move
-		addq.b	#2,$24(a0)
-		move.w	#29,$1E(a0)
-		move.b	$1C(a0),d0
-		cmpi.b	#1,d0		; does monitor contain Eggman?
-		bne.s	Obj2E_ChkSonic
-		rts			; Eggman monitor does nothing
+Obj2E_ChkEggman:    ; XREF: Obj2E_Move
+        addq.b    #2,$24(a0)
+        move.w    #29,$1E(a0)
+        move.b    $1C(a0),d0
+        cmpi.b    #1,d0; does monitor contain Eggman?
+        bne.s    Obj2E_ChkSonic ; if not, go and check for the next monitor type (1-up icon)
+        move.l    a0,a1 ; move a0 to a1, because Touch_ChkHurt wants the damaging object to be in a1
+        move.l    a0,-(sp) ; push a0 on the stack, and decrement stack pointer
+        lea    ($FFFFD000).w,a0 ; put Sonic's ram address in a0, because Touch_ChkHurt wants the damaged object to be in a0
+        jsr    Touch_ChkHurt ; run the Touch_ChkHurt routine
+        move.l    (sp)+,a0 ; pop the previous value of a0 from the stack, and increment stack pointer
+        rts ; The Eggman monitor now does something!
 ; ===========================================================================
 
 Obj2E_ChkSonic:
@@ -12744,7 +12754,7 @@ Obj0E_Main:				; XREF: Obj0E_Index
 		move.w	#$F0,8(a0)
 		move.w	#$DE,$A(a0)
 		move.l	#Map_obj0E,4(a0)
-		move.w	#$2300,2(a0)
+		move.w	#$2368,2(a0)
 		move.b	#1,$18(a0)
 		move.b	#29,$1F(a0)	; set time delay to 0.5	seconds
 		lea	(Ani_obj0E).l,a1
@@ -37716,6 +37726,8 @@ Eni_SegaLogo:	binclude	mapeni/segalogo.bin	; large Sega logo (mappings)
 Eni_Title:	binclude	mapeni/titlescr.bin	; title screen foreground (mappings)
 		align 2
 Nem_TitleFg:	binclude	artnem/titlefor.bin	; title screen foreground
+		align 2
+Nem_Presta:     binclude    artnem/PressStart.bin
 		align 2
 Nem_TitleSonic:	binclude	artnem/titleson.bin	; Sonic on title screen
 		align 2
