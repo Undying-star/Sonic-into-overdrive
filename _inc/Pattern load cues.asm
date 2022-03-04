@@ -1,514 +1,425 @@
 ; ---------------------------------------------------------------------------
-; Pattern load cues - index
+; Pattern load cues
 ; ---------------------------------------------------------------------------
-	dc.w PLC_Main-ArtLoadCues, PLC_Main2-ArtLoadCues
-	dc.w PLC_Explode-ArtLoadCues, PLC_GameOver-ArtLoadCues
-	dc.w PLC_GHZ-ArtLoadCues, PLC_GHZ2-ArtLoadCues
-	dc.w PLC_LZ-ArtLoadCues, PLC_LZ2-ArtLoadCues
-	dc.w PLC_MZ-ArtLoadCues, PLC_MZ2-ArtLoadCues
-	dc.w PLC_SLZ-ArtLoadCues, PLC_SLZ2-ArtLoadCues
-	dc.w PLC_SYZ-ArtLoadCues, PLC_SYZ2-ArtLoadCues
-	dc.w PLC_SBZ-ArtLoadCues, PLC_SBZ2-ArtLoadCues
-	dc.w PLC_TitleCard-ArtLoadCues,	PLC_Boss-ArtLoadCues
-	dc.w PLC_Signpost-ArtLoadCues, PLC_Warp-ArtLoadCues
-	dc.w PLC_SpeStage-ArtLoadCues, PLC_GHZAnimals-ArtLoadCues
-	dc.w PLC_LZAnimals-ArtLoadCues,	PLC_MZAnimals-ArtLoadCues
-	dc.w PLC_SLZAnimals-ArtLoadCues, PLC_SYZAnimals-ArtLoadCues
-	dc.w PLC_SBZAnimals-ArtLoadCues, PLC_SpeStResult-ArtLoadCues
-	dc.w PLC_Ending-ArtLoadCues, PLC_TryAgain-ArtLoadCues
-	dc.w PLC_EggmanSBZ2-ArtLoadCues, PLC_FZBoss-ArtLoadCues
+ArtLoadCues:
+
+ptr_PLC_Main:		dc.w PLC_Main-ArtLoadCues
+ptr_PLC_Main2:		dc.w PLC_Main2-ArtLoadCues
+ptr_PLC_Explode:	dc.w PLC_Explode-ArtLoadCues
+ptr_PLC_GameOver:	dc.w PLC_GameOver-ArtLoadCues
+PLC_Levels:
+ptr_PLC_GHZ:		dc.w PLC_GHZ-ArtLoadCues
+ptr_PLC_GHZ2:		dc.w PLC_GHZ2-ArtLoadCues
+ptr_PLC_LZ:		dc.w PLC_LZ-ArtLoadCues
+ptr_PLC_LZ2:		dc.w PLC_LZ2-ArtLoadCues
+ptr_PLC_MZ:		dc.w PLC_MZ-ArtLoadCues
+ptr_PLC_MZ2:		dc.w PLC_MZ2-ArtLoadCues
+ptr_PLC_SLZ:		dc.w PLC_SLZ-ArtLoadCues
+ptr_PLC_SLZ2:		dc.w PLC_SLZ2-ArtLoadCues
+ptr_PLC_SYZ:		dc.w PLC_SYZ-ArtLoadCues
+ptr_PLC_SYZ2:		dc.w PLC_SYZ2-ArtLoadCues
+ptr_PLC_SBZ:		dc.w PLC_SBZ-ArtLoadCues
+ptr_PLC_SBZ2:		dc.w PLC_SBZ2-ArtLoadCues
+			zonewarning PLC_Levels,4
+ptr_PLC_TitleCard:	dc.w PLC_TitleCard-ArtLoadCues
+ptr_PLC_Boss:		dc.w PLC_Boss-ArtLoadCues
+ptr_PLC_Signpost:	dc.w PLC_Signpost-ArtLoadCues
+ptr_PLC_Warp:		dc.w PLC_Warp-ArtLoadCues
+ptr_PLC_SpecialStage:	dc.w PLC_SpecialStage-ArtLoadCues
+PLC_Animals:
+ptr_PLC_GHZAnimals:	dc.w PLC_GHZAnimals-ArtLoadCues
+ptr_PLC_LZAnimals:	dc.w PLC_LZAnimals-ArtLoadCues
+ptr_PLC_MZAnimals:	dc.w PLC_MZAnimals-ArtLoadCues
+ptr_PLC_SLZAnimals:	dc.w PLC_SLZAnimals-ArtLoadCues
+ptr_PLC_SYZAnimals:	dc.w PLC_SYZAnimals-ArtLoadCues
+ptr_PLC_SBZAnimals:	dc.w PLC_SBZAnimals-ArtLoadCues
+			zonewarning PLC_Animals,2
+ptr_PLC_SSResult:	dc.w PLC_SSResult-ArtLoadCues
+ptr_PLC_Ending:		dc.w PLC_Ending-ArtLoadCues
+ptr_PLC_TryAgain:	dc.w PLC_TryAgain-ArtLoadCues
+ptr_PLC_EggmanSBZ2:	dc.w PLC_EggmanSBZ2-ArtLoadCues
+ptr_PLC_FZBoss:		dc.w PLC_FZBoss-ArtLoadCues
+
+plcm:	macro gfx,vram
+	dc.l gfx
+	dc.w vram
+	endm
+
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - standard block 1
 ; ---------------------------------------------------------------------------
-PLC_Main:	dc.w 4
-		dc.l Nem_Lamp		; lamppost
-		dc.w $F400
-		dc.l Nem_Hud		; HUD
-		dc.w $D940
-		dc.l Nem_Lives		; lives	counter
-		dc.w $FA80
-		dc.l Nem_Ring		; rings
-		dc.w $F640
-		dc.l Nem_Points		; points from enemy
-		dc.w $F2E0
+PLC_Main:	dc.w ((PLC_Mainend-PLC_Main-2)/6)-1
+		plcm	Nem_Lamp, $F400		; lamppost
+		plcm	Nem_Hud, $D940		; HUD
+		plcm	Nem_Lives, $FA80	; lives	counter
+		plcm	Nem_Ring, $F640 	; rings
+		plcm	Nem_Points, $F2E0	; points from enemy
+PLC_Mainend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - standard block 2
 ; ---------------------------------------------------------------------------
-PLC_Main2:	dc.w 2
-		dc.l Nem_Monitors	; monitors
-		dc.w $D000
-		dc.l Nem_Shield		; shield
-		dc.w $A820
-		dc.l Nem_Stars		; invincibility	stars
-		dc.w $AB80
+PLC_Main2:	dc.w ((PLC_Main2end-PLC_Main2-2)/6)-1
+		plcm	Nem_Monitors, $D000	; monitors
+		plcm	Nem_Shield, $A820	; shield
+		plcm	Nem_Stars, $AB80	; invincibility	stars
+PLC_Main2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - explosion
 ; ---------------------------------------------------------------------------
-PLC_Explode:	dc.w 0
-		dc.l Nem_Explode	; explosion
-		dc.w $B400
+PLC_Explode:	dc.w ((PLC_Explodeend-PLC_Explode-2)/6)-1
+		plcm	Nem_Explode, $B400	; explosion
+PLC_Explodeend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - game/time	over
 ; ---------------------------------------------------------------------------
-PLC_GameOver:	dc.w 0
-		dc.l Nem_GameOver	; game/time over
-		dc.w $ABC0
+PLC_GameOver:	dc.w ((PLC_GameOverend-PLC_GameOver-2)/6)-1
+		plcm	Nem_GameOver, $ABC0	; game/time over
+PLC_GameOverend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - Green Hill
 ; ---------------------------------------------------------------------------
-PLC_GHZ:	dc.w $B
-		dc.l Nem_GHZ_1st	; GHZ main patterns
-		dc.w 0
-		dc.l Nem_GHZ_2nd	; GHZ secondary	patterns
-		dc.w $39A0
-		dc.l Nem_Stalk		; flower stalk
-		dc.w $6B00
-		dc.l Nem_PplRock	; purple rock
-		dc.w $7A00
-		dc.l Nem_Crabmeat	; crabmeat enemy
-		dc.w $8000
-		dc.l Nem_Buzz		; buzz bomber enemy
-		dc.w $8880
-		dc.l Nem_Chopper	; chopper enemy
-		dc.w $8F60
-		dc.l Nem_Newtron	; newtron enemy
-		dc.w $9360
-		dc.l Nem_Motobug	; motobug enemy
-		dc.w $9E00
-		dc.l Nem_Spikes		; spikes
-		dc.w $A360
-		dc.l Nem_HSpring	; horizontal spring
-		dc.w $A460
-		dc.l Nem_VSpring	; vertical spring
-		dc.w $A660
-PLC_GHZ2:	dc.w 5
-		dc.l Nem_Swing		; swinging platform
-		dc.w $7000
-		dc.l Nem_Bridge		; bridge
-		dc.w $71C0
-		dc.l Nem_SpikePole	; spiked pole
-		dc.w $7300
-		dc.l Nem_Ball		; giant	ball
-		dc.w $7540
-		dc.l Nem_GhzWall1	; breakable wall
-		dc.w $A1E0
-		dc.l Nem_GhzWall2	; normal wall
-		dc.w $6980
+PLC_GHZ:	dc.w ((PLC_GHZ2-PLC_GHZ-2)/6)-1
+		plcm	Nem_GHZ_1st, 0		; GHZ main patterns
+		plcm	Nem_GHZ_2nd, $39A0	; GHZ secondary	patterns
+		plcm	Nem_Stalk, $6B00	; flower stalk
+		plcm	Nem_PplRock, $7A00	; purple rock
+		plcm	Nem_Crabmeat, $8000	; crabmeat enemy
+		plcm	Nem_Buzz, $8880		; buzz bomber enemy
+		plcm	Nem_Chopper, $8F60	; chopper enemy
+		plcm	Nem_Newtron, $9360	; newtron enemy
+		plcm	Nem_Motobug, $9E00	; motobug enemy
+		plcm	Nem_Spikes, $A360	; spikes
+		plcm	Nem_HSpring, $A460	; horizontal spring
+		plcm	Nem_VSpring, $A660	; vertical spring
+
+PLC_GHZ2:	dc.w ((PLC_GHZ2end-PLC_GHZ2-2)/6)-1
+		plcm	Nem_Swing, $7000	; swinging platform
+		plcm	Nem_Bridge, $71C0	; bridge
+		plcm	Nem_SpikePole, $7300	; spiked pole
+		plcm	Nem_Ball, $7540		; giant	ball
+		plcm	Nem_GhzWall1, $A1E0	; breakable wall
+		plcm	Nem_GhzWall2, $6980	; normal wall
+PLC_GHZ2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - Labyrinth
 ; ---------------------------------------------------------------------------
-PLC_LZ:		dc.w $B
-		dc.l Nem_LZ		; LZ main patterns
-		dc.w 0
-		dc.l Nem_LzBlock1	; block
-		dc.w $3C00
-		dc.l Nem_LzBlock2	; blocks
-		dc.w $3E00
-		dc.l Nem_Splash		; waterfalls and splash
-		dc.w $4B20
-		dc.l Nem_Water		; water	surface
-		dc.w $6000
-		dc.l Nem_LzSpikeBall	; spiked ball
-		dc.w $6200
-		dc.l Nem_FlapDoor	; flapping door
-		dc.w $6500
-		dc.l Nem_Bubbles	; bubbles and numbers
-		dc.w $6900
-		dc.l Nem_LzBlock3	; block
-		dc.w $7780
-		dc.l Nem_LzDoor1	; vertical door
-		dc.w $7880
-		dc.l Nem_Harpoon	; harpoon
-		dc.w $7980
-		dc.l Nem_Burrobot	; burrobot enemy
-		dc.w $94C0
-PLC_LZ2:	dc.w $C
-		dc.l Nem_LzPole		; pole that breaks
-		dc.w $7BC0
-		dc.l Nem_LzDoor2	; large	horizontal door
-		dc.w $7CC0
-		dc.l Nem_LzWheel	; wheel
-		dc.w $7EC0
-		dc.l Nem_Gargoyle	; gargoyle head
-		dc.w $5D20
-		dc.l Nem_LzSonic	; Sonic	holding	his breath
-		dc.w $8800
-		dc.l Nem_LzPlatfm	; rising platform
-		dc.w $89E0
-		dc.l Nem_Orbinaut	; orbinaut enemy
-		dc.w $8CE0
-		dc.l Nem_Jaws		; jaws enemy
-		dc.w $90C0
-		dc.l Nem_LzSwitch	; switch
-		dc.w $A1E0
-		dc.l Nem_Cork		; cork block
-		dc.w $A000
-		dc.l Nem_Spikes		; spikes
-		dc.w $A360
-		dc.l Nem_HSpring	; horizontal spring
-		dc.w $A460
-		dc.l Nem_VSpring	; vertical spring
-		dc.w $A660
+PLC_LZ:		dc.w ((PLC_LZ2-PLC_LZ-2)/6)-1
+		plcm	Nem_LZ,0		; LZ main patterns
+		plcm	Nem_LzBlock1, $3C00	; block
+		plcm	Nem_LzBlock2, $3E00	; blocks
+		plcm	Nem_Splash, $4B20	; waterfalls and splash
+		plcm	Nem_Water, $6000	; water	surface
+		plcm	Nem_LzSpikeBall, $6200	; spiked ball
+		plcm	Nem_FlapDoor, $6500	; flapping door
+		plcm	Nem_Bubbles, $6900	; bubbles and numbers
+		plcm	Nem_LzBlock3, $7780	; block
+		plcm	Nem_LzDoor1, $7880	; vertical door
+		plcm	Nem_Harpoon, $7980	; harpoon
+		plcm	Nem_Burrobot, $94C0	; burrobot enemy
+
+PLC_LZ2:	dc.w ((PLC_LZ2end-PLC_LZ2-2)/6)-1
+		plcm	Nem_LzPole, $7BC0	; pole that breaks
+		plcm	Nem_LzDoor2, $7CC0	; large	horizontal door
+		plcm	Nem_LzWheel, $7EC0	; wheel
+		plcm	Nem_Gargoyle, $5D20	; gargoyle head
+		if Revision=0
+		plcm	Nem_LzSonic, $8800	; Sonic	holding	his breath
+		endif
+		plcm	Nem_LzPlatfm, $89E0	; rising platform
+		plcm	Nem_Orbinaut, $8CE0	; orbinaut enemy
+		plcm	Nem_Jaws, $90C0		; jaws enemy
+		plcm	Nem_LzSwitch, $A1E0	; switch
+		plcm	Nem_Cork, $A000		; cork block
+		plcm	Nem_Spikes, $A360	; spikes
+		plcm	Nem_HSpring, $A460	; horizontal spring
+		plcm	Nem_VSpring, $A660	; vertical spring
+PLC_LZ2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - Marble
 ; ---------------------------------------------------------------------------
-PLC_MZ:		dc.w 9
-		dc.l Nem_MZ		; MZ main patterns
-		dc.w 0
-		dc.l Nem_MzMetal	; metal	blocks
-		dc.w $6000
-		dc.l Nem_MzFire		; fireballs
-		dc.w $68A0
-		dc.l Nem_Swing		; swinging platform
-		dc.w $7000
-		dc.l Nem_MzGlass	; green	glassy block
-		dc.w $71C0
-		dc.l Nem_Lava		; lava
-		dc.w $7500
-		dc.l Nem_Buzz		; buzz bomber enemy
-		dc.w $8880
-		dc.l Nem_Yadrin		; yadrin enemy
-		dc.w $8F60
-		dc.l Nem_Basaran	; basaran enemy
-		dc.w $9700
-		dc.l Nem_Cater		; caterkiller enemy
-		dc.w $9FE0
-PLC_MZ2:	dc.w 4
-		dc.l Nem_MzSwitch	; switch
-		dc.w $A260
-		dc.l Nem_Spikes		; spikes
-		dc.w $A360
-		dc.l Nem_HSpring	; horizontal spring
-		dc.w $A460
-		dc.l Nem_VSpring	; vertical spring
-		dc.w $A660
-		dc.l Nem_MzBlock	; green	stone block
-		dc.w $5700
+PLC_MZ:		dc.w ((PLC_MZ2-PLC_MZ-2)/6)-1
+		plcm	Nem_MZ,0		; MZ main patterns
+		plcm	Nem_MzMetal, $6000	; metal	blocks
+		plcm	Nem_MzFire, $68A0	; fireballs
+		plcm	Nem_Swing, $7000	; swinging platform
+		plcm	Nem_MzGlass, $71C0	; green	glassy block
+		plcm	Nem_Lava, $7500		; lava
+		plcm	Nem_Buzz, $8880		; buzz bomber enemy
+		plcm	Nem_Yadrin, $8F60	; yadrin enemy
+		plcm	Nem_Basaran, $9700	; basaran enemy
+		plcm	Nem_Cater, $9FE0	; caterkiller enemy
+
+PLC_MZ2:	dc.w ((PLC_MZ2end-PLC_MZ2-2)/6)-1
+		plcm	Nem_MzSwitch, $A260	; switch
+		plcm	Nem_Spikes, $A360	; spikes
+		plcm	Nem_HSpring, $A460	; horizontal spring
+		plcm	Nem_VSpring, $A660	; vertical spring
+		plcm	Nem_MzBlock, $5700	; green	stone block
+PLC_MZ2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - Star Light
 ; ---------------------------------------------------------------------------
-PLC_SLZ:	dc.w 8
-		dc.l Nem_SLZ		; SLZ main patterns
-		dc.w 0
-		dc.l Nem_Bomb		; bomb enemy
-		dc.w $8000
-		dc.l Nem_Orbinaut	; orbinaut enemy
-		dc.w $8520
-		dc.l Nem_MzFire		; fireballs
-		dc.w $9000
-		dc.l Nem_SlzBlock	; block
-		dc.w $9C00
-		dc.l Nem_SlzWall	; breakable wall
-		dc.w $A260
-		dc.l Nem_Spikes		; spikes
-		dc.w $A360
-		dc.l Nem_HSpring	; horizontal spring
-		dc.w $A460
-		dc.l Nem_VSpring	; vertical spring
-		dc.w $A660
-PLC_SLZ2:	dc.w 5
-		dc.l Nem_Seesaw		; seesaw
-		dc.w $6E80
-		dc.l Nem_Fan		; fan
-		dc.w $7400
-		dc.l Nem_Pylon		; foreground pylon
-		dc.w $7980
-		dc.l Nem_SlzSwing	; swinging platform
-		dc.w $7B80
-		dc.l Nem_SlzCannon	; fireball launcher
-		dc.w $9B00
-		dc.l Nem_SlzSpike	; spikeball
-		dc.w $9E00
+PLC_SLZ:	dc.w ((PLC_SLZ2-PLC_SLZ-2)/6)-1
+		plcm	Nem_SLZ,0		; SLZ main patterns
+		plcm	Nem_Bomb, $8000		; bomb enemy
+		plcm	Nem_Orbinaut, $8520	; orbinaut enemy
+		plcm	Nem_MzFire, $9000	; fireballs
+		plcm	Nem_SlzBlock, $9C00	; block
+		plcm	Nem_SlzWall, $A260	; breakable wall
+		plcm	Nem_Spikes, $A360	; spikes
+		plcm	Nem_HSpring, $A460	; horizontal spring
+		plcm	Nem_VSpring, $A660	; vertical spring
+
+PLC_SLZ2:	dc.w ((PLC_SLZ2end-PLC_SLZ2-2)/6)-1
+		plcm	Nem_Seesaw, $6E80	; seesaw
+		plcm	Nem_Fan, $7400		; fan
+		plcm	Nem_Pylon, $7980	; foreground pylon
+		plcm	Nem_SlzSwing, $7B80	; swinging platform
+		plcm	Nem_SlzCannon, $9B00	; fireball launcher
+		plcm	Nem_SlzSpike, $9E00	; spikeball
+PLC_SLZ2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - Spring Yard
 ; ---------------------------------------------------------------------------
-PLC_SYZ:	dc.w 4
-		dc.l Nem_SYZ		; SYZ main patterns
-		dc.w 0
-		dc.l Nem_Crabmeat	; crabmeat enemy
-		dc.w $8000
-		dc.l Nem_Buzz		; buzz bomber enemy
-		dc.w $8880
-		dc.l Nem_Yadrin		; yadrin enemy
-		dc.w $8F60
-		dc.l Nem_Roller		; roller enemy
-		dc.w $9700
-PLC_SYZ2:	dc.w 7
-		dc.l Nem_Bumper		; bumper
-		dc.w $7000
-		dc.l Nem_SyzSpike1	; large	spikeball
-		dc.w $72C0
-		dc.l Nem_SyzSpike2	; small	spikeball
-		dc.w $7740
-		dc.l Nem_Cater		; caterkiller enemy
-		dc.w $9FE0
-		dc.l Nem_LzSwitch	; switch
-		dc.w $A1E0
-		dc.l Nem_Spikes		; spikes
-		dc.w $A360
-		dc.l Nem_HSpring	; horizontal spring
-		dc.w $A460
-		dc.l Nem_VSpring	; vertical spring
-		dc.w $A660
+PLC_SYZ:	dc.w ((PLC_SYZ2-PLC_SYZ-2)/6)-1
+		plcm	Nem_SYZ,0		; SYZ main patterns
+		plcm	Nem_Crabmeat, $8000	; crabmeat enemy
+		plcm	Nem_Buzz, $8880		; buzz bomber enemy
+		plcm	Nem_Yadrin, $8F60	; yadrin enemy
+		plcm	Nem_Roller, $9700	; roller enemy
+
+PLC_SYZ2:	dc.w ((PLC_SYZ2end-PLC_SYZ2-2)/6)-1
+		plcm	Nem_Bumper, $7000	; bumper
+		plcm	Nem_SyzSpike1, $72C0	; large	spikeball
+		plcm	Nem_SyzSpike2, $7740	; small	spikeball
+		plcm	Nem_Cater, $9FE0	; caterkiller enemy
+		plcm	Nem_LzSwitch, $A1E0	; switch
+		plcm	Nem_Spikes, $A360	; spikes
+		plcm	Nem_HSpring, $A460	; horizontal spring
+		plcm	Nem_VSpring, $A660	; vertical spring
+PLC_SYZ2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - Scrap Brain
 ; ---------------------------------------------------------------------------
-PLC_SBZ:	dc.w $B
-		dc.l Nem_SBZ		; SBZ main patterns
-		dc.w 0
-		dc.l Nem_Stomper	; moving platform and stomper
-		dc.w $5800
-		dc.l Nem_SbzDoor1	; door
-		dc.w $5D00
-		dc.l Nem_Girder		; girder
-		dc.w $5E00
-		dc.l Nem_BallHog	; ball hog enemy
-		dc.w $6040
-		dc.l Nem_SbzWheel1	; spot on large	wheel
-		dc.w $6880
-		dc.l Nem_SbzWheel2	; wheel	that grabs Sonic
-		dc.w $6900
-		dc.l Nem_SyzSpike1	; large	spikeball
-		dc.w $7220
-		dc.l Nem_Cutter		; pizza	cutter
-		dc.w $76A0
-		dc.l Nem_FlamePipe	; flaming pipe
-		dc.w $7B20
-		dc.l Nem_SbzFloor	; collapsing floor
-		dc.w $7EA0
-		dc.l Nem_SbzBlock	; vanishing block
-		dc.w $9860
-PLC_SBZ2:	dc.w $C
-		dc.l Nem_Cater		; caterkiller enemy
-		dc.w $5600
-		dc.l Nem_Bomb		; bomb enemy
-		dc.w $8000
-		dc.l Nem_Orbinaut	; orbinaut enemy
-		dc.w $8520
-		dc.l Nem_SlideFloor	; floor	that slides away
-		dc.w $8C00
-		dc.l Nem_SbzDoor2	; horizontal door
-		dc.w $8DE0
-		dc.l Nem_Electric	; electric orb
-		dc.w $8FC0
-		dc.l Nem_TrapDoor	; trapdoor
-		dc.w $9240
-		dc.l Nem_SbzFloor	; collapsing floor
-		dc.w $7F20
-		dc.l Nem_SpinPform	; small	spinning platform
-		dc.w $9BE0
-		dc.l Nem_LzSwitch	; switch
-		dc.w $A1E0
-		dc.l Nem_Spikes		; spikes
-		dc.w $A360
-		dc.l Nem_HSpring	; horizontal spring
-		dc.w $A460
-		dc.l Nem_VSpring	; vertical spring
-		dc.w $A660
+PLC_SBZ:	dc.w ((PLC_SBZ2-PLC_SBZ-2)/6)-1
+		plcm	Nem_SBZ,0		; SBZ main patterns
+		plcm	Nem_Stomper, $5800	; moving platform and stomper
+		plcm	Nem_SbzDoor1, $5D00	; door
+		plcm	Nem_Girder, $5E00	; girder
+		plcm	Nem_BallHog, $6040	; ball hog enemy
+		plcm	Nem_SbzWheel1, $6880	; spot on large	wheel
+		plcm	Nem_SbzWheel2, $6900	; wheel	that grabs Sonic
+		plcm	Nem_SyzSpike1, $7220	; large	spikeball
+		plcm	Nem_Cutter, $76A0	; pizza	cutter
+		plcm	Nem_FlamePipe, $7B20	; flaming pipe
+		plcm	Nem_SbzFloor, $7EA0	; collapsing floor
+		plcm	Nem_SbzBlock, $9860	; vanishing block
+
+PLC_SBZ2:	dc.w ((PLC_SBZ2end-PLC_SBZ2-2)/6)-1
+		plcm	Nem_Cater, $5600	; caterkiller enemy
+		plcm	Nem_Bomb, $8000		; bomb enemy
+		plcm	Nem_Orbinaut, $8520	; orbinaut enemy
+		plcm	Nem_SlideFloor, $8C00	; floor	that slides away
+		plcm	Nem_SbzDoor2, $8DE0	; horizontal door
+		plcm	Nem_Electric, $8FC0	; electric orb
+		plcm	Nem_TrapDoor, $9240	; trapdoor
+		plcm	Nem_SbzFloor, $7F20	; collapsing floor
+		plcm	Nem_SpinPform, $9BE0	; small	spinning platform
+		plcm	Nem_LzSwitch, $A1E0	; switch
+		plcm	Nem_Spikes, $A360	; spikes
+		plcm	Nem_HSpring, $A460	; horizontal spring
+		plcm	Nem_VSpring, $A660	; vertical spring
+PLC_SBZ2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - title card
 ; ---------------------------------------------------------------------------
-PLC_TitleCard:	dc.w 0
-		dc.l Nem_TitleCard
-		dc.w $B000
+PLC_TitleCard:	dc.w ((PLC_TitleCardend-PLC_TitleCard-2)/6)-1
+		plcm	Nem_TitleCard, $B000
+PLC_TitleCardend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - act 3 boss
 ; ---------------------------------------------------------------------------
-PLC_Boss:	dc.w 5
-		dc.l Nem_Eggman		; Eggman main patterns
-		dc.w $8000
-		dc.l Nem_Weapons	; Eggman's weapons
-		dc.w $8D80
-		dc.l Nem_Prison		; prison capsule
-		dc.w $93A0
-		dc.l Nem_Bomb		; bomb enemy (gets overwritten)
-		dc.w $A300
-		dc.l Nem_SlzSpike	; spikeball (SLZ boss)
-		dc.w $A300
-		dc.l Nem_Exhaust	; exhaust flame
-		dc.w $A540
+PLC_Boss:	dc.w ((PLC_Bossend-PLC_Boss-2)/6)-1
+		plcm	Nem_Eggman, $8000	; Eggman main patterns
+		plcm	Nem_Weapons, $8D80	; Eggman's weapons
+		plcm	Nem_Prison, $93A0	; prison capsule
+		plcm	Nem_Bomb, $A300		; bomb enemy ((gets overwritten)
+		plcm	Nem_SlzSpike, $A300	; spikeball ((SLZ boss)
+		plcm	Nem_Exhaust, $A540	; exhaust flame
+PLC_Bossend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - act 1/2 signpost
 ; ---------------------------------------------------------------------------
-PLC_Signpost:	dc.w 2
-		dc.l Nem_SignPost	; signpost
-		dc.w $D000
-		dc.l Nem_Bonus		; hidden bonus points
-		dc.w $96C0
-		dc.l Nem_BigFlash	; giant	ring flash effect
-		dc.w $8C40
+PLC_Signpost:	dc.w ((PLC_Signpostend-PLC_Signpost-2)/6)-1
+		plcm	Nem_SignPost, $D000	; signpost
+		plcm	Nem_Bonus, $96C0	; hidden bonus points
+		plcm	Nem_BigFlash, $8C40	; giant	ring flash effect
+PLC_Signpostend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - beta special stage warp effect
 ; ---------------------------------------------------------------------------
-PLC_Warp:	dc.w 0
-		dc.l Nem_Warp
-		dc.w $A820
+PLC_Warp:
+		if Revision=0
+		dc.w ((PLC_Warpend-PLC_Warp-2)/6)-1
+		plcm	Nem_Warp, $A820
+		endif
+PLC_Warpend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - special stage
 ; ---------------------------------------------------------------------------
-PLC_SpeStage:	dc.w $10
-		dc.l Nem_SSBgCloud	; bubble and cloud background
-		dc.w 0
-		dc.l Nem_SSBgFish	; bird and fish	background
-		dc.w $A20
-		dc.l Nem_SSWalls	; walls
-		dc.w $2840
-		dc.l Nem_Bumper		; bumper
-		dc.w $4760
-		dc.l Nem_SSGOAL		; GOAL block
-		dc.w $4A20
-		dc.l Nem_SSUpDown	; UP and DOWN blocks
-		dc.w $4C60
-		dc.l Nem_SSRBlock	; R block
-		dc.w $5E00
-		dc.l Nem_SS1UpBlock	; 1UP block
-		dc.w $6E00
-		dc.l Nem_SSEmStars	; emerald collection stars
-		dc.w $7E00
-		dc.l Nem_SSRedWhite	; red and white	block
-		dc.w $8E00
-		dc.l Nem_SSGhost	; ghost	block
-		dc.w $9E00
-		dc.l Nem_SSWBlock	; W block
-		dc.w $AE00
-		dc.l Nem_SSGlass	; glass	block
-		dc.w $BE00
-		dc.l Nem_SSEmerald	; emeralds
-		dc.w $EE00
-		dc.l Nem_SSZone1	; ZONE 1 block
-		dc.w $F2E0
-		dc.l Nem_SSZone2	; ZONE 2 block
-		dc.w $F400
-		dc.l Nem_SSZone3	; ZONE 3 block
-		dc.w $F520
-		dc.l Nem_SSZone4	; ZONE 4 block
-		dc.w $F2E0
-		dc.l Nem_SSZone5	; ZONE 5 block
-		dc.w $F400
-		dc.l Nem_SSZone6	; ZONE 6 block
-		dc.w $F520
+PLC_SpecialStage:	dc.w ((PLC_SpeStageend-PLC_SpecialStage-2)/6)-1
+		plcm	Nem_SSBgCloud, 0	; bubble and cloud background
+		plcm	Nem_SSBgFish, $A20	; bird and fish	background
+		plcm	Nem_SSWalls, $2840	; walls
+		plcm	Nem_Bumper, $4760	; bumper
+		plcm	Nem_SSGOAL, $4A20	; GOAL block
+		plcm	Nem_SSUpDown, $4C60	; UP and DOWN blocks
+		plcm	Nem_SSRBlock, $5E00	; R block
+		plcm	Nem_SS1UpBlock, $6E00	; 1UP block
+		plcm	Nem_SSEmStars, $7E00	; emerald collection stars
+		plcm	Nem_SSRedWhite, $8E00	; red and white	block
+		plcm	Nem_SSGhost, $9E00	; ghost	block
+		plcm	Nem_SSWBlock, $AE00	; W block
+		plcm	Nem_SSGlass, $BE00	; glass	block
+		plcm	Nem_SSEmerald, $EE00	; emeralds
+		plcm	Nem_SSZone1, $F2E0	; ZONE 1 block
+		plcm	Nem_SSZone2, $F400	; ZONE 2 block
+		plcm	Nem_SSZone3, $F520	; ZONE 3 block
+PLC_SpeStageend:
+		plcm	Nem_SSZone4, $F2E0	; ZONE 4 block
+		plcm	Nem_SSZone5, $F400	; ZONE 5 block
+		plcm	Nem_SSZone6, $F520	; ZONE 6 block
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - GHZ animals
 ; ---------------------------------------------------------------------------
-PLC_GHZAnimals:	dc.w 1
-		dc.l Nem_Rabbit		; rabbit
-		dc.w $B000
-		dc.l Nem_Flicky		; flicky
-		dc.w $B240
+PLC_GHZAnimals:	dc.w ((PLC_GHZAnimalsend-PLC_GHZAnimals-2)/6)-1
+		plcm	Nem_Rabbit, $B000	; rabbit
+		plcm	Nem_Flicky, $B240	; flicky
+PLC_GHZAnimalsend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - LZ animals
 ; ---------------------------------------------------------------------------
-PLC_LZAnimals:	dc.w 1
-		dc.l Nem_BlackBird	; blackbird
-		dc.w $B000
-		dc.l Nem_Seal		; seal
-		dc.w $B240
+PLC_LZAnimals:	dc.w ((PLC_LZAnimalsend-PLC_LZAnimals-2)/6)-1
+		plcm	Nem_BlackBird, $B000	; blackbird
+		plcm	Nem_Seal, $B240		; seal
+PLC_LZAnimalsend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - MZ animals
 ; ---------------------------------------------------------------------------
-PLC_MZAnimals:	dc.w 1
-		dc.l Nem_Squirrel	; squirrel
-		dc.w $B000
-		dc.l Nem_Seal		; seal
-		dc.w $B240
+PLC_MZAnimals:	dc.w ((PLC_MZAnimalsend-PLC_MZAnimals-2)/6)-1
+		plcm	Nem_Squirrel, $B000	; squirrel
+		plcm	Nem_Seal, $B240		; seal
+PLC_MZAnimalsend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - SLZ animals
 ; ---------------------------------------------------------------------------
-PLC_SLZAnimals:	dc.w 1
-		dc.l Nem_Pig		; pig
-		dc.w $B000
-		dc.l Nem_Flicky		; flicky
-		dc.w $B240
+PLC_SLZAnimals:	dc.w ((PLC_SLZAnimalsend-PLC_SLZAnimals-2)/6)-1
+		plcm	Nem_Pig, $B000		; pig
+		plcm	Nem_Flicky, $B240	; flicky
+PLC_SLZAnimalsend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - SYZ animals
 ; ---------------------------------------------------------------------------
-PLC_SYZAnimals:	dc.w 1
-		dc.l Nem_Pig		; pig
-		dc.w $B000
-		dc.l Nem_Chicken	; chicken
-		dc.w $B240
+PLC_SYZAnimals:	dc.w ((PLC_SYZAnimalsend-PLC_SYZAnimals-2)/6)-1
+		plcm	Nem_Pig, $B000		; pig
+		plcm	Nem_Chicken, $B240	; chicken
+PLC_SYZAnimalsend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - SBZ animals
 ; ---------------------------------------------------------------------------
-PLC_SBZAnimals:	dc.w 1
-		dc.l Nem_Rabbit		; rabbit
-		dc.w $B000
-		dc.l Nem_Chicken	; chicken
-		dc.w $B240
+PLC_SBZAnimals:	dc.w ((PLC_SBZAnimalsend-PLC_SBZAnimals-2)/6)-1
+		plcm	Nem_Rabbit, $B000		; rabbit
+		plcm	Nem_Chicken, $B240	; chicken
+PLC_SBZAnimalsend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - special stage results screen
 ; ---------------------------------------------------------------------------
-PLC_SpeStResult:dc.w 1
-		dc.l Nem_ResultEm	; emeralds
-		dc.w $A820
-		dc.l Nem_MiniSonic	; mini Sonic
-		dc.w $AA20
+PLC_SSResult:dc.w ((PLC_SpeStResultend-PLC_SSResult-2)/6)-1
+		plcm	Nem_ResultEm, $A820	; emeralds
+		plcm	Nem_MiniSonic, $AA20	; mini Sonic
+PLC_SpeStResultend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - ending sequence
 ; ---------------------------------------------------------------------------
-PLC_Ending:	dc.w $E
-		dc.l Nem_GHZ_1st	; GHZ main patterns
-		dc.w 0
-		dc.l Nem_GHZ_2nd	; GHZ secondary	patterns
-		dc.w $39A0
-		dc.l Nem_Stalk		; flower stalk
-		dc.w $6B00
-		dc.l Nem_EndFlower	; flowers
-		dc.w $7400
-		dc.l Nem_EndEm		; emeralds
-		dc.w $78A0
-		dc.l Nem_EndSonic	; Sonic
-		dc.w $7C20
-		dc.l Nem_EndEggman	; Eggman's death (unused)
-		dc.w $A480
-		dc.l Nem_Rabbit		; rabbit
-		dc.w $AA60
-		dc.l Nem_Chicken	; chicken
-		dc.w $ACA0
-		dc.l Nem_BlackBird	; blackbird
-		dc.w $AE60
-		dc.l Nem_Seal		; seal
-		dc.w $B0A0
-		dc.l Nem_Pig		; pig
-		dc.w $B260
-		dc.l Nem_Flicky		; flicky
-		dc.w $B4A0
-		dc.l Nem_Squirrel	; squirrel
-		dc.w $B660
-		dc.l Nem_EndStH		; "SONIC THE HEDGEHOG"
-		dc.w $B8A0
+PLC_Ending:	dc.w ((PLC_Endingend-PLC_Ending-2)/6)-1
+		plcm	Nem_GHZ_1st,0		; GHZ main patterns
+		plcm	Nem_GHZ_2nd, $39A0	; GHZ secondary	patterns
+		plcm	Nem_Stalk, $6B00	; flower stalk
+		plcm	Nem_EndFlower, $7400	; flowers
+		plcm	Nem_EndEm, $78A0	; emeralds
+		plcm	Nem_EndSonic, $7C20	; Sonic
+		if Revision=0
+		plcm	Nem_EndEggman, $A480	; Eggman's death ((unused)
+		endif
+		plcm	Nem_Rabbit, $AA60	; rabbit
+		plcm	Nem_Chicken, $ACA0	; chicken
+		plcm	Nem_BlackBird, $AE60	; blackbird
+		plcm	Nem_Seal, $B0A0		; seal
+		plcm	Nem_Pig, $B260		; pig
+		plcm	Nem_Flicky, $B4A0	; flicky
+		plcm	Nem_Squirrel, $B660	; squirrel
+		plcm	Nem_EndStH, $B8A0	; "SONIC THE HEDGEHOG"
+PLC_Endingend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - "TRY AGAIN" and "END" screens
 ; ---------------------------------------------------------------------------
-PLC_TryAgain:	dc.w 2
-		dc.l Nem_EndEm		; emeralds
-		dc.w $78A0
-		dc.l Nem_TryAgain	; Eggman
-		dc.w $7C20
-		dc.l Nem_CreditText	; credits alphabet
-		dc.w $B400
+PLC_TryAgain:	dc.w ((PLC_TryAgainend-PLC_TryAgain-2)/6)-1
+		plcm	Nem_EndEm, $78A0	; emeralds
+		plcm	Nem_TryAgain, $7C20	; Eggman
+		plcm	Nem_CreditText, $B400	; credits alphabet
+PLC_TryAgainend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - Eggman on SBZ 2
 ; ---------------------------------------------------------------------------
-PLC_EggmanSBZ2:	dc.w 2
-		dc.l Nem_SbzBlock	; block
-		dc.w $A300
-		dc.l Nem_Sbz2Eggman	; Eggman
-		dc.w $8000
-		dc.l Nem_LzSwitch	; switch
-		dc.w $9400
+PLC_EggmanSBZ2:	dc.w ((PLC_EggmanSBZ2end-PLC_EggmanSBZ2-2)/6)-1
+		plcm	Nem_SbzBlock, $A300	; block
+		plcm	Nem_Sbz2Eggman, $8000	; Eggman
+		plcm	Nem_LzSwitch, $9400	; switch
+PLC_EggmanSBZ2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - final boss
 ; ---------------------------------------------------------------------------
-PLC_FZBoss:	dc.w 4
-		dc.l Nem_FzEggman	; Eggman after boss
-		dc.w $7400
-		dc.l Nem_FzBoss		; FZ boss
-		dc.w $6000
-		dc.l Nem_Eggman		; Eggman main patterns
-		dc.w $8000
-		dc.l Nem_Sbz2Eggman	; Eggman without ship
-		dc.w $8E00
-		dc.l Nem_Exhaust	; exhaust flame
-		dc.w $A540
-		align 2
+PLC_FZBoss:	dc.w ((PLC_FZBossend-PLC_FZBoss-2)/6)-1
+		plcm	Nem_FzEggman, $7400	; Eggman after boss
+		plcm	Nem_FzBoss, $6000	; FZ boss
+		plcm	Nem_Eggman, $8000	; Eggman main patterns
+		plcm	Nem_Sbz2Eggman, $8E00	; Eggman without ship
+		plcm	Nem_Exhaust, $A540	; exhaust flame
+PLC_FZBossend:
+		even
+
+; ---------------------------------------------------------------------------
+; Pattern load cue IDs
+; ---------------------------------------------------------------------------
+plcid_Main:		equ (ptr_PLC_Main-ArtLoadCues)/2	; 0
+plcid_Main2:		equ (ptr_PLC_Main2-ArtLoadCues)/2	; 1
+plcid_Explode:		equ (ptr_PLC_Explode-ArtLoadCues)/2	; 2
+plcid_GameOver:		equ (ptr_PLC_GameOver-ArtLoadCues)/2	; 3
+plcid_GHZ:		equ (ptr_PLC_GHZ-ArtLoadCues)/2		; 4
+plcid_GHZ2:		equ (ptr_PLC_GHZ2-ArtLoadCues)/2	; 5
+plcid_LZ:		equ (ptr_PLC_LZ-ArtLoadCues)/2		; 6
+plcid_LZ2:		equ (ptr_PLC_LZ2-ArtLoadCues)/2		; 7
+plcid_MZ:		equ (ptr_PLC_MZ-ArtLoadCues)/2		; 8
+plcid_MZ2:		equ (ptr_PLC_MZ2-ArtLoadCues)/2		; 9
+plcid_SLZ:		equ (ptr_PLC_SLZ-ArtLoadCues)/2		; $A
+plcid_SLZ2:		equ (ptr_PLC_SLZ2-ArtLoadCues)/2	; $B
+plcid_SYZ:		equ (ptr_PLC_SYZ-ArtLoadCues)/2		; $C
+plcid_SYZ2:		equ (ptr_PLC_SYZ2-ArtLoadCues)/2	; $D
+plcid_SBZ:		equ (ptr_PLC_SBZ-ArtLoadCues)/2		; $E
+plcid_SBZ2:		equ (ptr_PLC_SBZ2-ArtLoadCues)/2	; $F
+plcid_TitleCard:	equ (ptr_PLC_TitleCard-ArtLoadCues)/2	; $10
+plcid_Boss:		equ (ptr_PLC_Boss-ArtLoadCues)/2	; $11
+plcid_Signpost:		equ (ptr_PLC_Signpost-ArtLoadCues)/2	; $12
+plcid_Warp:		equ (ptr_PLC_Warp-ArtLoadCues)/2	; $13
+plcid_SpecialStage:	equ (ptr_PLC_SpecialStage-ArtLoadCues)/2 ; $14
+plcid_GHZAnimals:	equ (ptr_PLC_GHZAnimals-ArtLoadCues)/2	; $15
+plcid_LZAnimals:	equ (ptr_PLC_LZAnimals-ArtLoadCues)/2	; $16
+plcid_MZAnimals:	equ (ptr_PLC_MZAnimals-ArtLoadCues)/2	; $17
+plcid_SLZAnimals:	equ (ptr_PLC_SLZAnimals-ArtLoadCues)/2	; $18
+plcid_SYZAnimals:	equ (ptr_PLC_SYZAnimals-ArtLoadCues)/2	; $19
+plcid_SBZAnimals:	equ (ptr_PLC_SBZAnimals-ArtLoadCues)/2	; $1A
+plcid_SSResult:		equ (ptr_PLC_SSResult-ArtLoadCues)/2	; $1B
+plcid_Ending:		equ (ptr_PLC_Ending-ArtLoadCues)/2	; $1C
+plcid_TryAgain:		equ (ptr_PLC_TryAgain-ArtLoadCues)/2	; $1D
+plcid_EggmanSBZ2:	equ (ptr_PLC_EggmanSBZ2-ArtLoadCues)/2	; $1E
+plcid_FZBoss:		equ (ptr_PLC_FZBoss-ArtLoadCues)/2	; $1F
