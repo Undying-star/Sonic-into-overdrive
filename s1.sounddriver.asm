@@ -2523,7 +2523,7 @@ ptr_sndA7:	dc.l SoundA7
 ptr_sndA8:	dc.l SoundA8
 ptr_sndA9:	dc.l SoundA9
 ptr_sndAA:	dc.l SoundAA
-ptr_sndAB:	dc.l SoundAB
+ptr_sndD1:	dc.l SoundD1
 ptr_sndAC:	dc.l SoundAC
 ptr_sndAD:	dc.l SoundAD
 ptr_sndAE:	dc.l SoundAE
@@ -2664,6 +2664,8 @@ SoundCE:	binclude	"sound/sfx/SndCE - Ring Left Speaker.bin"
 SoundCF:	binclude	"sound/sfx/SndCF - Signpost.bin"
 		even
 SoundD0:	binclude	"sound/sfx/SndD0 - Waterfall.bin"
+		even
+SoundD1:	binclude	"sound/soundD1.bin"
 		even
 
 		; Don't let Sega sample cross $8000-byte boundary

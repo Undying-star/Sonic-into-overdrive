@@ -226,7 +226,7 @@ sfx_Push:	equ ((ptr_sndA7-SoundIndex)/4)+sfx__First
 sfx_SSGoal:	equ ((ptr_sndA8-SoundIndex)/4)+sfx__First
 sfx_SSItem:	equ ((ptr_sndA9-SoundIndex)/4)+sfx__First
 sfx_Splash:	equ ((ptr_sndAA-SoundIndex)/4)+sfx__First
-sfx_AB:		equ ((ptr_sndAB-SoundIndex)/4)+sfx__First
+sfx_AB:		equ ((ptr_sndD1-SoundIndex)/4)+sfx__First
 sfx_HitBoss:	equ ((ptr_sndAC-SoundIndex)/4)+sfx__First
 sfx_Bubble:	equ ((ptr_sndAD-SoundIndex)/4)+sfx__First
 sfx_Fireball:	equ ((ptr_sndAE-SoundIndex)/4)+sfx__First
@@ -367,3 +367,9 @@ fr_Float6:	equ $54
 fr_Injury:	equ $55
 fr_GetAir:	equ $56
 fr_WaterSlide:	equ $57
+fr_spindash1:	equ (ptr_MS_Spindash1-Map_Sonic)/2	; $58
+fr_spindash2:	equ (ptr_MS_Spindash2-Map_Sonic)/2	; $59
+fr_spindash3:	equ (ptr_MS_Spindash3-Map_Sonic)/2	; $5A
+fr_spindash4:	equ (ptr_MS_Spindash4-Map_Sonic)/2	; $5B
+fr_spindash5:	equ (ptr_MS_Spindash5-Map_Sonic)/2	; $5C
+fr_spindash6:	equ (ptr_MS_Spindash6-Map_Sonic)/2	; $5D
