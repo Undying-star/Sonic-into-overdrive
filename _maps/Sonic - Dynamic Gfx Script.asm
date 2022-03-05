@@ -1,6 +1,7 @@
 ; ---------------------------------------------------------------------------
 ; Uncompressed graphics	loading	array for Sonic
 ; ---------------------------------------------------------------------------
+DPLC_bde4:	
 SonicDynPLC_internal:
 		dc.w SonPLC_Null-SonicDynPLC_internal
 		dc.w SonPLC_Stand-SonicDynPLC_internal
@@ -90,6 +91,15 @@ SonicDynPLC_internal:
 		dc.w SonPLC_Injury-SonicDynPLC_internal
 		dc.w SonPLC_GetAir-SonicDynPLC_internal
 		dc.w SonPLC_WaterSlide-SonicDynPLC_internal
+DPLC_bde4_B0: 	dc.w DPLC_bde4_31A-DPLC_bde4
+DPLC_bde4_B2: 	dc.w DPLC_bde4_31D-DPLC_bde4
+DPLC_bde4_B4: 	dc.w DPLC_bde4_320-DPLC_bde4
+DPLC_bde4_B6: 	dc.w DPLC_bde4_323-DPLC_bde4
+DPLC_bde4_B8: 	dc.w DPLC_bde4_326-DPLC_bde4
+DPLC_bde4_BA: 	dc.w DPLC_bde4_329-DPLC_bde4
+DPLC_bde4_BC: 	dc.b $0
+DPLC_bde4_BD: 	dc.b $4
+
 SonPLC_Null:	dc.b 0
 SonPLC_Stand:	dc.b 4,	$20, 0,	$70, 3,	$20, $B, $20, $E
 SonPLC_Wait1:	dc.b 3,	$50, $11, $50, $17, $20, $1D
@@ -176,4 +186,16 @@ SonPLC_Shrink5:	dc.b 1,	$14, $D0
 SonPLC_Injury:	dc.b 3,	$B4, $D2, $14, $DE, $34, $E0
 SonPLC_GetAir:	dc.b 3,	$54, $E4, $B4, $EA, $10, $6D
 SonPLC_WaterSlide:dc.b 2, $F4, $F6, $25, 6
+DPLC_bde4_31A: 	dc.b $1
+	dc.b $E5, $54
+DPLC_bde4_31D: 	dc.b $1
+	dc.b $E5, $9
+DPLC_bde4_320: 	dc.b $1
+	dc.b $E5, $18
+DPLC_bde4_323: 	dc.b $1
+	dc.b $E5, $27
+DPLC_bde4_326: 	dc.b $1
+	dc.b $E5, $36
+DPLC_bde4_329: 	dc.b $1
+	dc.b $E5, $45
 		even

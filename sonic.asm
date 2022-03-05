@@ -1136,6 +1136,75 @@ Tilemap_Cell:
 		rts	
 ; End of function TilemapToVRAM
 
+DMA_68KtoVRAM:				; CODE XREF: LoadSonicDynPLC+48p
+					; LoadTailsDynPLC+48p ...
+		movea.l	($FFFFD3EE).w,a1
+		cmpa.w	#$D3EE,a1
+		beq.s	DMA_68KtoVRAM_NoDMA
+		move.w	#$9300,d0
+		move.b	d3,d0
+		move.w	d0,(a1)+
+		move.w	#$9400,d0
+		lsr.w	#8,d3
+		move.b	d3,d0
+		move.w	d0,(a1)+
+		move.w	#$9500,d0
+		lsr.l	#1,d1
+		move.b	d1,d0
+		move.w	d0,(a1)+
+		move.w	#$9600,d0
+		lsr.l	#8,d1
+		move.b	d1,d0
+		move.w	d0,(a1)+
+		move.w	#$9700,d0
+		lsr.l	#8,d1
+		move.b	d1,d0
+		move.w	d0,(a1)+
+		andi.l	#$FFFF,d2
+		lsl.l	#2,d2
+		lsr.w	#2,d2
+		swap	d2
+		ori.l	#$40000080,d2
+		move.l	d2,(a1)+
+		move.l	a1,($FFFFD3EE).w
+		cmpa.w	#$D3EE,a1
+		beq.s	DMA_68KtoVRAM_NoDMA
+		move.w	#0,(a1)
+
+DMA_68KtoVRAM_NoDMA:			; CODE XREF: DMA_68KtoVRAM+8j
+					; DMA_68KtoVRAM+56j
+		rts
+; End of function DMA_68KtoVRAM
+
+
+; ллллллллллллллл S U B	R O U T	I N E ллллллллллллллллллллллллллллллллллллллл
+
+
+Process_DMA:				; CODE XREF: ROM:00000D9Cp
+					; ROM:00000E84p ...
+		lea	($C00004).l,a5
+		lea	($FFFFD3C2).w,a1
+
+Process_DMA_Loop:			; CODE XREF: Process_DMA+20j
+		move.w	(a1)+,d0
+		beq.s	Process_DMA_End
+		move.w	d0,(a5)
+		move.w	(a1)+,(a5)
+		move.w	(a1)+,(a5)
+		move.w	(a1)+,(a5)
+		move.w	(a1)+,(a5)
+		move.w	(a1)+,(a5)
+		move.w	(a1)+,(a5)
+		cmpa.w	#$D3EE,a1
+		bne.s	Process_DMA_Loop
+
+Process_DMA_End:			; CODE XREF: Process_DMA+Cj
+		move.w	#0,($FFFFD3C2).w
+		move.l	#$FFFFD3C2,($FFFFD3EE).w
+		rts
+; End of function Process_DMA
+
+
 		include	"_inc/Nemesis Decompression.asm"
 
 
@@ -6903,7 +6972,7 @@ Map_Bub:	include	"_maps/Bubbles.asm"
 		include	"_incObj/65 Waterfalls.asm"
 		include	"_anim/Waterfalls.asm"
 Map_WFall	include	"_maps/Waterfalls.asm"
-
+		include	"_incObj\8D Spindash Dust.asm"
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object 01 - Sonic
@@ -7016,6 +7085,7 @@ MusicList2:
 ; ---------------------------------------------------------------------------
 
 Sonic_MdNormal:
+        bsr.w   Sonic_Spindash
 		bsr.w	Sonic_Jump
 		bsr.w	Sonic_SlopeResist
 		bsr.w	Sonic_Move
@@ -7090,6 +7160,7 @@ loc_12EA6:
 locret_13302:
 		rts	
 
+		include	"_incObj\Sonic Spindash.asm"
 		include	"_incObj/Sonic LevelBound.asm"
 		include	"_incObj/Sonic Roll.asm"
 		include	"_incObj/Sonic Jump.asm"
@@ -9282,7 +9353,7 @@ ObjPos_SBZ1pf6:	binclude	"objpos/sbz1pf6.bin"
 ObjPos_End:	binclude	"objpos/ending.bin"
 		even
 ObjPos_Null:	dc.b $FF, $FF, 0, 0, 0,	0
-
+Art_Dust	binclude	artunc\spindust.bin
 		if Revision=0
 		rept $62A
 		dc.b $FF

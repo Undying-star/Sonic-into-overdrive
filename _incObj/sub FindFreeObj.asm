@@ -7,7 +7,7 @@
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
-
+SingleObjLoad:
 FindFreeObj:
 		lea	(v_objspace+$800).w,a1 ; start address for object RAM
 		move.w	#$5F,d0
