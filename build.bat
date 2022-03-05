@@ -5,54 +5,51 @@ REM // also make a backup to s1built.prev.bin
 IF NOT EXIST s1built.bin goto LABLNOCOPY
 IF EXIST s1built.prev.bin del s1built.prev.bin
 IF EXIST s1built.prev.bin goto LABLNOCOPY
-move /Y s1built.bin s1built.prev.bin > NUL
-IF EXIST s1built.bin goto LABLERROR3
-REM IF EXIST s1built.prev.bin copy /Y s1built.prev.bin s1built.bin
+move /Y s1built.bin s1built.prev.bin
+IF EXIST s1built.bin goto LABLERROR2
 :LABLNOCOPY
 
 REM // delete some intermediate assembler output just in case
-IF EXIST s1.p del s1.p
-IF EXIST s1.p goto LABLERROR2
-IF EXIST s1.h del s1.h
-IF EXIST s1.h goto LABLERROR1
+IF EXIST sonic.p del sonic.p
+IF EXIST sonic.p goto LABLERROR1
 
 REM // clear the output window
-REM cls
-
+cls
 
 REM // run the assembler
 REM // -xx shows the most detailed error output
-REM // -c outputs a shared file (s1.h)
-REM // -q shuts up AS
-REM // -U forces case-sensitivity
+REM // -q makes AS shut up
+REM // -E outputs error messages to file
 REM // -A gives us a small speedup
-set AS_MSGPATH=win32/as
+REM // -L generates a listing file
+set AS_MSGPATH=AS/Win32
 set USEANSI=n
 
-set debug_syms=
-set print_err=-E -q
-set revision_override=
 set s1p2bin_args=
 
-echo Assembling...
+:parseloop
+IF "%1"=="-a" (
+	set s1p2bin_args=-a
+	echo Will use accurate sound driver compression
+)
+SHIFT
+IF NOT "%1"=="" goto parseloop
 
-"win32/as/asw" -xx -c %debug_syms% %print_err% -A -U -L %revision_override% s1.asm
+REM // allow the user to choose to output error messages to file by supplying the -logerrors parameter
+"AS/Win32/asw.exe" -xx -q -E -A -L sonic.asm
 
-REM // if there were errors, there won't be any s1.p output
-IF NOT EXIST s1.p goto LABLERROR5
+REM // if there were errors, a log file is produced
+IF EXIST sonic.log goto LABLERROR3
 
-REM // combine the assembler output into a rom
-"win32/s1p2bin" %s1p2bin_args% s1.p s1built.bin s1.h
-
-REM REM // fix the rom header (checksum)
-IF EXIST s1built.bin "win32/fixheader" s1built.bin
-
-REM // if there were errors/warnings, a log file is produced
-IF EXIST s1.log goto LABLERROR4
-
+REM // combine the assembler output into a ROM
+IF EXIST sonic.p "AS/Win32/s1p2bin" %s1p2bin_args% sonic.p s1built.bin
 
 REM // done -- pause if we seem to have failed, then exit
-IF EXIST s1built.bin exit /b
+IF NOT EXIST sonic.p goto LABLPAUSE
+IF NOT EXIST s1built.bin goto LABLPAUSE
+fixheader s1built.bin
+exit /b
+:LABLPAUSE
 
 pause
 
@@ -60,47 +57,25 @@ pause
 exit /b
 
 :LABLERROR1
-echo Failed to build because write access to s1.h was denied.
+echo Failed to build because write access to sonic.p was denied.
 pause
 
 
 exit /b
 
 :LABLERROR2
-echo Failed to build because write access to s1.p was denied.
-pause
-
-
-exit /b
-
-:LABLERROR3
 echo Failed to build because write access to s1built.bin was denied.
 pause
 
 exit /b
 
-:LABLERROR4
+:LABLERROR3
 REM // display a noticeable message
 echo.
-echo **********************************************************************
-echo *                                                                    *
-echo *      There were build warnings. See s1.log for more details.       *
-echo *                                                                    *
-echo **********************************************************************
+echo *************************************************************************
+echo *                                                                       *
+echo *   There were build errors/warnings. See sonic.log for more details.   *
+echo *                                                                       *
+echo *************************************************************************
 echo.
 pause
-
-exit /b
-
-:LABLERROR5
-REM // display a noticeable message
-echo.
-echo **********************************************************************
-echo *                                                                    *
-echo *       There were build errors. See s1.log for more details.        *
-echo *                                                                    *
-echo **********************************************************************
-echo.
-pause
-
-
