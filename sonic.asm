@@ -6000,15 +6000,16 @@ Map_Card:	dc.w M_Card_GHZ-Map_Card
 		dc.w M_Card_Act3-Map_Card
 		dc.w M_Card_Oval-Map_Card
 		dc.w M_Card_FZ-Map_Card
-M_Card_GHZ:	dc.b 8	;  GREEN HILL | FUCK YOU
-		dc.b $F8, 5, 0, $14, $80	; F
-		dc.b $F8, 5, 0, $46, $90	; U
-		dc.b $F8, 5, 0, 8, $A0		; C
-		dc.b $F8, 5, 0, $22, $B0	; K
-		dc.b $F8, 0, 0, $56, $C0	; Space
-		dc.b $F8, 5, 0, $4A, $D0	; Y
-		dc.b $F8, 5, 0, $32, $E0	; O
-		dc.b $F8, 5, 0, $46, $F0	; U
+M_Card_GHZ:	dc.b 9 			; GREEN HILL
+		dc.b $F8, 5, 0,	$18, $B4
+		dc.b $F8, 5, 0,	$3A, $C4
+		dc.b $F8, 5, 0,	$10, $D4
+		dc.b $F8, 5, 0,	$10, $E4
+		dc.b $F8, 5, 0,	$2E, $F4
+		dc.b $F8, 5, 0,	$1C, $14
+		dc.b $F8, 1, 0,	$20, $24
+		dc.b $F8, 5, 0,	$26, $2C
+		dc.b $F8, 5, 0,	$26, $3C
 		even
 M_Card_LZ:	dc.b 9			; LABYRINTH
 		dc.b $F8, 5, 0,	$26, $BC
@@ -6116,25 +6117,22 @@ Map_Got:	dc.w M_Got_SonicHas-Map_Got
 		dc.w M_Card_Act1-Map_Got
 		dc.w M_Card_Act2-Map_Got
 		dc.w M_Card_Act3-Map_Got
-M_Got_SonicHas:	dc.b $C	;  SONIC HAS | MY ASS BURNS
-		dc.b $F8, 5, 0, $2A, $A4	; M
-		dc.b $F8, 5, 0, $4A, $B4	; Y
-		dc.b $F8, 0, 0, $56, $C4	; Space
-		dc.b $F8, 5, 0, 0, $D4		; A
-		dc.b $F8, 5, 0, $3E, $E4	; S
-		dc.b $F8, 5, 0, $3E, $F4	; S
-		dc.b $F8, 0, 0, $56, $4	; Space
-		dc.b $F8, 5, 0, 4, $14		; B
-		dc.b $F8, 5, 0, $46, $24	; U
-		dc.b $F8, 5, 0, $3A, $34	; R
-		dc.b $F8, 5, 0, $2E, $44	; N
-		dc.b $F8, 5, 0, $3E, $54	; S
-M_Got_Passed:	dc.b 5	;  PASSED | LAUGH
-		dc.b $F8, 5, 0, $26, $D8	; L
-		dc.b $F8, 5, 0, 0, $E8		; A
-		dc.b $F8, 5, 0, $46, $F8	; U
-		dc.b $F8, 5, 0, $18, $8	; G
-		dc.b $F8, 5, 0, $1C, $18	; H
+M_Got_SonicHas:	dc.b 8			; SONIC HAS
+		dc.b $F8, 5, 0,	$3E, $B8
+		dc.b $F8, 5, 0,	$32, $C8
+		dc.b $F8, 5, 0,	$2E, $D8
+		dc.b $F8, 1, 0,	$20, $E8
+		dc.b $F8, 5, 0,	8, $F0
+		dc.b $F8, 5, 0,	$1C, $10
+		dc.b $F8, 5, 0,	0, $20
+		dc.b $F8, 5, 0,	$3E, $30
+M_Got_Passed:	dc.b 6			; PASSED
+		dc.b $F8, 5, 0,	$36, $D0
+		dc.b $F8, 5, 0,	0, $E0
+		dc.b $F8, 5, 0,	$3E, $F0
+		dc.b $F8, 5, 0,	$3E, 0
+		dc.b $F8, 5, 0,	$10, $10
+		dc.b $F8, 5, 0,	$C, $20
 M_Got_Score:	dc.b 6			; SCORE
 		dc.b $F8, $D, 1, $4A, $B0
 		dc.b $F8, 1, 1,	$62, $D0

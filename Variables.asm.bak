@@ -352,4 +352,3 @@ f_debugmode	= ramaddr ( $FFFFFFFA )	; debug mode flag (sometimes 2 bytes)
 v_init		= ramaddr ( $FFFFFFFC )	; 'init' text string (4 bytes)
 
 f_spindash		= $39
-f_gogglecheck	= ramaddr ( $FFFFFFA0 )	; goggle flag
