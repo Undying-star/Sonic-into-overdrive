@@ -2807,15 +2807,36 @@ LevelMenuText:	if Revision=0
 ; Music	playlist
 ; ---------------------------------------------------------------------------
 MusicList:
-		dc.b bgm_GHZ	; GHZ
-		dc.b bgm_LZ	; LZ
-		dc.b bgm_MZ	; MZ
-		dc.b bgm_SLZ	; SLZ
-		dc.b bgm_SYZ	; SYZ
-		dc.b bgm_SBZ	; SBZ
-		zonewarning MusicList,1
-		dc.b bgm_FZ	; Ending
-		even
+
+        dc.b bgm_GHZ    ; GHZ1
+        dc.b bgm_GHZ    ; GHZ2
+        dc.b bgm_GHZ    ; GHZ3
+        dc.b bgm_GHZ    ; GHZ4
+        dc.b bgm_LZ    ; LZ1
+        dc.b bgm_LZ    ; LZ2
+        dc.b bgm_LZ    ; LZ3
+        dc.b bgm_SBZ    ; LZ4
+        dc.b bgm_MZ    ; MZ1
+        dc.b bgm_MZ    ; MZ2
+        dc.b bgm_MZ    ; MZ3
+        dc.b bgm_MZ    ; MZ4
+        dc.b bgm_SLZ    ; SLZ1
+        dc.b bgm_SLZ    ; SLZ2
+        dc.b bgm_SLZ    ; SLZ3
+        dc.b bgm_SLZ    ; SLZ4
+        dc.b bgm_SYZ    ; SYZ1
+        dc.b bgm_SYZ    ; SYZ2
+        dc.b bgm_SYZ    ; SYZ3
+        dc.b bgm_SYZ    ; SYZ4
+        dc.b bgm_SBZ    ; SBZ1
+        dc.b bgm_SBZ    ; SBZ2
+        dc.b bgm_FZ    ; SBZ3
+        dc.b bgm_SBZ    ; SBZ4
+        dc.b bgm_GHZ    ; GHZ1
+        dc.b bgm_GHZ    ; GHZ1
+        dc.b bgm_GHZ    ; GHZ1
+        dc.b bgm_GHZ    ; GHZ1
+        even
 ; ===========================================================================
 
 ; ---------------------------------------------------------------------------
@@ -2933,24 +2954,17 @@ Level_WaterPal:
 		move.b	($FFFFFE53).w,(f_wtr_state).w
 
 Level_GetBgm:
-		tst.w	(f_demo).w
-		bmi.s	Level_SkipTtlCard
-		moveq	#0,d0
-		move.b	(v_zone).w,d0
-		cmpi.w	#(id_LZ<<8)+3,(v_zone).w ; is level SBZ3?
-		bne.s	Level_BgmNotLZ4	; if not, branch
-		moveq	#5,d0		; use 5th music (SBZ)
-
-Level_BgmNotLZ4:
-		cmpi.w	#(id_SBZ<<8)+2,(v_zone).w ; is level FZ?
-		bne.s	Level_PlayBgm	; if not, branch
-		moveq	#6,d0		; use 6th music (FZ)
-
-Level_PlayBgm:
-		lea	(MusicList).l,a1 ; load	music playlist
-		move.b	(a1,d0.w),d0
-		bsr.w	PlaySound	; play music
-		move.b	#id_TitleCard,(v_objspace+$80).w ; load title card object
+        tst.w    (f_demo).w
+        bmi.s    Level_SkipTtlCard
+        moveq    #0,d0
+        move.w    (v_zone).w,d0
+        ror.b   #2,d0
+        lsr.w   #6,d0
+        lea    (MusicList).l,a1 ; load    music playlist
+        move.b    (a1,d0.w),d0
+        move.b    d0,(Saved_music).w
+        bsr.w    PlaySound    ; play music
+        move.b    #id_TitleCard,(v_objspace+$80).w ; load title card object
 
 Level_TtlCardLoop:
 		move.b	#$C,(v_vbla_routine).w
@@ -7188,15 +7202,8 @@ locret_13302:
 
 
 ResumeMusic:
-		cmpi.w	#12,(v_air).w	; more than 12 seconds of air left?
-		bhi.s	.over12		; if yes, branch
-		move.w	#bgm_LZ,d0	; play LZ music
-		cmpi.w	#(id_LZ<<8)+3,(v_zone).w ; check if level is 0103 (SBZ3)
-		bne.s	.notsbz
-		move.w	#bgm_SBZ,d0	; play SBZ music
-
-.notsbz:
-		if Revision<>0
+			cmpi.w	#12,(v_air).w	; more than 12 seconds of air left?
+			move.b    Saved_music,d0
 			tst.b	(v_invinc).w ; is Sonic invincible?
 			beq.s	.notinvinc ; if not, branch
 			move.w	#bgm_Invincible,d0
@@ -7205,7 +7212,6 @@ ResumeMusic:
 			beq.s	.playselected ; if not, branch
 			move.w	#bgm_Boss,d0
 .playselected:
-		endif
 
 		jsr	(PlaySound).l
 
