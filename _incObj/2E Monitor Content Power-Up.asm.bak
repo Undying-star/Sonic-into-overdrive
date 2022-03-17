@@ -136,8 +136,6 @@ Pow_ChkGoggles:
 		cmpi.b	#8,d0		; does monitor contain Goggles?
 		bne.s	Pow_ChkEnd		; if not, branch to ChkEnd
 		move.b	#1,(f_gogglecheck).w ; move 1 to the goggle check
-		move.b	#1,(v_shield).w	; give Sonic a shield
-		move.b	#id_ShieldItem,(v_objspace+$180).w ; load shield object ($38)
 		music	bgm_ExtraLife,1,0,0	; play extra life music
 		nop
 
