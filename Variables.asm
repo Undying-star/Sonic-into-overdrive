@@ -334,6 +334,8 @@ v_bg3_scroll_flags_dup	= ramaddr ( $FFFFFF36 )
 
 Saved_music	= ramaddr ( $FFFFFF38 )
 
+f_gogglecheck	= ramaddr ( $FFFFFF50 )
+
 v_levseldelay	= ramaddr ( $FFFFFF80 )	; level select - time until change when up/down is held (2 bytes)
 v_levselitem	= ramaddr ( $FFFFFF82 )	; level select - item selected (2 bytes)
 v_levselsound	= ramaddr ( $FFFFFF84 )	; level select - sound selected (2 bytes)
