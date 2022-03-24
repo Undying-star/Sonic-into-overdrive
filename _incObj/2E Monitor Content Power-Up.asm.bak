@@ -64,12 +64,11 @@ Pow_ChkShoes:
 		cmpi.b	#3,d0		; does monitor contain speed shoes?
 		bne.s	Pow_ChkShield
 
-		move.b	#1,(v_shoes).w	; speed up the BG music
 		move.w	#$4B0,(v_player+$34).w	; time limit for the power-up
 		move.w	#$C00,(v_sonspeedmax).w ; change Sonic's top speed
 		move.w	#$18,(v_sonspeedacc).w	; change Sonic's acceleration
 		move.w	#$80,(v_sonspeeddec).w	; change Sonic's deceleration
-		music	bgm_Speedup,1,0,0		; Speed	up the music
+		music	bgm_Invincible,1,0,0 ; play invincibility music 
 ; ===========================================================================
 
 Pow_ChkShield:
@@ -136,6 +135,8 @@ Pow_ChkGoggles:
 		cmpi.b	#8,d0		; does monitor contain Goggles?
 		bne.s	Pow_ChkEnd		; if not, branch to ChkEnd
 		move.b	#1,(f_gogglecheck).w ; move 1 to the goggle check
+		move.b	#1,(v_shield).w	; give Sonic a shield
+		move.b	#id_ShieldItem,(v_objspace+$180).w ; load shield object ($38)
 		music	bgm_ExtraLife,1,0,0	; play extra life music
 		nop
 

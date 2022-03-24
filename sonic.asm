@@ -6036,13 +6036,13 @@ M_Card_LZ:	dc.b 9			; LABYRINTH
 		dc.b $F8, 5, 0,	$42, $24
 		dc.b $F8, 5, 0,	$1C, $34
 		even
-M_Card_MZ:	dc.b 6			; MARBLE
-		dc.b $F8, 5, 0,	$2A, $CF
-		dc.b $F8, 5, 0,	0, $E0
-		dc.b $F8, 5, 0,	$3A, $F0
-		dc.b $F8, 5, 0,	4, 0
-		dc.b $F8, 5, 0,	$26, $10
-		dc.b $F8, 5, 0,	$10, $20
+M_Card_MZ:	dc.b 6	;  MARBLE | BRIDGE
+		dc.b $F8, 5, 0, 4, $F4		; B
+		dc.b $F8, 5, 0, $3A, $4		; R
+		dc.b $F8, 1, 0, $20, $14	; I
+		dc.b $F8, 5, 0, $0C, $1C	; D
+		dc.b $F8, 5, 0, $18, $2C	; G
+		dc.b $F8, 5, 0, $10, $3C	; E
 		even
 M_Card_SLZ:	dc.b 9			; STAR LIGHT
 		dc.b $F8, 5, 0,	$3E, $B4
@@ -6055,17 +6055,16 @@ M_Card_SLZ:	dc.b 9			; STAR LIGHT
 		dc.b $F8, 5, 0,	$1C, $2C
 		dc.b $F8, 5, 0,	$42, $3C
 		even
-M_Card_SYZ:	dc.b $A			; SPRING YARD
-		dc.b $F8, 5, 0,	$3E, $AC
-		dc.b $F8, 5, 0,	$36, $BC
-		dc.b $F8, 5, 0,	$3A, $CC
-		dc.b $F8, 1, 0,	$20, $DC
-		dc.b $F8, 5, 0,	$2E, $E4
-		dc.b $F8, 5, 0,	$18, $F4
-		dc.b $F8, 5, 0,	$4A, $14
-		dc.b $F8, 5, 0,	0, $24
-		dc.b $F8, 5, 0,	$3A, $34
-		dc.b $F8, 5, 0,	$C, $44
+M_Card_SYZ:		dc.b 9	;  SPRING YARD | SPARKLING
+		dc.b $F8, 5, 0, $3E, $C4	; S
+		dc.b $F8, 5, 0, $36, $D4	; P
+		dc.b $F8, 5, 0, 0, $E4		; A
+		dc.b $F8, 5, 0, $3A, $F4	; R
+		dc.b $F8, 5, 0, $22, $4		; K
+		dc.b $F8, 5, 0, $26, $14	; L
+		dc.b $F8, 1, 0, $20, $24	; I
+		dc.b $F8, 5, 0, $2E, $2C	; N
+		dc.b $F8, 5, 0, $18, $3C	; G
 		even
 M_Card_SBZ:	dc.b $A			; SCRAP BRAIN
 		dc.b $F8, 5, 0,	$3E, $AC

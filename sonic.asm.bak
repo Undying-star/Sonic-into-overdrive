@@ -114,8 +114,8 @@ loc_E0:
 	endif
 Console:	dc.b "SEGA MEGA DRIVE " ; Hardware system ID (Console name)
 _Date:		dc.b "(C)SEGA 1991.APR" ; Copyright holder and release date (generally year)
-Title_Local:	dc.b "SONIC THE               HEDGEHOG                " ; Domestic name
-Title_Int:	dc.b "SONIC THE               HEDGEHOG                " ; International name
+Title_Local:	dc.b "SONIC INTO               OVERDRIVE                " ; Domestic name
+Title_Int:	dc.b "SONIC INTO               OVERDRIVE               " ; International name
 Serial:		if Revision=0
 		dc.b "GM 4202008 -69"   ; Serial/version number (Rev 0)
 		else
@@ -2091,92 +2091,72 @@ WaitForVBla:
 ; Sega screen
 ; ---------------------------------------------------------------------------
 
-SegaScreen:                                  ; CODE XREF: loc_39C↑j
-				move.b  #$E0,d0
-				bsr.w   PlaySound_Special
-                bsr.w   ClearPLC
-                bsr.w   Pal_FadeFrom
-                lea     ($C00004).l,a6
-                move.w  #$8004,(a6)
-                move.w  #$8230,(a6)
-                move.w  #$8407,(a6)
-                move.w  #$8700,(a6)
-                move.w  #$8B00,(a6)
-                move.w  ($FFFFF60C).w,d0
-                andi.b  #$BF,d0
-                move.w  d0,($C00004).l
+GM_Sega:
+		sfx	bgm_Stop,0,1,1 ; stop music
+		bsr.w	ClearPLC
+		bsr.w	PaletteFadeOut
+		lea	(vdp_control_port).l,a6
+		move.w	#$8004,(a6)	; use 8-colour mode
+		move.w	#$8200+(vram_fg>>10),(a6) ; set foreground nametable address
+		move.w	#$8400+(vram_bg>>13),(a6) ; set background nametable address
+		move.w	#$8700,(a6)	; set background colour (palette entry 0)
+		move.w	#$8B00,(a6)	; full-screen vertical scrolling
+		clr.b	(f_wtr_state).w
+		disable_ints
+		move.w	(v_vdp_buffer1).w,d0
+		andi.b	#$BF,d0
+		move.w	d0,(vdp_control_port).l
+		bsr.w	ClearScreen
+		locVRAM	0
+		lea	(Nem_SegaLogo).l,a0 ; load Sega	logo patterns
+		bsr.w	NemDec
+		lea	($FF0000).l,a1
+		lea	(Eni_SegaLogo).l,a0 ; load Sega	logo mappings
+		move.w	#0,d0
+		bsr.w	EniDec
 
-loc_24BC:
-				bsr.w	ClearScreen
-                move.l  #$40000000,($C00004).l
-                lea     (byte_18720).l,a0
-                bsr.w   NemDec
-				lea	($FF0000).l,a1		; load destination, where to decompress mapping
-                lea     (byte_18A56).l,a0
-                move.w  #0,d0
-                bsr.w   EniDec
-				lea	($FF0000).l,a1		; load destination, where to decompress mapping
-                move.l  #$461C0003,d0
-                moveq   #$B,d1
-                moveq   #3,d2
-                bsr.w   ShowVDPGraphics
-                moveq   #0,d0
-                bsr.w   PalLoad2
-                move.w  #$28,($FFFFF632).w
-                move.w  #0,($FFFFF662).w
-                move.w  #0,($FFFFF660).w
-                move.w  #$B4,($FFFFF614).w
-                move.w  ($FFFFF60C).w,d0
-                ori.b   #$40,d0
-                move.w  d0,($C00004).l
+		copyTilemap	$FF0000,$E510,$17,7
+		copyTilemap	$FF0180,$C000,$27,$1B
 
-Loc_2528:                               ; CODE XREF: 00002542↓j
-				move.b	#2,($FFFFF62A).w
-				bsr.w	DelayProgram	
-                bsr.w   PalCycle_SEGA
-                tst.w   ($FFFFF614).w
-                beq.s   loc_2544
-				andi.b	#$80,($FFFFF605).w ; is	Start button pressed?
-                beq.s   loc_2528
+		if Revision<>0
+			tst.b   (v_megadrive).w	; is console Japanese?
+			bmi.s   .loadpal
+			copyTilemap	$FF0A40,$C53A,2,1 ; hide "TM" with a white rectangle
+		endif
 
-loc_2544:                               ; CODE XREF: 0000253A↑j
-				move.b	#4,($FFFFF600).w	; go to Title Screen
-                rts
+.loadpal:
+		moveq	#palid_SegaBG,d0
+		bsr.w	PalLoad2	; load Sega logo palette
+		move.w	#-$A,(v_pcyc_num).w
+		move.w	#0,(v_pcyc_time).w
+		move.w	#0,(v_pal_buffer+$12).w
+		move.w	#0,(v_pal_buffer+$10).w
+		move.w	(v_vdp_buffer1).w,d0
+		ori.b	#$40,d0
+		move.w	d0,(vdp_control_port).l
 
-byte_18720:  incbin   artnem\segaart.bin
-		even
+Sega_WaitPal:
+		move.b	#2,(v_vbla_routine).w
+		bsr.w	WaitForVBla
+		bsr.w	PalCycle_Sega
+		bne.s	Sega_WaitPal
 
-byte_18A56:     dc.b 6, 0, 0, 1, 0, 0, $29, 3, $CF, $F, $F8, 0				 		
+		sfx	sfx_Sega,0,1,1	; play "SEGA" sound
+		move.b	#$14,(v_vbla_routine).w
+		bsr.w	WaitForVBla
+		move.w	#$1E,(v_demolength).w
 
-; ==========================================================================================
+Sega_WaitEnd:
+		move.b	#2,(v_vbla_routine).w
+		bsr.w	WaitForVBla
+		tst.w	(v_demolength).w
+		beq.s	Sega_GotoTitle
+		andi.b	#btnStart,(v_jpadpress1).w ; is Start button pressed?
+		beq.s	Sega_WaitEnd	; if not, branch
 
-PalCycle_SEGA:                               ; CODE XREF: 00002532↓p
-                 subq.w  #1,($FFFFF634).w
-                 bpl.s   locret_1A68
-                 move.w  #3,($FFFFF634).w
-                 move.w  ($FFFFF632).w,d0
-                 bmi.s   locret_1A68
-                 subq.w  #2,($FFFFF632).w
-                 lea     (word_1A6A).l,a0
-                 lea     ($FFFFFB04).w,a1
-                 adda.w  d0,a0
-                 move.l  (a0)+,(a1)+
-                 move.l  (a0)+,(a1)+
-                 move.l  (a0)+,(a1)+
-                 move.l  (a0)+,(a1)+
-                 move.l  (a0)+,(a1)+
-                 move.w  (a0)+,(a1)+
-
-locret_1A68:                            ; CODE XREF: sub_1A3A+4↑j
-			rts								; sub_1A3A+10↑j
-; End of function PalCycle_SEGA	
-
-word_1A6A:     	 dc.w $EC0, $EA0, $E80, $E60, $E40, $E20, $E00, $C00, $A00
-                 dc.w $800, $600, $800, $A00, $C00, $E00, $E20, $E40, $E60
-                 dc.w $E80, $EA0, $EC0, $EA0, $E80, $E60, $E40, $E20, $E00
-                 dc.w $C00, $A00, $800, $600
-					 
-; ===========================================================================
+Sega_GotoTitle:
+		move.b	#id_Title,(v_gamemode).w ; go to title screen
+		rts	
 ; ===========================================================================
 
 ; ---------------------------------------------------------------------------
@@ -2827,15 +2807,36 @@ LevelMenuText:	if Revision=0
 ; Music	playlist
 ; ---------------------------------------------------------------------------
 MusicList:
-		dc.b bgm_GHZ	; GHZ
-		dc.b bgm_LZ	; LZ
-		dc.b bgm_MZ	; MZ
-		dc.b bgm_SLZ	; SLZ
-		dc.b bgm_SYZ	; SYZ
-		dc.b bgm_SBZ	; SBZ
-		zonewarning MusicList,1
-		dc.b bgm_FZ	; Ending
-		even
+
+        dc.b bgm_GHZ    ; GHZ1
+        dc.b bgm_GHZ    ; GHZ2
+        dc.b bgm_GHZ    ; GHZ3
+        dc.b bgm_GHZ    ; GHZ4
+        dc.b bgm_LZ    ; LZ1
+        dc.b bgm_LZ    ; LZ2
+        dc.b bgm_LZ    ; LZ3
+        dc.b bgm_SBZ    ; LZ4
+        dc.b bgm_MZ    ; MZ1
+        dc.b bgm_MZ    ; MZ2
+        dc.b bgm_MZ    ; MZ3
+        dc.b bgm_MZ    ; MZ4
+        dc.b bgm_SLZ    ; SLZ1
+        dc.b bgm_SLZ    ; SLZ2
+        dc.b bgm_SLZ    ; SLZ3
+        dc.b bgm_SLZ    ; SLZ4
+        dc.b bgm_SYZ    ; SYZ1
+        dc.b bgm_SYZ    ; SYZ2
+        dc.b bgm_SYZ    ; SYZ3
+        dc.b bgm_SYZ    ; SYZ4
+        dc.b bgm_SBZ    ; SBZ1
+        dc.b bgm_SBZ    ; SBZ2
+        dc.b bgm_FZ    ; SBZ3
+        dc.b bgm_SBZ    ; SBZ4
+        dc.b bgm_GHZ    ; GHZ1
+        dc.b bgm_GHZ    ; GHZ1
+        dc.b bgm_GHZ    ; GHZ1
+        dc.b bgm_GHZ    ; GHZ1
+        even
 ; ===========================================================================
 
 ; ---------------------------------------------------------------------------
@@ -2953,24 +2954,17 @@ Level_WaterPal:
 		move.b	($FFFFFE53).w,(f_wtr_state).w
 
 Level_GetBgm:
-		tst.w	(f_demo).w
-		bmi.s	Level_SkipTtlCard
-		moveq	#0,d0
-		move.b	(v_zone).w,d0
-		cmpi.w	#(id_LZ<<8)+3,(v_zone).w ; is level SBZ3?
-		bne.s	Level_BgmNotLZ4	; if not, branch
-		moveq	#5,d0		; use 5th music (SBZ)
-
-Level_BgmNotLZ4:
-		cmpi.w	#(id_SBZ<<8)+2,(v_zone).w ; is level FZ?
-		bne.s	Level_PlayBgm	; if not, branch
-		moveq	#6,d0		; use 6th music (FZ)
-
-Level_PlayBgm:
-		lea	(MusicList).l,a1 ; load	music playlist
-		move.b	(a1,d0.w),d0
-		bsr.w	PlaySound	; play music
-		move.b	#id_TitleCard,(v_objspace+$80).w ; load title card object
+        tst.w    (f_demo).w
+        bmi.s    Level_SkipTtlCard
+        moveq    #0,d0
+        move.w    (v_zone).w,d0
+        ror.b   #2,d0
+        lsr.w   #6,d0
+        lea    (MusicList).l,a1 ; load    music playlist
+        move.b    (a1,d0.w),d0
+        move.b    d0,(Saved_music).w
+        bsr.w    PlaySound    ; play music
+        move.b    #id_TitleCard,(v_objspace+$80).w ; load title card object
 
 Level_TtlCardLoop:
 		move.b	#$C,(v_vbla_routine).w
@@ -6042,13 +6036,13 @@ M_Card_LZ:	dc.b 9			; LABYRINTH
 		dc.b $F8, 5, 0,	$42, $24
 		dc.b $F8, 5, 0,	$1C, $34
 		even
-M_Card_MZ:	dc.b 6			; MARBLE
-		dc.b $F8, 5, 0,	$2A, $CF
-		dc.b $F8, 5, 0,	0, $E0
-		dc.b $F8, 5, 0,	$3A, $F0
-		dc.b $F8, 5, 0,	4, 0
-		dc.b $F8, 5, 0,	$26, $10
-		dc.b $F8, 5, 0,	$10, $20
+M_Card_MZ:	dc.b 6	;  MARBLE | BRIDGE
+		dc.b $F8, 5, 0, 4, $F4		; B
+		dc.b $F8, 5, 0, $3A, $4		; R
+		dc.b $F8, 1, 0, $20, $14	; I
+		dc.b $F8, 5, 0, $0C, $1C	; D
+		dc.b $F8, 5, 0, $18, $2C	; G
+		dc.b $F8, 5, 0, $10, $3C	; E
 		even
 M_Card_SLZ:	dc.b 9			; STAR LIGHT
 		dc.b $F8, 5, 0,	$3E, $B4
@@ -6061,17 +6055,16 @@ M_Card_SLZ:	dc.b 9			; STAR LIGHT
 		dc.b $F8, 5, 0,	$1C, $2C
 		dc.b $F8, 5, 0,	$42, $3C
 		even
-M_Card_SYZ:	dc.b $A			; SPRING YARD
-		dc.b $F8, 5, 0,	$3E, $AC
-		dc.b $F8, 5, 0,	$36, $BC
-		dc.b $F8, 5, 0,	$3A, $CC
-		dc.b $F8, 1, 0,	$20, $DC
-		dc.b $F8, 5, 0,	$2E, $E4
-		dc.b $F8, 5, 0,	$18, $F4
-		dc.b $F8, 5, 0,	$4A, $14
-		dc.b $F8, 5, 0,	0, $24
-		dc.b $F8, 5, 0,	$3A, $34
-		dc.b $F8, 5, 0,	$C, $44
+M_Card_SYZ:		dc.b 9	;  SPRING YARD | SPARKLING
+		dc.b $F8, 5, 0, $3E, $C4	; S
+		dc.b $F8, 5, 0, $36, $D4	; P
+		dc.b $F8, 5, 0, 0, $E4		; A
+		dc.b $F8, 5, 0, $3A, $F4	; R
+		dc.b $F8, 5, 0, $22, $4		; K
+		dc.b $F8, 5, 0, $26, $14	; L
+		dc.b $F8, 1, 0, $20, $24	; I
+		dc.b $F8, 5, 0, $2E, $2C	; N
+		dc.b $F8, 5, 0, $18, $3C	; G
 		even
 M_Card_SBZ:	dc.b $A			; SCRAP BRAIN
 		dc.b $F8, 5, 0,	$3E, $AC
@@ -7208,15 +7201,8 @@ locret_13302:
 
 
 ResumeMusic:
-		cmpi.w	#12,(v_air).w	; more than 12 seconds of air left?
-		bhi.s	.over12		; if yes, branch
-		move.w	#bgm_LZ,d0	; play LZ music
-		cmpi.w	#(id_LZ<<8)+3,(v_zone).w ; check if level is 0103 (SBZ3)
-		bne.s	.notsbz
-		move.w	#bgm_SBZ,d0	; play SBZ music
-
-.notsbz:
-		if Revision<>0
+			cmpi.w	#12,(v_air).w	; more than 12 seconds of air left?
+			move.b    Saved_music,d0
 			tst.b	(v_invinc).w ; is Sonic invincible?
 			beq.s	.notinvinc ; if not, branch
 			move.w	#bgm_Invincible,d0
@@ -7225,7 +7211,6 @@ ResumeMusic:
 			beq.s	.playselected ; if not, branch
 			move.w	#bgm_Boss,d0
 .playselected:
-		endif
 
 		jsr	(PlaySound).l
 
