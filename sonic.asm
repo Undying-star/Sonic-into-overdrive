@@ -9,6 +9,7 @@
 
 	cpu 68000
 
+
 zeroOffsetOptimization = 0
 ;	| If 1, makes a handful of zero-offset instructions smaller
 
@@ -7138,6 +7139,7 @@ Sonic_MdRoll:
 
 Sonic_MdJump2:
 		bsr.w	Sonic_JumpHeight
+		bsr.w	Sonic_DoubleJump
 		bsr.w	Sonic_JumpDirection
 		bsr.w	Sonic_LevelBound
 		jsr	(ObjectFall).l
@@ -7177,6 +7179,7 @@ locret_13302:
 		include	"_incObj/Sonic LevelBound.asm"
 		include	"_incObj/Sonic Roll.asm"
 		include	"_incObj/Sonic Jump.asm"
+		include	"_incObj/Sonic DoubleJump.asm"
 		include	"_incObj/Sonic JumpHeight.asm"
 		include	"_incObj/Sonic SlopeResist.asm"
 		include	"_incObj/Sonic RollRepel.asm"

@@ -9,6 +9,7 @@
 
 	cpu 68000
 
+
 zeroOffsetOptimization = 0
 ;	| If 1, makes a handful of zero-offset instructions smaller
 
@@ -114,8 +115,8 @@ loc_E0:
 	endif
 Console:	dc.b "SEGA MEGA DRIVE " ; Hardware system ID (Console name)
 _Date:		dc.b "(C)SEGA 1991.APR" ; Copyright holder and release date (generally year)
-Title_Local:	dc.b "SONIC INTO               OVERDRIVE                " ; Domestic name
-Title_Int:	dc.b "SONIC INTO               OVERDRIVE               " ; International name
+Title_Local:	dc.b "SONIC THE               HEDGEHOG                " ; Domestic name
+Title_Int:	dc.b "SONIC THE               HEDGEHOG                " ; International name
 Serial:		if Revision=0
 		dc.b "GM 4202008 -69"   ; Serial/version number (Rev 0)
 		else
@@ -7138,6 +7139,7 @@ Sonic_MdRoll:
 
 Sonic_MdJump2:
 		bsr.w	Sonic_JumpHeight
+		bsr.w	Sonic_DoubleJump
 		bsr.w	Sonic_JumpDirection
 		bsr.w	Sonic_LevelBound
 		jsr	(ObjectFall).l
@@ -7177,6 +7179,7 @@ locret_13302:
 		include	"_incObj/Sonic LevelBound.asm"
 		include	"_incObj/Sonic Roll.asm"
 		include	"_incObj/Sonic Jump.asm"
+		include	"_incObj/Sonic DoubleJump.asm"
 		include	"_incObj/Sonic JumpHeight.asm"
 		include	"_incObj/Sonic SlopeResist.asm"
 		include	"_incObj/Sonic RollRepel.asm"
@@ -7187,7 +7190,7 @@ locret_13302:
 		include	"_incObj/Sonic (part 2).asm"
 		include	"_incObj/Sonic Loops.asm"
 		include	"_incObj/Sonic Animate.asm"
-		include	"_anim/Sonic.asm"
+		;include	"_anim/Sonic.asm"
 		include	"_incObj/Sonic LoadGfx.asm"
 
 		include	"_incObj/0A Drowning Countdown.asm"

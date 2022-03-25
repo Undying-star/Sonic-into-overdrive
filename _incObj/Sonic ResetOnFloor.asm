@@ -6,6 +6,7 @@
 
 
 Sonic_ResetOnFloor:
+                clr.b ($FFFFFFEB).w
 		btst	#4,obStatus(a0)
 		beq.s	loc_137AE
 		nop	
