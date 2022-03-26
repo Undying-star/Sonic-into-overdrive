@@ -6,7 +6,7 @@
 
 Sonic_DoubleJump:
         move.b    (v_jpadpress1).w,d0
-        andi.b    #btnB,d0    ; is A
+        andi.b    #btnA,d0    ; is A
         beq.w    DJ_End        ; if not, branch 
         tst.b    ($FFFFFFEB).w; was doublejump flag set?
         bne.s    DJ_End    ; if yes, branch

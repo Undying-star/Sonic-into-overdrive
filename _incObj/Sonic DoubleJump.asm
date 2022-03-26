@@ -22,4 +22,3 @@ Sonic_DoubleJump:
 DJ_End:
         rts        ; return or cancel double jump
 ; End of function Sonic_DoubleJump
-; End of function Sonic_DoubleJump
