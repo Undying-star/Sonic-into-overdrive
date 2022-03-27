@@ -2341,7 +2341,6 @@ Tit_EnterCheat:
 		move.w	(v_title_dcount).w,d0
 		adda.w	d0,a0
 		move.b	(v_jpadpress1).w,d0 ; get button press
-		andi.b	#btnDir,d0	; read only UDLR buttons
 		cmp.b	(a0),d0		; does button press match the cheat code?
 		bne.s	Tit_ResetCheat	; if not, branch
 		addq.w	#1,(v_title_dcount).w ; next button press
@@ -2409,6 +2408,8 @@ Tit_ClrScroll2:
 		dbf	d1,Tit_ClrScroll2 ; clear scroll data (in VRAM)
 
 		bsr.w	LevSelTextLoad
+        move.w    #$81,d0
+        jsr    (PlaySound).l    ; play GHZ music
 
 ; ---------------------------------------------------------------------------
 ; Level	Select
@@ -2435,6 +2436,13 @@ LevelSelect:
 		cmpi.w	#$9E,d0		; is sound $9E being played?
 		beq.s	LevSel_Credits	; if yes, branch
 
+LevSel_NoCheat:
+		; This is a workaround for a bug, see Sound_ChkValue for more.
+		; Once you've fixed the bugs there, comment these four instructions out
+		cmpi.w	#bgm__Last+1,d0	; is sound $80-$93 being played?
+		blo.s	LevSel_PlaySnd	; if yes, branch
+		cmpi.w	#sfx__First,d0	; is sound $94-$9F being played?
+		blo.s	LevelSelect	; if yes, branch
 LevSel_NoCheat:
 		; This is a workaround for a bug, see Sound_ChkValue for more.
 		; Once you've fixed the bugs there, comment these four instructions out
@@ -2561,7 +2569,7 @@ LevSelCode_J:	if Revision=0
 		endif
 		even
 
-LevSelCode_US:	dc.b btnUp,btnDn,btnL,btnR,0,$FF
+LevSelCode_US:	dc.b btnA,btnB,btnC,0,$FF
 		even
 ; ===========================================================================
 
@@ -2679,16 +2687,11 @@ LevSel_SndTest:
 		btst	#bitL,d1	; is left pressed?
 		beq.s	LevSel_Right	; if not, branch
 		subq.w	#1,d0		; subtract 1 from sound	test
-		bhs.s	LevSel_Right
-		moveq	#$4F,d0		; if sound test	moves below 0, set to $4F
 
 LevSel_Right:
 		btst	#bitR,d1	; is right pressed?
 		beq.s	LevSel_Refresh2	; if not, branch
 		addq.w	#1,d0		; add 1	to sound test
-		cmpi.w	#$50,d0
-		blo.s	LevSel_Refresh2
-		moveq	#0,d0		; if sound test	moves above $4F, set to	0
 
 LevSel_Refresh2:
 		move.w	d0,(v_levselsound).w ; set sound test number
@@ -6985,8 +6988,9 @@ Map_LConv:	include	"_maps/LZ Conveyor.asm"
 Map_Bub:	include	"_maps/Bubbles.asm"
 		include	"_incObj/65 Waterfalls.asm"
 		include	"_anim/Waterfalls.asm"
-Map_WFall	include	"_maps/Waterfalls.asm"
-		include	"_incObj\8D Spindash Dust.asm"
+Map_WFall	
+		include	"_maps/Waterfalls.asm"
+		include	"_incObj/8D Spindash Dust.asm"
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object 01 - Sonic
@@ -7190,7 +7194,7 @@ locret_13302:
 		include	"_incObj/Sonic (part 2).asm"
 		include	"_incObj/Sonic Loops.asm"
 		include	"_incObj/Sonic Animate.asm"
-		;include	"_anim/Sonic.asm"
+		include	"_anim/Sonic.asm"
 		include	"_incObj/Sonic LoadGfx.asm"
 
 		include	"_incObj/0A Drowning Countdown.asm"
@@ -9361,7 +9365,7 @@ ObjPos_SBZ1pf6:	binclude	"objpos/sbz1pf6.bin"
 ObjPos_End:	binclude	"objpos/ending.bin"
 		even
 ObjPos_Null:	dc.b $FF, $FF, 0, 0, 0,	0
-Art_Dust	binclude	artunc\spindust.bin
+Art_Dust	binclude	"artunc/spindust.bin"
 		if Revision=0
 		rept $62A
 		dc.b $FF

@@ -2341,7 +2341,6 @@ Tit_EnterCheat:
 		move.w	(v_title_dcount).w,d0
 		adda.w	d0,a0
 		move.b	(v_jpadpress1).w,d0 ; get button press
-		andi.b	#btnDir,d0	; read only UDLR buttons
 		cmp.b	(a0),d0		; does button press match the cheat code?
 		bne.s	Tit_ResetCheat	; if not, branch
 		addq.w	#1,(v_title_dcount).w ; next button press
@@ -2409,6 +2408,8 @@ Tit_ClrScroll2:
 		dbf	d1,Tit_ClrScroll2 ; clear scroll data (in VRAM)
 
 		bsr.w	LevSelTextLoad
+        move.w    #$81,d0
+        jsr    (PlaySound).l    ; play GHZ music
 
 ; ---------------------------------------------------------------------------
 ; Level	Select
@@ -2561,7 +2562,7 @@ LevSelCode_J:	if Revision=0
 		endif
 		even
 
-LevSelCode_US:	dc.b btnUp,btnDn,btnL,btnR,0,$FF
+LevSelCode_US:	dc.b btnA,btnB,btnC,0,$FF
 		even
 ; ===========================================================================
 
@@ -6985,8 +6986,9 @@ Map_LConv:	include	"_maps/LZ Conveyor.asm"
 Map_Bub:	include	"_maps/Bubbles.asm"
 		include	"_incObj/65 Waterfalls.asm"
 		include	"_anim/Waterfalls.asm"
-Map_WFall	include	"_maps/Waterfalls.asm"
-		include	"_incObj\8D Spindash Dust.asm"
+Map_WFall	
+		include	"_maps/Waterfalls.asm"
+		include	"_incObj/8D Spindash Dust.asm"
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object 01 - Sonic
@@ -9361,7 +9363,7 @@ ObjPos_SBZ1pf6:	binclude	"objpos/sbz1pf6.bin"
 ObjPos_End:	binclude	"objpos/ending.bin"
 		even
 ObjPos_Null:	dc.b $FF, $FF, 0, 0, 0,	0
-Art_Dust	binclude	artunc\spindust.bin
+Art_Dust	binclude	"artunc/spindust.bin"
 		if Revision=0
 		rept $62A
 		dc.b $FF
