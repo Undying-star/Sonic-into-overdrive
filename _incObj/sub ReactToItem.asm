@@ -168,7 +168,7 @@ React_Enemy:
 		tst.b	(v_invinc).w	; is Sonic invincible?
 		bne.s	.donthurtsonic	; if yes, branch
 		cmpi.b	#id_Spindash,obAnim(a0)	; is Sonic Spin Dashing? 
-		beq.w @donthurtsonic	; if yes, branch
+		beq.w   .donthurtsonic	; if yes, branch
 		cmpi.b	#id_Roll,obAnim(a0) ; is Sonic rolling/jumping?
 		bne.w	React_ChkHurt	; if not, branch
 
