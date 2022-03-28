@@ -1,5 +1,5 @@
 ;  =========================================================================
-; |           Sonic the Hedgehog Disassembly for Sega Mega Drive           |
+; |           Sonic the Hedgehog Disassembly for Sega Mega Drive            |
 ;  =========================================================================
 ;
 ; Disassembly created by Hivebrain
@@ -2050,6 +2050,7 @@ PalLoad4_Water:
 Pal_SegaBG:	binclude	"palette/Sega Background.bin"
 Pal_Title:	binclude	"palette/Title Screen.bin"
 Pal_LevelSel:	binclude	"palette/Level Select.bin"
+Pal_Tails:	binclude 	"palette/Tails.bin"
 Pal_Sonic:	binclude	"palette/Sonic.bin"
 Pal_GHZ:	binclude	"palette/Green Hill Zone.bin"
 Pal_LZ:		binclude	"palette/Labyrinth Zone.bin"
@@ -2223,9 +2224,6 @@ Tit_ClrPal:
 		locVRAM	$6D00
 		lea	(Nem_TitleSonic).l,a0 ;	load Sonic title screen	patterns
 		bsr.w	NemDec
-		locVRAM	$A1C0
-		lea	(Nem_TitleTM).l,a0 ; load "TM" patterns
-		bsr.w	NemDec
 		lea	(vdp_data_port).l,a6
 		locVRAM	$D000,4(a6)
 		lea	(Art_Text).l,a5	; load level select font
@@ -2292,7 +2290,7 @@ Tit_ClrObj2:
 			bpl.s   .isjap		; if yes, branch
 		endif
 
-		move.b	#id_PSBTM,(v_objspace+$C0).w ; load "TM" object
+		;move.b	#id_PSBTM,(v_objspace+$C0).w ; load "TM" object
 		move.b	#3,(v_objspace+$C0+obFrame).w
 .isjap:
 		move.b	#id_PSBTM,(v_objspace+$100).w ; load object which hides part of Sonic
@@ -2342,7 +2340,8 @@ Tit_EnterCheat:
 		adda.w	d0,a0
 		move.b	(v_jpadpress1).w,d0 ; get button press
 		cmp.b	(a0),d0		; does button press match the cheat code?
-		bne.s	Tit_ResetCheat	; if not, branch
+		bne.s	Tit_ResetCheat	; if not, branch,
+		sfx	sfx_Lamppost,0,0,0	; play lamppost sound
 		addq.w	#1,(v_title_dcount).w ; next button press
 		tst.b	d0
 		bne.s	Tit_CountC
@@ -2384,8 +2383,10 @@ loc_3230:
 Tit_ChkLevSel:
 		tst.b	(f_levselcheat).w ; check if level select code is on
 		beq.w	PlayLevel	; if not, play level
+		sfx	sfx_Lamppost,0,0,0	; play lamppost sound
 		btst	#bitA,(v_jpadhold1).w ; check if A is pressed
 		beq.w	PlayLevel	; if not, play level
+		sfx	sfx_Lamppost,0,0,0	; play lamppost sound
 
 		moveq	#palid_LevelSel,d0
 		bsr.w	PalLoad2	; load level select palette
