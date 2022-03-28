@@ -1,5 +1,5 @@
 ;  =========================================================================
-; |           Sonic the Hedgehog Disassembly for Sega Mega Drive            |
+; |           Sonic the Hedgehog Disassembly for Sega Mega Drive           |
 ;  =========================================================================
 ;
 ; Disassembly created by Hivebrain
@@ -2443,13 +2443,6 @@ LevSel_NoCheat:
 		blo.s	LevSel_PlaySnd	; if yes, branch
 		cmpi.w	#sfx__First,d0	; is sound $94-$9F being played?
 		blo.s	LevelSelect	; if yes, branch
-LevSel_NoCheat:
-		; This is a workaround for a bug, see Sound_ChkValue for more.
-		; Once you've fixed the bugs there, comment these four instructions out
-		cmpi.w	#bgm__Last+1,d0	; is sound $80-$93 being played?
-		blo.s	LevSel_PlaySnd	; if yes, branch
-		cmpi.w	#sfx__First,d0	; is sound $94-$9F being played?
-		blo.s	LevelSelect	; if yes, branch
 
 LevSel_PlaySnd:
 		bsr.w	PlaySound_Special
@@ -2687,11 +2680,16 @@ LevSel_SndTest:
 		btst	#bitL,d1	; is left pressed?
 		beq.s	LevSel_Right	; if not, branch
 		subq.w	#1,d0		; subtract 1 from sound	test
+		bhs.s	LevSel_Right
+		moveq	#$4F,d0		; if sound test	moves below 0, set to $4F
 
 LevSel_Right:
 		btst	#bitR,d1	; is right pressed?
 		beq.s	LevSel_Refresh2	; if not, branch
 		addq.w	#1,d0		; add 1	to sound test
+		cmpi.w	#$50,d0
+		blo.s	LevSel_Refresh2
+		moveq	#0,d0		; if sound test	moves above $4F, set to	0
 
 LevSel_Refresh2:
 		move.w	d0,(v_levselsound).w ; set sound test number
