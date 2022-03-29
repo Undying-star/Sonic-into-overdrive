@@ -114,9 +114,9 @@ loc_E0:
 		dc.l ErrorTrap
 	endif
 Console:	dc.b "SEGA MEGA DRIVE " ; Hardware system ID (Console name)
-_Date:		dc.b "(C)SEGA 1991.APR" ; Copyright holder and release date (generally year)
-Title_Local:	dc.b "SONIC THE               HEDGEHOG                " ; Domestic name
-Title_Int:	dc.b "SONIC THE               HEDGEHOG                " ; International name
+_Date:		dc.b "(C)SEGA 2022.OCT" ; Release date
+Title_Local:	dc.b "SONIC INTO OVERDRIVE (WORKING TITLE)            " ; Domestic name
+Title_Int:	dc.b "SONIC INTO OVERDRIVE (WORKING TITLE)            " ; International name
 Serial:		if Revision=0
 		dc.b "GM 4202008 -69"   ; Serial/version number (Rev 0)
 		else
@@ -2353,8 +2353,6 @@ Tit_EnterCheat:
 		bpl.s	Tit_PlayRing
 		moveq	#1,d1
 		move.b	d1,1(a0,d1.w)	; cheat depends on how many times C is pressed
-		sfx	sfx_Lamppost,0,0,0	; play lamppost sound
-
 Tit_PlayRing:
 		move.b	#1,(a0,d1.w)	; activate cheat
 		sfx	sfx_Ring,0,1,1	; play ring sound when code is entered
@@ -2378,7 +2376,7 @@ loc_3230:
 		tst.w	(v_demolength).w
 		beq.w	GotoDemo
 		andi.b	#btnStart,(v_jpadpress1).w ; check if Start is pressed
-		beq.w	Tit_MainLoop	; if not, branch
+		beq.w	Tit_MainLoop	; if not, branch	
 
 Tit_ChkLevSel:
 		tst.b	(f_levselcheat).w ; check if level select code is on
@@ -2486,7 +2484,7 @@ LevSel_Level:
 		andi.w	#$3FFF,d0
 		move.w	d0,(v_zone).w	; set level number
 
-PlayLevel:
+PlayLevel: 
 		move.b	#id_Level,(v_gamemode).w ; set screen mode to $0C (level)
 		move.b	#3,(v_lives).w	; set lives to 3
 		moveq	#0,d0
