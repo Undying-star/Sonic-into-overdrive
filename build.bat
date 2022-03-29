@@ -2,12 +2,7 @@
 
 REM // make sure we can write to the file s1built.bin
 REM // also make a backup to s1built.prev.bin
-IF NOT EXIST s1built.bin goto LABLNOCOPY
-IF EXIST s1built.prev.bin del s1built.prev.bin
-IF EXIST s1built.prev.bin goto LABLNOCOPY
-move /Y s1built.bin s1built.prev.bin
-IF EXIST s1built.bin goto LABLERROR2
-:LABLNOCOPY
+IF EXIST s1built.bin del s1built.bin
 
 REM // delete some intermediate assembler output just in case
 IF EXIST sonic.p del sonic.p
@@ -48,6 +43,7 @@ REM // done -- pause if we seem to have failed, then exit
 IF NOT EXIST sonic.p goto LABLPAUSE
 IF NOT EXIST s1built.bin goto LABLPAUSE
 fixheader s1built.bin
+start D:/Sonic_Hacking/Kega/Fusion.exe s1built.bin
 exit /b
 :LABLPAUSE
 
