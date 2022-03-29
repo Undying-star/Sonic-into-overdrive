@@ -2415,6 +2415,7 @@ Tit_ClrScroll2:
 ; ---------------------------------------------------------------------------
 
 LevelSelect:
+		sfx	bgm_GHZ,0,1,1	; play title screen music
 		move.b	#4,(v_vbla_routine).w
 		bsr.w	WaitForVBla
 		bsr.w	LevSelControls
@@ -2991,11 +2992,17 @@ Level_SkipTtlCard:
 		jsr	(FloorLog_Unk).l
 		bsr.w	ColIndexLoad
 		bsr.w	LZWaterFeatures
-		move.b	#id_SonicPlayer,(v_player).w ; load Sonic object
+		move.b	#id_SonicPlayer,(v_player).w ; load Sonic object		
 		tst.w	(f_demo).w
 		bmi.s	Level_ChkDebug
 		move.b	#id_HUD,(v_objspace+$40).w ; load HUD object
 
+LevelInit_LoadTails:			; CODE XREF: ROM:00003D70j
+		move.b	#1,(v_player+$1C0).w
+		move.w	(v_player+$8).w,(v_objspace+$1C8).w
+		move.w	(v_player+$C).w,(v_objspace+$1CC).w
+		subi.w	#$20,(v_player+$8).w 
+		
 Level_ChkDebug:
 		tst.b	(f_debugcheat).w ; has debug cheat been entered?
 		beq.s	Level_ChkWater	; if not, branch
@@ -7192,6 +7199,7 @@ locret_13302:
 		include	"_incObj/Sonic Loops.asm"
 		include	"_incObj/Sonic Animate.asm"
 		include	"_anim/Sonic.asm"
+		include	"_anim/Tails.asm"
 		include	"_incObj/Sonic LoadGfx.asm"
 
 		include	"_incObj/0A Drowning Countdown.asm"
@@ -8625,12 +8633,16 @@ Nem_JapNames:	binclude	"artnem/Hidden Japanese Credits.bin"
 		even
 
 Map_Sonic:	include	"_maps/Sonic.asm"
+Map_Tails:	include	"_maps/Tails.asm"
 SonicDynPLC:	include	"_maps/Sonic - Dynamic Gfx Script.asm"
+TailsDynPLC:	include	"_inc/Tails Dynamic pattern load cues.asm"
 
 ; ---------------------------------------------------------------------------
 ; Uncompressed graphics	- Sonic
 ; ---------------------------------------------------------------------------
 Art_Sonic:	binclude	"artunc/Sonic.bin"	; Sonic
+		even
+Art_Tails:	binclude	"artunc/Tails.bin"	; Tails
 		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - various
@@ -8653,7 +8665,7 @@ Nem_UnkFire:	binclude	"artnem/Unused - Fireball.bin" ; unused fireball
 Nem_Warp:	binclude	"artnem/Unused - SStage Flash.bin" ; entry to special stage flash
 		even
 Nem_Goggle:	binclude	"artnem/Unused - Goggles.bin" ; unused goggles
-		even
+		even ; FUNNI GOOGLE.COM NO LIE
 		endif
 
 Map_SSWalls:	include	"_maps/SS Walls.asm"
