@@ -34,7 +34,7 @@ Obj73_Main:	; Routine 0
 Obj73_Loop:
 		jsr	(FindNextFreeObj).l
 		bne.s	Obj73_ShipMain
-		_move.b	#id_BossMarble,0(a1)
+		move.b	#id_BossMarble,0(a1)
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 
@@ -175,7 +175,7 @@ Obj73_MakeLava:
 		bcc.s	loc_1845C
 		jsr	(FindFreeObj).l
 		bne.s	loc_1844A
-		_move.b	#id_LavaBall,0(a1) ; load lava ball object
+		move.b	#id_LavaBall,0(a1) ; load lava ball object
 		move.w	#$2E8,obY(a1)	; set Y	position
 		jsr	(RandomNumber).l
 		andi.l	#$FFFF,d0
@@ -301,18 +301,8 @@ loc_18566:
 ; ===========================================================================
 
 loc_1856C:
-        clr.w    obVelY(a0)
-        tst.b     (v_invinc).w
-        bne.s   .boss_invinc
-
-        move.b   Saved_music,d0
-        bra.w      .boss_play
-
-.boss_invinc:
-        move.b #bgm_Invincible,d0
-
-.boss_play:
-        jsr PlaySound
+		clr.w	obVelY(a0)
+		music	bgm_MZ,0,0,0		; play MZ music
 
 loc_1857A:
 		bsr.w	BossMove

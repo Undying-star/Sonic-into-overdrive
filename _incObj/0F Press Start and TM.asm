@@ -27,7 +27,7 @@ PSB_Main:	; Routine 0
 		cmpi.b	#3,obFrame(a0)	; is the object	"TM"?
 		bne.s	PSB_Exit	; if not, branch
 
-		move.w	#$250E,obGfx(a0) ; "TM" specific code
+		move.w	#$2510,obGfx(a0) ; "TM" specific code
 		move.w	#$170,obX(a0)
 		move.w	#$F8,obScreenY(a0)
 

@@ -54,5 +54,5 @@ loc_E57A:
 		move.b	#$A3,obColType(a0)
 
 Flame_ChkDel:
-		out_of_range.w	DeleteObject
+		out_of_range	DeleteObject
 		bra.w	DisplaySprite

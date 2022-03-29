@@ -3,7 +3,6 @@
 ; ---------------------------------------------------------------------------
 
 Size_of_SegaPCM:		equ $6978
-Size_of_DAC_driver_guess:	equ $1760
 
 ; VDP addressses
 vdp_data_port:		equ $C00000
@@ -14,9 +13,9 @@ psg_input:		equ $C00011
 
 ; Z80 addresses
 z80_ram:		equ $A00000	; start of Z80 RAM
-z80_dac3_pitch:		equ z80_ram+zSample3_Pitch
-z80_dac_status:		equ z80_ram+zDAC_Status
-z80_dac_sample:		equ z80_ram+zDAC_Sample
+z80_dac3_pitch:		equ $A000EA
+z80_dac_status:		equ $A01FFD
+z80_dac_sample:		equ $A01FFF
 z80_ram_end:		equ $A02000	; end of non-reserved Z80 RAM
 z80_version:		equ $A10001
 z80_port_1_data:	equ $A10002
@@ -60,7 +59,7 @@ TrackPSGNoise:		equ $1F		; PSG only
 TrackFeedbackAlgo:	equ $1F		; FM only
 TrackVoicePtr:		equ $20		; FM SFX only (4 bytes)
 TrackLoopCounters:	equ $24		; All tracks (multiple bytes)
-TrackGoSubStack:	equ TrackSz	; All tracks (multiple bytes. This constant won't get to be used because of an optimisation that just uses zTrackSz)
+TrackGoSubStack:	equ TrackSz	; All tracks (multiple bytes. This constant won't get to be used because of an optimisation that just uses TrackSz)
 
 TrackSz:	equ $30
 
@@ -155,6 +154,7 @@ obSolid:	equ ob2ndRout ; solid status flag
 flashtime:	equ $30	; time between flashes after getting hit
 invtime:	equ $32	; time left for invincibility
 shoetime:	equ $34	; time left for speed shoes
+standonobject:	equ $3D	; object Sonic stands on
 
 ; Object variables (Sonic 2 disassembly nomenclature)
 render_flags:	equ 1	; bitfield for x/y flip, display mode
@@ -226,7 +226,7 @@ sfx_Push:	equ ((ptr_sndA7-SoundIndex)/4)+sfx__First
 sfx_SSGoal:	equ ((ptr_sndA8-SoundIndex)/4)+sfx__First
 sfx_SSItem:	equ ((ptr_sndA9-SoundIndex)/4)+sfx__First
 sfx_Splash:	equ ((ptr_sndAA-SoundIndex)/4)+sfx__First
-sfx_AB:		equ ((ptr_sndD1-SoundIndex)/4)+sfx__First
+sfx_AB:		equ ((ptr_sndAB-SoundIndex)/4)+sfx__First
 sfx_HitBoss:	equ ((ptr_sndAC-SoundIndex)/4)+sfx__First
 sfx_Bubble:	equ ((ptr_sndAD-SoundIndex)/4)+sfx__First
 sfx_Fireball:	equ ((ptr_sndAE-SoundIndex)/4)+sfx__First

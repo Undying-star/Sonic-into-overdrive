@@ -36,7 +36,7 @@ Obj7A_Main:
 Obj7A_Loop:
 		jsr	(FindNextFreeObj).l
 		bne.s	loc_1895C
-		_move.b	#id_BossStarLight,0(a1)
+		move.b	#id_BossStarLight,0(a1)
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 
@@ -299,18 +299,8 @@ loc_18BAE:
 ; ===========================================================================
 
 loc_18BB4:
-        clr.w    obVelY(a0)
-        tst.b     (v_invinc).w
-        bne.s   .boss_invinc
-
-        move.b   Saved_music,d0
-        bra.w      .boss_play
-
-.boss_invinc:
-        move.b #bgm_Invincible,d0
-
-.boss_play:
-        jsr PlaySound
+		clr.w	obVelY(a0)
+		music	bgm_SLZ,0,0,0		; play SLZ music
 
 loc_18BC2:
 		bra.w	loc_189EE

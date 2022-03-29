@@ -14,15 +14,15 @@ Sonic_Move:
 		tst.w	$3E(a0)
 		bne.w	Sonic_ResetScr
 		btst	#bitL,(v_jpadhold2).w ; is left being pressed?
-		beq.s	.notleft	; if not, branch
+		beq.s	@notleft	; if not, branch
 		bsr.w	Sonic_MoveLeft
 
-.notleft:
+	@notleft:
 		btst	#bitR,(v_jpadhold2).w ; is right being pressed?
-		beq.s	.notright	; if not, branch
+		beq.s	@notright	; if not, branch
 		bsr.w	Sonic_MoveRight
 
-.notright:
+	@notright:
 		move.b	obAngle(a0),d0
 		addi.b	#$20,d0
 		andi.b	#$C0,d0		; is Sonic on a	slope?
@@ -34,7 +34,7 @@ Sonic_Move:
 		btst	#3,obStatus(a0)
 		beq.s	Sonic_Balance
 		moveq	#0,d0
-		move.b	$3D(a0),d0
+		move.b	standonobject(a0),d0
 		lsl.w	#6,d0
 		lea	(v_objspace).w,a1
 		lea	(a1,d0.w),a1
@@ -246,27 +246,24 @@ locret_130E8:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_MoveRight:	   ; XREF: Sonic_Move
-		move.w	$14(a0),d0
+Sonic_MoveRight:
+		move.w	obInertia(a0),d0
 		bmi.s	loc_13118
-		bclr	#0,$22(a0)
+		bclr	#0,obStatus(a0)
 		beq.s	loc_13104
-		bclr	#5,$22(a0)
-		move.b	#1,$1D(a0)
+		bclr	#5,obStatus(a0)
+		move.b	#1,obNextAni(a0)
 
 loc_13104:
 		add.w	d5,d0
 		cmp.w	d6,d0
 		blt.s	loc_1310C
-		sub.w	d5,d0
-		cmp.w	d6,d0
-		bge.s	loc_1310C
 		move.w	d6,d0
 
 loc_1310C:
-		move.w	d0,$14(a0)
-		move.b	#0,$1C(a0); use walking animation
-		rts
+		move.w	d0,obInertia(a0)
+		move.b	#id_Walk,obAnim(a0) ; use walking animation
+		rts	
 ; ===========================================================================
 
 loc_13118:

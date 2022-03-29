@@ -11,8 +11,8 @@ Spikes:
 Spik_Index:	dc.w Spik_Main-Spik_Index
 		dc.w Spik_Solid-Spik_Index
 
-spik_origX = $30		; start X position
-spik_origY = $32		; start Y position
+spik_origX:	equ $30		; start X position
+spik_origY:	equ $32		; start Y position
 
 Spik_Var:	dc.b 0,	$14		; frame	number,	object width
 		dc.b 1,	$10
@@ -78,11 +78,9 @@ Spik_Upright:
 		tst.w	d4
 		bpl.s	Spik_Display
 
-Spik_Hurt:				; XREF: Spik_SideWays; Spik_Upright
+Spik_Hurt:
 		tst.b	(v_invinc).w	; is Sonic invincible?
 		bne.s	Spik_Display	; if yes, branch
-		tst.w	(v_player+$30).w ; +++ is Sonic invulnerable?
-		bne.s	Spik_Display	; +++ if yes, branch
 		move.l	a0,-(sp)
 		movea.l	a0,a2
 		lea	(v_player).w,a0
@@ -109,7 +107,7 @@ loc_CF20:
 
 Spik_Display:
 		bsr.w	DisplaySprite
-		out_of_range.w	DeleteObject,spik_origX(a0)
+		out_of_range	DeleteObject,spik_origX(a0)
 		rts	
 ; ===========================================================================
 

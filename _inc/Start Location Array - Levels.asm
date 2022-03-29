@@ -2,40 +2,40 @@
 ; Sonic start location array
 ; ---------------------------------------------------------------------------
 
-		binclude	"startpos/ghz1.bin"
-		binclude	"startpos/ghz2.bin"
-		binclude	"startpos/ghz3.bin"
+		incbin	"startpos\ghz1.bin"
+		incbin	"startpos\ghz2.bin"
+		incbin	"startpos\ghz3.bin"
 		dc.w	$80,$A8
 
-		binclude	"startpos/lz1.bin"
-		binclude	"startpos/lz2.bin"
-		binclude	"startpos/lz3.bin"
-		binclude	"startpos/sbz3.bin"
+		incbin	"startpos\lz1.bin"
+		incbin	"startpos\lz2.bin"
+		incbin	"startpos\lz3.bin"
+		incbin	"startpos\sbz3.bin"
 
-		binclude	"startpos/mz1.bin"
-		binclude	"startpos/mz2.bin"
-		binclude	"startpos/mz3.bin"
+		incbin	"startpos\mz1.bin"
+		incbin	"startpos\mz2.bin"
+		incbin	"startpos\mz3.bin"
 		dc.w	$80,$A8
 
-		binclude	"startpos/slz1.bin"
-		binclude	"startpos/slz2.bin"
-		binclude	"startpos/slz3.bin"
+		incbin	"startpos\slz1.bin"
+		incbin	"startpos\slz2.bin"
+		incbin	"startpos\slz3.bin"
 		dc.w	$80,$A8
 
-		binclude	"startpos/syz1.bin"
-		binclude	"startpos/syz2.bin"
-		binclude	"startpos/syz3.bin"
+		incbin	"startpos\syz1.bin"
+		incbin	"startpos\syz2.bin"
+		incbin	"startpos\syz3.bin"
 		dc.w	$80,$A8
 
-		binclude	"startpos/sbz1.bin"
-		binclude	"startpos/sbz2.bin"
-		binclude	"startpos/fz.bin"
+		incbin	"startpos\sbz1.bin"
+		incbin	"startpos\sbz2.bin"
+		incbin	"startpos\fz.bin"
 		dc.w	$80,$A8
 
 		zonewarning StartLocArray,$10
 
-		binclude	"startpos/end1.bin"
-		binclude	"startpos/end2.bin"
+		incbin	"startpos\end1.bin"
+		incbin	"startpos\end2.bin"
 		dc.w	$80,$A8
 		dc.w	$80,$A8
 

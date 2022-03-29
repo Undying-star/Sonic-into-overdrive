@@ -10,7 +10,7 @@ BGHZ_MakeBall:
 		addq.b	#2,ob2ndRout(a0)
 		jsr	(FindNextFreeObj).l
 		bne.s	loc_17910
-		_move.b	#id_BossBall,0(a1) ; load swinging ball object
+		move.b	#id_BossBall,0(a1) ; load swinging ball object
 		move.w	$30(a0),obX(a1)
 		move.w	$38(a0),obY(a1)
 		move.l	a0,$34(a1)
@@ -108,18 +108,8 @@ loc_179DA:
 ; ===========================================================================
 
 loc_179E0:
-        clr.w    obVelY(a0)
-        tst.b     (v_invinc).w
-        bne.s   .boss_invinc
-
-        move.b   Saved_music,d0
-        bra.w      .boss_play
-
-.boss_invinc:
-        move.b #bgm_Invincible,d0
-
-.boss_play:
-        jsr PlaySound
+		clr.w	obVelY(a0)
+		music	bgm_GHZ,0,0,0		; play GHZ music
 
 loc_179EE:
 		bsr.w	BossMove

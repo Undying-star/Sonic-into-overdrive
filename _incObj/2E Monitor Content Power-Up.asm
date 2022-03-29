@@ -54,7 +54,7 @@ Pow_ChkSonic:
 		cmpi.b	#2,d0		; does monitor contain Sonic?
 		bne.s	Pow_ChkShoes
 
-ExtraLife:
+	ExtraLife:
 		addq.b	#1,(v_lives).w	; add 1 to the number of lives you have
 		addq.b	#1,(f_lifecount).w ; update the lives counter
 		music	bgm_ExtraLife,1,0,0	; play extra life music
@@ -97,10 +97,11 @@ Pow_ChkInvinc:
 		move.b	#4,(v_objspace+$2C0+obAnim).w
 		tst.b	(f_lockscreen).w ; is boss mode on?
 		bne.s	Pow_NoMusic	; if yes, branch
-		if Revision<>0
+		if Revision=0
+		else
 			cmpi.w	#$C,(v_air).w
 			bls.s	Pow_NoMusic
-		endif
+		endc
 		music	bgm_Invincible,1,0,0 ; play invincibility music
 ; ===========================================================================
 
@@ -123,25 +124,17 @@ Pow_ChkRings:
 		bset	#2,(v_lifecount).w
 		beq.w	ExtraLife
 
-Pow_RingSound:
+	Pow_RingSound:
 		music	sfx_Ring,1,0,0	; play ring sound
 ; ===========================================================================
 
 Pow_ChkS:
-		cmpi.b	#7,d0		; does monitor contain 'S'
-		bne.s	Pow_ChkGoggles		; if not, branch to Goggle code
-		nop
-
-Pow_ChkGoggles:	
-		cmpi.b	#8,d0		; does monitor contain Goggles?
-		bne.s	Pow_ChkEnd		; if not, branch to ChkEnd
-		move.b	#1,(f_gogglecheck).w ; move 1 to the goggle check
-		move.b	#1,(v_shield).w	; give Sonic a shield
-		move.b	#id_ShieldItem,(v_objspace+$180).w ; load shield object ($38)
-		music	bgm_ExtraLife,1,0,0	; play extra life music
-		nop
+		cmpi.b	#7,d0		; does monitor contain 'S'?
+		bne.s	Pow_ChkEnd
+		nop	
 
 Pow_ChkEnd:
+		rts			; 'S' and goggles monitors do nothing
 ; ===========================================================================
 
 Pow_Delete:	; Routine 4

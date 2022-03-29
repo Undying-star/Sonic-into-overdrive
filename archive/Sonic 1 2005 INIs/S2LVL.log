@@ -1,7 +1,0 @@
-Opening INI file "D:\Sonic hacking\Sonic 1 dissasembly\s1disasm-master\Sonic 1 2005 INIs\SonLVL.ini"...
-Game type is S1.
-Loading Green Hill Zone Act 1...
-System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
-   at System.ThrowHelper.ThrowKeyNotFoundException()
-   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
-   at SonicRetro.S2LVL.MainForm.backgroundWorker1_DoWork(Object sender, DoWorkEventArgs e) in C:\RetroSVN\Programs\S2LVL\S2LVL\MainForm.cs:line 174
