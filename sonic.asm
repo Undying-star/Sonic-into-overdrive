@@ -2096,7 +2096,7 @@ WaitForVBla:
 GM_Sega:
 		sfx	bgm_Stop,0,1,1 ; stop music
 		bsr.w	ClearPLC
-		bsr.w	PaletteFadeOut
+		bsr.w	PaletteFadeIn
 		lea	(vdp_control_port).l,a6
 		move.w	#$8004,(a6)	; use 8-colour mode
 		move.w	#$8200+(vram_fg>>10),(a6) ; set foreground nametable address
@@ -2234,8 +2234,8 @@ Tit_LoadText:
 		dbf	d1,Tit_LoadText	; load level select font
 
 		move.b	#0,(v_lastlamp).w ; clear lamppost counter
-		move.w	#0,(v_debuguse).w ; disable debug item placement mode
-		move.w	#0,(f_demo).w	; disable debug mode
+		;move.w	#0,(v_debuguse).w ; disable debug item placement mode
+		;move.w	#0,(f_demo).w	; disable debug mode
 		move.w	#0,($FFFFFFEA).w ; unused variable
 		move.w	#(id_GHZ<<8),(v_zone).w	; set level to GHZ (00)
 		move.w	#0,(v_pcyc_time).w ; disable palette cycling
@@ -2336,27 +2336,27 @@ Tit_RegionJap:
 		lea	(LevSelCode_J).l,a0 ; load J code
 
 Tit_EnterCheat:
-		move.w	(v_title_dcount).w,d0
-		adda.w	d0,a0
-		move.b	(v_jpadpress1).w,d0 ; get button press
-		cmp.b	(a0),d0		; does button press match the cheat code?
-		bne.s	Tit_ResetCheat	; if not, branch,
-		addq.w	#1,(v_title_dcount).w ; next button press
-		tst.b	d0
-		bne.s	Tit_CountC
-		lea	(f_levselcheat).w,a0
-		move.w	(v_title_ccount).w,d1
-		lsr.w	#1,d1
-		andi.w	#3,d1
-		beq.s	Tit_PlayRing
-		tst.b	(v_megadrive).w
-		bpl.s	Tit_PlayRing
-		moveq	#1,d1
-		move.b	d1,1(a0,d1.w)	; cheat depends on how many times C is pressed
-Tit_PlayRing:
+;		move.w	(v_title_dcount).w,d0
+;		adda.w	d0,a0
+;		move.b	(v_jpadpress1).w,d0 ; get button press
+;		cmp.b	(a0),d0		; does button press match the cheat code?
+;		bne.s	Tit_ResetCheat	; if not, branch,
+;		addq.w	#1,(v_title_dcount).w ; next button press
+;		tst.b	d0
+;		bne.s	Tit_CountC
+;		lea	(f_levselcheat).w,a0
+;		move.w	(v_title_ccount).w,d1
+;		lsr.w	#1,d1
+;		andi.w	#3,d1
+;		beq.s	Tit_PlayRing
+;		tst.b	(v_megadrive).w
+;		bpl.s	Tit_PlayRing
+;		moveq	#1,d1
+;		move.b	d1,1(a0,d1.w)	; cheat depends on how many times C is pressed
+;Tit_PlayRing:
 		move.b	#1,(a0,d1.w)	; activate cheat
-		sfx	sfx_Ring,0,1,1	; play ring sound when code is entered
-		bra.s	Tit_CountC
+;		sfx	sfx_Ring,0,1,1	; play ring sound when code is entered
+;		bra.s	Tit_CountC
 ; ===========================================================================
 
 Tit_ResetCheat:
@@ -2367,10 +2367,10 @@ Tit_ResetCheat:
 		move.w	#0,(v_title_dcount).w ; reset UDLR counter
 
 Tit_CountC:
-		move.b	(v_jpadpress1).w,d0
-		andi.b	#btnC,d0	; is C button pressed?
-		beq.s	loc_3230	; if not, branch
-		addq.w	#1,(v_title_ccount).w ; increment C counter
+	;	move.b	(v_jpadpress1).w,d0
+	;	andi.b	#btnC,d0	; is C button pressed?
+	;	beq.s	loc_3230	; if not, branch
+	;	addq.w	#1,(v_title_ccount).w ; increment C counter
 
 loc_3230:
 		tst.w	(v_demolength).w
@@ -2379,13 +2379,12 @@ loc_3230:
 		beq.w	Tit_MainLoop	; if not, branch	
 
 Tit_ChkLevSel:
-		tst.b	(f_levselcheat).w ; check if level select code is on
-		beq.w	PlayLevel	; if not, play level
-		sfx	sfx_Lamppost,0,0,0	; play lamppost sound
+;		tst.b	(f_levselcheat).w ; check if level select code is on
+;		beq.w	PlayLevel	; if not, play level
+;		sfx	sfx_Lamppost,0,0,0	; play lamppost sound
 		btst	#bitA,(v_jpadhold1).w ; check if A is pressed
-		beq.w	PlayLevel	; if not, play level
+;		beq.w	PlayLevel	; if not, play level
 		sfx	sfx_Lamppost,0,0,0	; play lamppost sound
-
 		moveq	#palid_LevelSel,d0
 		bsr.w	PalLoad2	; load level select palette
 		lea	(v_hscrolltablebuffer).w,a1
@@ -2408,14 +2407,13 @@ Tit_ClrScroll2:
 
 		bsr.w	LevSelTextLoad
         move.w    #$81,d0
-        jsr    (PlaySound).l    ; play GHZ music
+		jsr    (PlaySound).l    ; play GHZ music
 
 ; ---------------------------------------------------------------------------
 ; Level	Select
 ; ---------------------------------------------------------------------------
 
 LevelSelect:
-		sfx	bgm_GHZ,0,1,1	; play title screen music
 		move.b	#4,(v_vbla_routine).w
 		bsr.w	WaitForVBla
 		bsr.w	LevSelControls
