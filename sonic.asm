@@ -10,6 +10,7 @@
 	include	"Constants.asm"
 	include	"Variables.asm"
 	include	"Macros.asm"
+	include	"_s1smps2asm_inc.asm"
 
 EnableSRAM:	equ 0	; change to 1 to enable SRAM
 BackupSRAM:	equ 1
@@ -488,14 +489,14 @@ ErrorText:	dc.w @exception-ErrorText, @bus-ErrorText
 @exception:	dc.b "ERROR EXCEPTION    "
 @bus:		dc.b "BUS ERROR          "
 @address:	dc.b "ADDRESS ERROR      "
-@illinstruct:	dc.b "ILLEGAL INSTRUCTION"
+@illinstruct:	dc.b "  U FUCKED UP CHIEF"
 @zerodivide:	dc.b "@ERO DIVIDE        "
 @chkinstruct:	dc.b "CHK INSTRUCTION    "
 @trapv:		dc.b "TRAPV INSTRUCTION  "
 @privilege:	dc.b "PRIVILEGE VIOLATION"
 @trace:		dc.b "TRACE              "
 @line1010:	dc.b "LINE 1010 EMULATOR "
-@line1111:	dc.b "LINE 1111 EMULATOR "
+@line1111:	dc.b "     EMULATOR DEATH"
 		even
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
@@ -2716,15 +2717,35 @@ LevelMenuText:	if Revision=0
 ; Music	playlist
 ; ---------------------------------------------------------------------------
 MusicList:
-		dc.b bgm_GHZ	; GHZ
-		dc.b bgm_LZ	; LZ
-		dc.b bgm_MZ	; MZ
-		dc.b bgm_SLZ	; SLZ
-		dc.b bgm_SYZ	; SYZ
-		dc.b bgm_SBZ	; SBZ
-		zonewarning MusicList,1
-		dc.b bgm_FZ	; Ending
-		even
+        dc.b bgm_GHZ    ; GHZ1
+        dc.b bgm_GHZ    ; GHZ2
+        dc.b bgm_GHZ3    ; GHZ3
+        dc.b bgm_GHZ    ; GHZ4
+        dc.b bgm_LZ    ; LZ1
+        dc.b bgm_LZ    ; LZ2
+        dc.b bgm_LZ    ; LZ3
+        dc.b bgm_SBZ    ; LZ4
+        dc.b bgm_MZ    ; MZ1
+        dc.b bgm_MZ    ; MZ2
+        dc.b bgm_MZ    ; MZ3
+        dc.b bgm_MZ    ; MZ4
+        dc.b bgm_SLZ    ; SLZ1
+        dc.b bgm_SLZ    ; SLZ2
+        dc.b bgm_SLZ    ; SLZ3
+        dc.b bgm_SLZ    ; SLZ4
+        dc.b bgm_SYZ    ; SYZ1
+        dc.b bgm_SYZ    ; SYZ2
+        dc.b bgm_SYZ    ; SYZ3
+        dc.b bgm_SYZ    ; SYZ4
+        dc.b bgm_SBZ    ; SBZ1
+        dc.b bgm_SBZ    ; SBZ2
+        dc.b bgm_FZ    ; SBZ3
+        dc.b bgm_SBZ    ; SBZ4
+        dc.b bgm_GHZ    ; GHZ1
+        dc.b bgm_GHZ    ; GHZ1
+        dc.b bgm_GHZ    ; GHZ1
+        dc.b bgm_GHZ    ; GHZ1
+        even
 ; ===========================================================================
 
 ; ---------------------------------------------------------------------------
@@ -2842,24 +2863,16 @@ Level_LoadPal:
 		move.b	($FFFFFE53).w,(f_wtr_state).w
 
 Level_GetBgm:
-		tst.w	(f_demo).w
-		bmi.s	Level_SkipTtlCard
-		moveq	#0,d0
-		move.b	(v_zone).w,d0
-		cmpi.w	#(id_LZ<<8)+3,(v_zone).w ; is level SBZ3?
-		bne.s	Level_BgmNotLZ4	; if not, branch
-		moveq	#5,d0		; use 5th music (SBZ)
-
-	Level_BgmNotLZ4:
-		cmpi.w	#(id_SBZ<<8)+2,(v_zone).w ; is level FZ?
-		bne.s	Level_PlayBgm	; if not, branch
-		moveq	#6,d0		; use 6th music (FZ)
-
-	Level_PlayBgm:
-		lea	(MusicList).l,a1 ; load	music playlist
-		move.b	(a1,d0.w),d0
-		bsr.w	PlaySound	; play music
-		move.b	#id_TitleCard,(v_objspace+$80).w ; load title card object
+        tst.w    (f_demo).w
+        bmi.s    Level_SkipTtlCard
+        moveq    #0,d0
+        move.w    (v_zone).w,d0
+        ror.b   #2,d0
+        lsr.w   #6,d0
+        lea    (MusicList).l,a1 ; load    music playlist
+        move.b    (a1,d0.w),d0
+        bsr.w    PlaySound    ; play music
+        move.b    #id_TitleCard,(v_objspace+$80).w ; load title card object
 
 Level_TtlCardLoop:
 		move.b	#$C,(v_vbla_routine).w
@@ -2890,6 +2903,11 @@ Level_TtlCardLoop:
 		tst.w	(f_demo).w
 		bmi.s	Level_ChkDebug
 		move.b	#id_HUD,(v_objspace+$40).w ; load HUD object
+
+		move.b	#1,(v_player+$200).w ; load Tails object
+		move.w	(v_player+$8).w,(v_player+$208).w 
+		move.w	(v_player+$C).w,(v_player+$20C).w
+		subi.w	#$20,(v_player+$208).w 
 
 Level_ChkDebug:
 		tst.b	(f_debugcheat).w ; has debug cheat been entered?
@@ -7025,14 +7043,34 @@ Sonic_Modes:	dc.w Sonic_MdNormal-Sonic_Modes
 ; Music	to play	after invincibility wears off
 ; ---------------------------------------------------------------------------
 MusicList2:
-		dc.b bgm_GHZ
-		dc.b bgm_LZ
-		dc.b bgm_MZ
-		dc.b bgm_SLZ
-		dc.b bgm_SYZ
-		dc.b bgm_SBZ
-		zonewarning MusicList2,1
-		; The ending doesn't get an entry
+        dc.b bgm_GHZ    ; GHZ1
+        dc.b bgm_GHZ    ; GHZ2
+        dc.b bgm_GHZ    ; GHZ3
+        dc.b bgm_GHZ    ; GHZ4
+        dc.b bgm_LZ    ; LZ1
+        dc.b bgm_LZ    ; LZ2
+        dc.b bgm_LZ    ; LZ3
+        dc.b bgm_SBZ    ; LZ4
+        dc.b bgm_MZ    ; MZ1
+        dc.b bgm_MZ    ; MZ2
+        dc.b bgm_MZ    ; MZ3
+        dc.b bgm_MZ    ; MZ4
+        dc.b bgm_SLZ    ; SLZ1
+        dc.b bgm_SLZ    ; SLZ2
+        dc.b bgm_SLZ    ; SLZ3
+        dc.b bgm_SLZ    ; SLZ4
+        dc.b bgm_SYZ    ; SYZ1
+        dc.b bgm_SYZ    ; SYZ2
+        dc.b bgm_SYZ    ; SYZ3
+        dc.b bgm_SYZ    ; SYZ4
+        dc.b bgm_SBZ    ; SBZ1
+        dc.b bgm_SBZ    ; SBZ2
+        dc.b bgm_FZ    ; SBZ3
+        dc.b bgm_SBZ    ; SBZ4
+        dc.b bgm_GHZ    ; GHZ1
+        dc.b bgm_GHZ    ; GHZ1
+        dc.b bgm_GHZ    ; GHZ1
+        dc.b bgm_GHZ    ; GHZ1
 		even
 
 		include	"_incObj\Sonic Display.asm"

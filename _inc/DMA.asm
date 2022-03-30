@@ -14,6 +14,7 @@
 ; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
 
 ; sub_144E: DMA_68KtoVRAM: QueueCopyToVRAM: QueueVDPCommand: Add_To_DMA_Queue:
+DMA_68KtoVRAM:
 QueueDMATransfer:
 		movea.l	($FFFFC8FC).w,a1
 		cmpa.w	#$C8FC,a1

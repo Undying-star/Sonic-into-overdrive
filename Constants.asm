@@ -193,6 +193,7 @@ af2ndRoutine:	equ $FA	; increment 2nd routine counter
 ; Background music
 bgm__First:	equ $81
 bgm_GHZ:	equ ((ptr_mus81-MusicIndex)/4)+bgm__First
+bgm_GHZ3:	equ ((ptr_mus94-MusicIndex)/4)+bgm__First
 bgm_LZ:		equ ((ptr_mus82-MusicIndex)/4)+bgm__First
 bgm_MZ:		equ ((ptr_mus83-MusicIndex)/4)+bgm__First
 bgm_SLZ:	equ ((ptr_mus84-MusicIndex)/4)+bgm__First

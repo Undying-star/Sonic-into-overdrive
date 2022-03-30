@@ -78,6 +78,7 @@ ptr_mus91:	dc.l Music91
 ptr_mus92:	dc.l Music92
 ptr_mus93:	dc.l Music93
 ptr_musend
+ptr_mus94:	dc.l Music94
 ; ---------------------------------------------------------------------------
 ; Priority of sound. New music or SFX must have a priority higher than or equal
 ; to what is stored in v_sndprio or it won't play. If bit 7 of new priority is
@@ -2480,7 +2481,7 @@ Kos_Z80:
 		incbin	"sound\z80.bin", $B5, $16AB
 		even
 
-Music81:	incbin	"sound/music/Mus81 - GHZ.bin"
+Music81:	include	"sound/music/Mus81 - GHZ.asm"
 		even
 Music82:	incbin	"sound/music/Mus82 - LZ.bin"
 		even
@@ -2674,6 +2675,8 @@ SoundCE:	incbin	"sound/sfx/SndCE - Ring Left Speaker.bin"
 SoundCF:	incbin	"sound/sfx/SndCF - Signpost.bin"
 		even
 SoundD0:	incbin	"sound/sfx/SndD0 - Waterfall.bin"
+		even
+Music94:	incbin	"sound/music/GHZ.bin"
 		even
 
 		; Don't let Sega sample cross $8000-byte boundary
