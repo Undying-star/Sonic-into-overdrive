@@ -34,7 +34,7 @@ PSG9:		incbin	"sound/psg/psg9.bin"
 ; their "correct" sped-up main tempos to the list.
 ; byte_71A94:
 SpeedUpIndex:
-		dc.b 7		; GHZ
+		dc.b 12		; GHZ
 		dc.b $72	; LZ
 		dc.b $73	; MZ
 		dc.b $26	; SLZ
@@ -79,6 +79,7 @@ ptr_mus92:	dc.l Music92
 ptr_mus93:	dc.l Music93
 ptr_musend
 ptr_mus94:	dc.l Music94
+ptr_mus95:	dc.l Music95
 ; ---------------------------------------------------------------------------
 ; Priority of sound. New music or SFX must have a priority higher than or equal
 ; to what is stored in v_sndprio or it won't play. If bit 7 of new priority is
@@ -2677,6 +2678,8 @@ SoundCF:	incbin	"sound/sfx/SndCF - Signpost.bin"
 SoundD0:	incbin	"sound/sfx/SndD0 - Waterfall.bin"
 		even
 Music94:	incbin	"sound/music/GHZ.bin"
+		even
+Music95:	incbin	"sound/music/Menu.bin"
 		even
 
 		; Don't let Sega sample cross $8000-byte boundary

@@ -2295,7 +2295,9 @@ Tit_ChkLevSel:
 		beq.w	PlayLevel	; if not, play level
 
 		moveq	#palid_LevelSel,d0
-		bsr.w	PalLoad2	; load level select palette
+		bsr.w	PalLoad1	; load level select palette
+		sfx	sfx_Lamppost,0,1,1	; play ring sound when code is entered
+		bsr.w	PaletteFadeOut
 		lea	(v_hscrolltablebuffer).w,a1
 		moveq	#0,d0
 		move.w	#$DF,d1
@@ -2315,7 +2317,8 @@ Tit_ChkLevSel:
 		dbf	d1,Tit_ClrScroll2 ; clear scroll data (in VRAM)
 
 		bsr.w	LevSelTextLoad
-
+		sfx	bgm_Menu,0,1,1	; play title screen music
+		bsr.w	PaletteFadeIn
 ; ---------------------------------------------------------------------------
 ; Level	Select
 ; ---------------------------------------------------------------------------
@@ -2574,6 +2577,7 @@ LevSel_Down:
 
 LevSel_Refresh:
 		move.w	d0,(v_levselitem).w ; set new selection
+		sfx	sfx_Switch,0,1,1	; play title screen music
 		bsr.w	LevSelTextLoad	; refresh text
 		rts	
 ; ===========================================================================
@@ -2904,7 +2908,7 @@ Level_TtlCardLoop:
 		bmi.s	Level_ChkDebug
 		move.b	#id_HUD,(v_objspace+$40).w ; load HUD object
 
-		move.b	#1,(v_player+$200).w ; load Tails object
+		move.b	#2,(v_player+$200).w ; load Tails object
 		move.w	(v_player+$8).w,(v_player+$208).w 
 		move.w	(v_player+$C).w,(v_player+$20C).w
 		subi.w	#$20,(v_player+$208).w 
@@ -6990,15 +6994,15 @@ Sonic_Main:	; Routine 0
 
 Sonic_Control:	; Routine 2
 		tst.w	(f_debugmode).w	; is debug cheat enabled?
-		beq.s	loc_12C58	; if not, branch
+		beq.s	loc_12C58_2	; if not, branch
 		btst	#bitB,(v_jpadpress1).w ; is button B pressed?
-		beq.s	loc_12C58	; if not, branch
+		beq.s	loc_12C58_2	; if not, branch
 		move.w	#1,(v_debuguse).w ; change Sonic into a ring/item
 		clr.b	(f_lockctrl).w
 		rts	
 ; ===========================================================================
 
-loc_12C58:
+loc_12C58_2:
 		tst.b	(f_lockctrl).w	; are controls locked?
 		bne.s	loc_12C64	; if yes, branch
 		move.w	(v_jpadhold1).w,(v_jpadhold2).w ; enable joypad control
@@ -7174,7 +7178,6 @@ locret_13302:
 		include	"_incObj\Sonic LoadGfx.asm"
 
 		include	"_incObj\0A Drowning Countdown.asm"
-
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	play music for LZ/SBZ3 after a countdown
@@ -7759,7 +7762,7 @@ locret_15098:
 ; End of function ObjHitWallLeft
 
 ; ===========================================================================
-
+		include	"_incObj\02 Tails.asm"
 		include	"_incObj\66 Rotating Junction.asm"
 Map_Jun:	include	"_maps\Rotating Junction.asm"
 		include	"_incObj\67 Running Disc.asm"
@@ -8625,7 +8628,8 @@ Nem_JapNames:	incbin	"artnem\Hidden Japanese Credits.bin"
 
 Map_Sonic:	include	"_maps\Sonic.asm"
 SonicDynPLC:	include	"_maps\Sonic - Dynamic Gfx Script.asm"
-
+Map_Tails:	include	"_maps\Tails.asm"
+;TailsDynPLC:	include	"_maps\Sonic - Dynamic Gfx Script.asm"
 ; ---------------------------------------------------------------------------
 ; Uncompressed graphics	- Sonic
 ; ---------------------------------------------------------------------------

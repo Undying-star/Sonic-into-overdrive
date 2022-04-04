@@ -36,9 +36,9 @@ Sonic_LevelBound:
 
 @bottom:
 		cmpi.w	#(id_SBZ<<8)+1,(v_zone).w ; is level SBZ2 ?
-		bne.w	KillSonic	; if not, kill Sonic
+		bne.w	KillSonic2	; if not, kill Sonic
 		cmpi.w	#$2000,(v_player+obX).w
-		bcs.w	KillSonic
+		bcs.w	KillSonic2
 		clr.b	(v_lastlamp).w	; clear	lamppost counter
 		move.w	#1,(f_restart).w ; restart the level
 		move.w	#(id_LZ<<8)+3,(v_zone).w ; set level to SBZ3 (LZ4)
@@ -52,3 +52,7 @@ Sonic_LevelBound:
 		move.w	#0,obInertia(a0)
 		bra.s	@chkbottom
 ; End of function Sonic_LevelBound
+
+KillSonic2:
+        jsr KillSonic
+		rts

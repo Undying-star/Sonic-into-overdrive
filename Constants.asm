@@ -203,6 +203,7 @@ bgm_Invincible:	equ ((ptr_mus87-MusicIndex)/4)+bgm__First
 bgm_ExtraLife:	equ ((ptr_mus88-MusicIndex)/4)+bgm__First
 bgm_SS:		equ ((ptr_mus89-MusicIndex)/4)+bgm__First
 bgm_Title:	equ ((ptr_mus8A-MusicIndex)/4)+bgm__First
+bgm_Menu:	equ ((ptr_mus95-MusicIndex)/4)+bgm__First
 bgm_Ending:	equ ((ptr_mus8B-MusicIndex)/4)+bgm__First
 bgm_Boss:	equ ((ptr_mus8C-MusicIndex)/4)+bgm__First
 bgm_FZ:		equ ((ptr_mus8D-MusicIndex)/4)+bgm__First
