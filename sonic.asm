@@ -2128,9 +2128,6 @@ GM_Title:
 		locVRAM	$6D00
 		lea	(Nem_TitleSonic).l,a0 ;	load Sonic title screen	patterns
 		bsr.w	NemDec
-		locVRAM	$A200
-		lea	(Nem_TitleTM).l,a0 ; load "TM" patterns
-		bsr.w	NemDec
 		lea	(vdp_data_port).l,a6
 		locVRAM	$D000,4(a6)
 		lea	(Art_Text).l,a5	; load level select font
@@ -2191,15 +2188,8 @@ GM_Title:
 		move.b	#id_TitleSonic,(v_objspace+$40).w ; load big Sonic object
 		move.b	#id_PSBTM,(v_objspace+$80).w ; load "PRESS START BUTTON" object
 		;clr.b	(v_objspace+$80+obRoutine).w ; The 'Mega Games 10' version of Sonic 1 added this line, to fix the 'PRESS START BUTTON' object not appearing
-
-		if Revision=0
-		else
-			tst.b   (v_megadrive).w	; is console Japanese?
-			bpl.s   @isjap		; if yes, branch
-		endc
-
-		move.b	#id_PSBTM,(v_objspace+$C0).w ; load "TM" object
-		move.b	#3,(v_objspace+$C0+obFrame).w
+		;move.b	#id_PSBTM,(v_objspace+$C0).w ; load "TM" object
+		;move.b	#3,(v_objspace+$C0+obFrame).w
 	@isjap:
 		move.b	#id_PSBTM,(v_objspace+$100).w ; load object which hides part of Sonic
 		move.b	#2,(v_objspace+$100+obFrame).w
@@ -2315,7 +2305,6 @@ Tit_ChkLevSel:
 	Tit_ClrScroll2:
 		move.l	d0,(a6)
 		dbf	d1,Tit_ClrScroll2 ; clear scroll data (in VRAM)
-
 		bsr.w	LevSelTextLoad
 		sfx	bgm_Menu,0,1,1	; play title screen music
 		bsr.w	PaletteFadeIn
@@ -2324,6 +2313,8 @@ Tit_ChkLevSel:
 ; ---------------------------------------------------------------------------
 
 LevelSelect:
+		jsr	(ExecuteObjects).l
+		jsr	(BuildSprites).l
 		move.b	#4,(v_vbla_routine).w
 		bsr.w	WaitForVBla
 		bsr.w	LevSelControls
@@ -2347,10 +2338,10 @@ LevelSelect:
 LevSel_NoCheat:
 		; This is a workaround for a bug; see PlaySoundID for more.
 		; Once you've fixed the bugs there, comment these four instructions out.
-		cmpi.w	#bgm__Last+1,d0	; is sound $80-$93 being played?
-		blo.s	LevSel_PlaySnd	; if yes, branch
-		cmpi.w	#sfx__First,d0	; is sound $94-$9F being played?
-		blo.s	LevelSelect	; if yes, branch
+		;cmpi.w	#bgm__Last+1,d0	; is sound $80-$93 being played?
+		;blo.s	LevSel_PlaySnd	; if yes, branch
+		;cmpi.w	#sfx__First,d0	; is sound $94-$9F being played?
+		;blo.s	LevelSelect	; if yes, branch
 
 LevSel_PlaySnd:
 		bsr.w	PlaySound_Special

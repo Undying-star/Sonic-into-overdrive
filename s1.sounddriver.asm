@@ -2679,7 +2679,7 @@ SoundD0:	incbin	"sound/sfx/SndD0 - Waterfall.bin"
 		even
 Music94:	incbin	"sound/music/GHZ.bin"
 		even
-Music95:	incbin	"sound/music/Menu.bin"
+Music95:	include	"sound/music/Menu.asm"
 		even
 
 		; Don't let Sega sample cross $8000-byte boundary
