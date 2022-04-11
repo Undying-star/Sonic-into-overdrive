@@ -1,9 +1,9 @@
-Map_ad0e:
-Map_ad0e_0: 	dc.w Map_ad0e_8-Map_ad0e
-Map_ad0e_2: 	dc.w Map_ad0e_3B-Map_ad0e
-Map_ad0e_4: 	dc.w Map_ad0e_6E-Map_ad0e
-Map_ad0e_6: 	dc.w Map_ad0e_A1-Map_ad0e
-Map_ad0e_8: 	dc.b $A
+Map_f9e8:
+Map_f9e8_0: 	dc.w Map_f9e8_8-Map_f9e8
+Map_f9e8_2: 	dc.w Map_f9e8_3B-Map_f9e8
+Map_f9e8_4: 	dc.w Map_f9e8_6E-Map_f9e8
+Map_f9e8_6: 	dc.w Map_f9e8_A1-Map_f9e8
+Map_f9e8_8: 	dc.b $A
 	dc.b $80, $D, $80, $0, $0
 	dc.b $80, $D, $80, $18, $20
 	dc.b $80, $D, $80, $20, $40
@@ -14,7 +14,7 @@ Map_ad0e_8: 	dc.b $A
 	dc.b $A0, $9, $80, $30, $30
 	dc.b $40, $5, $81, $A, $0
 	dc.b $40, $D, $81, $E, $10
-Map_ad0e_3B: 	dc.b $A
+Map_f9e8_3B: 	dc.b $A
 	dc.b $80, $D, $80, $0, $0
 	dc.b $80, $D, $80, $18, $20
 	dc.b $80, $D, $80, $20, $40
@@ -25,7 +25,7 @@ Map_ad0e_3B: 	dc.b $A
 	dc.b $A0, $9, $80, $30, $30
 	dc.b $40, $5, $81, $A, $0
 	dc.b $40, $D, $81, $E, $10
-Map_ad0e_6E: 	dc.b $A
+Map_f9e8_6E: 	dc.b $A
 	dc.b $80, $D, $80, $0, $0
 	dc.b $80, $D, $80, $18, $20
 	dc.b $80, $D, $80, $20, $40
@@ -36,7 +36,7 @@ Map_ad0e_6E: 	dc.b $A
 	dc.b $A0, $9, $80, $30, $30
 	dc.b $40, $5, $81, $A, $0
 	dc.b $40, $D, $81, $E, $10
-Map_ad0e_A1: 	dc.b $A
+Map_f9e8_A1: 	dc.b $A
 	dc.b $80, $D, $80, $0, $0
 	dc.b $80, $D, $80, $18, $20
 	dc.b $80, $D, $80, $20, $40
