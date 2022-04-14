@@ -2905,7 +2905,7 @@ Level_TtlCardLoop:
 		bmi.s	Level_ChkDebug
 		move.b	#id_HUD,(v_objspace+$40).w ; load HUD object
 
-		move.b	#2,(v_player+$200).w ; load Tails object
+		move.b	#1,(v_player+$200).w ; load Tails object
 		move.w	(v_player+$8).w,(v_player+$208).w 
 		move.w	(v_player+$C).w,(v_player+$20C).w
 		subi.w	#$20,(v_player+$208).w 
