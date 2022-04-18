@@ -611,6 +611,8 @@ VBla_00:
 
 	@notPAL:
 		move.w	#1,(f_hbla_pal).w ; set HBlank flag
+		stopZ80
+		waitZ80
 		tst.b	(f_wtr_state).w	; is water above top of screen?
 		bne.s	@waterabove 	; if yes, branch
 
@@ -622,6 +624,7 @@ VBla_00:
 
 	@waterbelow:
 		move.w	(v_hbla_hreg).w,(a5)
+		startZ80
 		bra.w	VBla_Music
 ; ===========================================================================
 
@@ -659,6 +662,8 @@ VBla_10:
 		beq.w	VBla_0A		; if yes, branch
 
 VBla_08:
+		stopZ80
+		waitZ80
 		bsr.w	ReadJoypads
 		tst.b	(f_wtr_state).w
 		bne.s	@waterabove
@@ -677,6 +682,7 @@ VBla_08:
 		jsr     (ProcessDMAQueue).l
 
 	@nochg:
+		startZ80
 		movem.l	(v_screenposx).w,d0-d7
 		movem.l	d0-d7,(v_screenposx_dup).w
 		movem.l	(v_fg_scroll_flags).w,d0-d1
@@ -710,10 +716,13 @@ Demo_Time:
 ; ===========================================================================
 
 VBla_0A:
+		stopZ80
+		waitZ80
 		bsr.w	ReadJoypads
 		writeCRAM	v_pal_dry,$80,0
 		writeVRAM	v_spritetablebuffer,$280,vram_sprites
 		writeVRAM	v_hscrolltablebuffer,$380,vram_hscroll
+		startZ80
 		bsr.w	PalCycle_SS
 		jsr     (ProcessDMAQueue).l
 
@@ -727,6 +736,8 @@ VBla_0A:
 ; ===========================================================================
 
 VBla_0C:
+		stopZ80
+		waitZ80
 		bsr.w	ReadJoypads
 		tst.b	(f_wtr_state).w
 		bne.s	@waterabove
@@ -744,6 +755,7 @@ VBla_0C:
 		jsr     (ProcessDMAQueue).l
 
 	@nochg:
+		startZ80
 		movem.l	(v_screenposx).w,d0-d7
 		movem.l	d0-d7,(v_screenposx_dup).w
 		movem.l	(v_fg_scroll_flags).w,d0-d1
@@ -769,10 +781,13 @@ VBla_12:
 ; ===========================================================================
 
 VBla_16:
+		stopZ80
+		waitZ80
 		bsr.w	ReadJoypads
 		writeCRAM	v_pal_dry,$80,0
 		writeVRAM	v_spritetablebuffer,$280,vram_sprites
 		writeVRAM	v_hscrolltablebuffer,$380,vram_hscroll
+		startZ80
 		jsr     (ProcessDMAQueue).l
 
 	@nochg:
@@ -787,6 +802,8 @@ VBla_16:
 
 
 sub_106E:
+		stopZ80
+		waitZ80
 		bsr.w	ReadJoypads
 		tst.b	(f_wtr_state).w ; is water above top of screen?
 		bne.s	@waterabove	; if yes, branch
@@ -799,7 +816,8 @@ sub_106E:
 	@waterbelow:
 		writeVRAM	v_spritetablebuffer,$280,vram_sprites
 		writeVRAM	v_hscrolltablebuffer,$380,vram_hscroll
-		rts
+		startZ80
+		rts	
 ; End of function sub_106E
 
 ; ---------------------------------------------------------------------------
@@ -1750,27 +1768,99 @@ WhiteOut_AddColour:
 
 
 PalCycle_Sega:
-		subq.w	#1,(v_pcyc_time).w
-		bpl.s	locret_1A68
-		move.w	#3,(v_pcyc_time).w
+		tst.b	(v_pcyc_time+1).w
+		bne.s	loc_206A
+		lea	(v_pal_dry+$20).w,a1
+		lea	(Pal_Sega1).l,a0
+		moveq	#5,d1
 		move.w	(v_pcyc_num).w,d0
-		bmi.s	locret_1A68
-		subq.w	#2,(v_pcyc_num).w
-		lea	(Cyc_Sega).l,a0
-		lea	(v_pal_dry+4).w,a1
-		adda.w	d0,a0
-		move.l	(a0)+,(a1)+
-		move.l	(a0)+,(a1)+
-		move.l	(a0)+,(a1)+
-		move.l	(a0)+,(a1)+
-		move.l	(a0)+,(a1)+
-		move.w	(a0)+,(a1)+
 
-locret_1A68:
-		rts
-; ---------------------------------------------------------------------------
-Cyc_Sega:	incbin "palette\Cycle - Sega.bin"
-		even
+loc_2020:
+		bpl.s	loc_202A
+		addq.w	#2,a0
+		subq.w	#1,d1
+		addq.w	#2,d0
+		bra.s	loc_2020
+; ===========================================================================
+
+loc_202A:
+		move.w	d0,d2
+		andi.w	#$1E,d2
+		bne.s	loc_2034
+		addq.w	#2,d0
+
+loc_2034:
+		cmpi.w	#$60,d0
+		bhs.s	loc_203E
+		move.w	(a0)+,(a1,d0.w)
+
+loc_203E:
+		addq.w	#2,d0
+		dbf	d1,loc_202A
+
+		move.w	(v_pcyc_num).w,d0
+		addq.w	#2,d0
+		move.w	d0,d2
+		andi.w	#$1E,d2
+		bne.s	loc_2054
+		addq.w	#2,d0
+
+loc_2054:
+		cmpi.w	#$64,d0
+		blt.s	loc_2062
+		move.w	#$401,(v_pcyc_time).w
+		moveq	#-$C,d0
+
+loc_2062:
+		move.w	d0,(v_pcyc_num).w
+		moveq	#1,d0
+		rts	
+; ===========================================================================
+
+loc_206A:
+		subq.b	#1,(v_pcyc_time).w
+		bpl.s	loc_20BC
+		move.b	#4,(v_pcyc_time).w
+		move.w	(v_pcyc_num).w,d0
+		addi.w	#$C,d0
+		cmpi.w	#$30,d0
+		blo.s	loc_2088
+		moveq	#0,d0
+		rts	
+; ===========================================================================
+
+loc_2088:
+		move.w	d0,(v_pcyc_num).w
+		lea	(Pal_Sega2).l,a0
+		lea	(a0,d0.w),a0
+		lea	(v_pal_dry+$04).w,a1
+		move.l	(a0)+,(a1)+
+		move.l	(a0)+,(a1)+
+		move.w	(a0)+,(a1)
+		lea	(v_pal_dry+$20).w,a1
+		moveq	#0,d0
+		moveq	#$2C,d1
+
+loc_20A8:
+		move.w	d0,d2
+		andi.w	#$1E,d2
+		bne.s	loc_20B2
+		addq.w	#2,d0
+
+loc_20B2:
+		move.w	(a0),(a1,d0.w)
+		addq.w	#2,d0
+		dbf	d1,loc_20A8
+
+loc_20BC:
+		moveq	#1,d0
+		rts	
+; End of function PalCycle_Sega
+
+; ===========================================================================
+
+Pal_Sega1:	incbin	"palette\Sega1.bin"
+Pal_Sega2:	incbin	"palette\Sega2.bin"
 
 ; ---------------------------------------------------------------------------
 ; Subroutines to load palettes
@@ -1936,30 +2026,45 @@ GM_Sega:
 		move.w	#0,d0
 		bsr.w	EniDec
 
-		copyTilemap	$FF0000,$C61C,$B,3
+		copyTilemap	$FF0000,$E510,$17,7
+		copyTilemap	$FF0180,$C000,$27,$1B
+
+		if Revision=0
+		else
+			tst.b   (v_megadrive).w	; is console Japanese?
+			bmi.s   @loadpal
+			copyTilemap	$FF0A40,$C53A,2,1 ; hide "TM" with a white rectangle
+		endc
 
 	@loadpal:
 		moveq	#palid_SegaBG,d0
 		bsr.w	PalLoad2	; load Sega logo palette
-		move.w	#$28,(v_pcyc_num).w
-		move.w	#0,($FFFFF662).w
-		move.w	#0,($FFFFF660).w
-		move.w  #$B4,($FFFFF614).w
+		move.w	#-$A,(v_pcyc_num).w
+		move.w	#0,(v_pcyc_time).w
+		move.w	#0,(v_pal_buffer+$12).w
+		move.w	#0,(v_pal_buffer+$10).w
 		move.w	(v_vdp_buffer1).w,d0
 		ori.b	#$40,d0
 		move.w	d0,(vdp_control_port).l
-		moveq   #$FFFFFF8C,d0
-                bsr.w   PlaySample
 
 Sega_WaitPal:
 		move.b	#2,(v_vbla_routine).w
 		bsr.w	WaitForVBla
 		bsr.w	PalCycle_Sega
+		bne.s	Sega_WaitPal
 
+		sfx	sfx_Sega,0,1,1	; play "SEGA" sound
+		move.b	#$14,(v_vbla_routine).w
+		bsr.w	WaitForVBla
+		move.w	#$1E,(v_demolength).w
+
+Sega_WaitEnd:
+		move.b	#2,(v_vbla_routine).w
+		bsr.w	WaitForVBla
 		tst.w	(v_demolength).w
 		beq.s	Sega_GotoTitle
 		andi.b	#btnStart,(v_jpadpress1).w ; is Start button pressed?
-		beq.s	Sega_WaitPal	; if not, branch
+		beq.s	Sega_WaitEnd	; if not, branch
 
 Sega_GotoTitle:
 		move.b	#id_Title,(v_gamemode).w ; go to title screen
@@ -8492,10 +8597,18 @@ Art_LivesNums:	incbin	"artunc\Lives Counter Numbers.bin" ; 8x8 pixel numbers on 
 		include	"_inc\Pattern Load Cues.asm"
 
 		align	$200,$FF
+		if Revision=0
 Nem_SegaLogo:	incbin	"artnem\Sega Logo.bin"	; large Sega logo
 		even
 Eni_SegaLogo:	incbin	"tilemaps\Sega Logo.bin" ; large Sega logo (mappings)
 		even
+		else
+			dcb.b	$300,$FF
+	Nem_SegaLogo:	incbin	"artnem\Sega Logo (JP1).bin" ; large Sega logo
+			even
+	Eni_SegaLogo:	incbin	"tilemaps\Sega Logo (JP1).bin" ; large Sega logo (mappings)
+			even
+		endc
 Eni_Title:	incbin	"tilemaps\Title Screen.bin" ; title screen foreground (mappings)
 		even
 Nem_TitleFg:	incbin	"artnem\Title Screen Foreground.bin"

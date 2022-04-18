@@ -66,7 +66,6 @@ MegaPCM:
 	DAC_Entry	$15+4, Timpani, dpcm		; $89	- Mid-Timpani
 	DAC_Entry	$1B+4, Timpani, dpcm		; $8A	- Mid-Low-Timpani
 	DAC_Entry	$1D+4, Timpani, dpcm		; $8B	- Low-Timpani
-	DAC_Entry       $03, Taco, pcm
 
 MegaPCM_End:
 
@@ -77,6 +76,5 @@ MegaPCM_End:
 	IncludeDAC	Kick, bin
 	IncludeDAC	Snare, bin
 	IncludeDAC	Timpani, bin
-	IncludeDAC      Taco, wav
 	even
 

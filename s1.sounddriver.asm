@@ -107,6 +107,14 @@ SoundPriorities:
 
 ; sub_71B4C:
 UpdateMusic:
+		stopZ80
+		nop	
+		nop	
+		nop	
+; loc_71B5A:
+@updateloop:
+		btst	#0,(z80_bus_request).l		; Is the z80 busy?
+		bne.s	@updateloop			; If so, wait
 		lea	(v_snddriver_ram&$FFFFFF).l,a6
 		clr.b	f_voice_selector(a6)
 		tst.b	f_pausemusic(a6)		; is music paused?
@@ -202,7 +210,12 @@ UpdateMusic:
 		jsr	PSGUpdateTrack(pc)
 ; loc_71C44:
 DoStartZ80:
-		rts
+		move.b  (ym2612_a0).l,d2
+                btst    #7,d2
+                bne.s   DoStartZ80
+                move.b  #$2A,(ym2612_a0).l
+                startZ80
+		rts	
 ; End of function UpdateMusic
 
 
@@ -247,9 +260,7 @@ DACUpdateTrack:
 		move.b	TrackSavedDAC(a5),d0	; Get sample
 		cmpi.b	#$80,d0			; Is it a rest?
 		beq.s	@locret			; Return if yes
-		stopZ80
-                move.b	d0,(z80_dac_sample).l
-                startZ80
+		move.b	d0,(z80_dac_sample).l
 ; locret_71CAA:
 @locret:
 		rts
@@ -502,9 +513,7 @@ PauseMusic:
 		dbf	d3,@noteoffloop
 
 		jsr	PSGSilenceAll(pc)
-		stopZ80
-                move.b  #$7F,($A01FFF).l; pause DAC
-                startZ80
+		move.b  #$7F,($A01FFF).l; pause DAC
 		bra.w	DoStartZ80
 ; ===========================================================================
 ; loc_71E94:
@@ -553,9 +562,7 @@ PauseMusic:
                 jsr     WriteFMIorII(pc)
 
 @UnpauseDAC:
-                stopZ80
                 move.b  #0,($A01FFF).l    ; unpause DAC
-                startZ80
 ; loc_71EFE:
 @unpausedallfm:
 		bra.w	DoStartZ80
@@ -658,6 +665,23 @@ ptr_flgend
 ; ---------------------------------------------------------------------------
 ; Sound_E1: PlaySega:
 PlaySegaSound:
+		lea	(SegaPCM).l,a2			; Load the SEGA PCM sample into a2. It's important that we use a2 since a0 and a1 are going to be used up ahead when reading the joypad ports 
+		move.l	#(SegaPCM_End-SegaPCM),d3			; Load the size of the SEGA PCM sample into d3 
+		move.b	#$2A,($A04000).l		; $A04000 = $2A -> Write to DAC channel	  
+PlayPCM_Loop:	  
+		move.b	(a2)+,($A04001).l		; Write the PCM data (contained in a2) to $A04001 (YM2612 register D0) 
+		move.w	#1,d0				; Write the pitch ($14 in this case) to d0
+		dbf	d0,*				; Decrement d0; jump to itself if not 0. (for pitch control, avoids playing the sample too fast)  
+		sub.l	#1,d3				; Subtract 1 from the PCM sample size 
+		beq.s	return_PlayPCM			; If d3 = 0, we finished playing the PCM sample, so stop playing, leave this loop, and unfreeze the 68K 
+		lea	($FFFFF604).w,a0		; address where JoyPad states are written 
+		lea	($A10003).l,a1			; address where JoyPad states are read from 
+		jsr	(ReadJoypads).w			; Read only the first joypad port. It's important that we do NOT do the two ports, we don't have the cycles for that
+		btst	#7,($FFFFF604).w		; Check for Start button 
+		bne.s	return_PlayPCM			; If start is pressed, stop playing, leave this loop, and unfreeze the 68K 
+		bra.s	PlayPCM_Loop			; Otherwise, continue playing PCM sample
+return_PlayPCM: 
+		addq.w	#4,sp 
 		rts
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -1350,9 +1374,7 @@ StopAllSound:
 
 		move.b	#$80,v_sound_id(a6)	; set music to $80 (silence)
 		jsr	FMSilenceAll(pc)
-		stopZ80
-                move.b  #$80,($A01FFF).l ; stop DAC playback
-                startZ80
+		move.b  #$80,($A01FFF).l ; stop DAC playback
 		bra.w	PSGSilenceAll
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
@@ -1585,15 +1607,21 @@ WriteFMIorII:
 
 ; sub_7272E:
 WriteFMI:
-		stopZ80
-                waitYM
-                move.b  d0,($A04000).l
-                waitYM
-                move.b  d1,($A04001).l
-                waitYM
-                move.b  #$2A,($A04000).l
-                startZ80
-                rts
+		move.b	(ym2612_a0).l,d2
+		btst	#7,d2		; Is FM busy?
+		bne.s	WriteFMI	; Loop if so
+		move.b	d0,(ym2612_a0).l
+		nop	
+		nop	
+		nop	
+; loc_72746:
+@waitloop:
+		move.b	(ym2612_a0).l,d2
+		btst	#7,d2		; Is FM busy?
+		bne.s	@waitloop	; Loop if so
+
+		move.b	d1,(ym2612_d0).l
+		rts	
 ; End of function WriteFMI
 
 ; ===========================================================================
@@ -1607,15 +1635,21 @@ WriteFMIIPart:
 
 ; sub_72764:
 WriteFMII:
-		stopZ80
-                waitYM
-                move.b  d0,($A04002).l
-                waitYM
-                move.b  d1,($A04003).l
-                waitYM
-                move.b  #$2A,($A04000).l
-                startZ80
-                rts	
+		move.b	(ym2612_a0).l,d2
+		btst	#7,d2		; Is FM busy?
+		bne.s	WriteFMII	; Loop if so
+		move.b	d0,(ym2612_a1).l
+		nop	
+		nop	
+		nop	
+; loc_7277C:
+@waitloop:
+		move.b	(ym2612_a0).l,d2
+		btst	#7,d2		; Is FM busy?
+		bne.s	@waitloop	; Loop if so
+
+		move.b	d1,(ym2612_d1).l
+		rts	
 ; End of function WriteFMII
 
 ; ===========================================================================
@@ -2617,6 +2651,6 @@ Music94:	incbin	"sound/music/GHZ.bin"
 		even
 Music95:	include	"sound/music/Menu.asm"
 		even
-SegaPCM:
+SegaPCM:	incbin	"sound/dac/sega.pcm"
 SegaPCM_End
 		even
