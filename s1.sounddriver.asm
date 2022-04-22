@@ -2470,7 +2470,7 @@ Music88:	incbin	"sound/music/Mus88 - Extra Life.bin"
 		even
 Music89:	incbin	"sound/music/Mus89 - Special Stage.bin"
 		even
-Music8A:	incbin	"sound/music/Mus8A - Title Screen.bin"
+Music8A:	include	"sound/music/Title.asm"
 		even
 Music8B:	incbin	"sound/music/Mus8B - Ending.bin"
 		even
