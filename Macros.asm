@@ -10,6 +10,12 @@ align:	macro
 	dcb.b (\1-(*%\1))%\1,\2
 	endc
 	endm
+	
+waitYM        macro
+@wait\@:    move.b    ($A04000).l,d2
+        btst    #7,d2
+        bne.s    @wait\@
+        endm
 
 ; ---------------------------------------------------------------------------
 ; Set a VRAM address via the VDP control port.
