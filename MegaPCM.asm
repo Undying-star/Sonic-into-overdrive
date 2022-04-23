@@ -61,7 +61,7 @@ MegaPCM:
 	dc.l	0,0					; $84	- <Free>
 	dc.l	0,0					; $85	- <Free>
 	DAC_Entry	$01, CrashHigher, pcm		; $86	- <Free>
-	DAC_Entry	$01, Crash, pcm		; $87	- <Free>
+	DAC_Entry	$02, CrashHigher, pcm		; $87	- <Free>
 	DAC_Entry	$12+4, Timpani, dpcm		; $88	- Hi-Timpani
 	DAC_Entry	$15+4, Timpani, dpcm		; $89	- Mid-Timpani
 	DAC_Entry	$1B+4, Timpani, dpcm		; $8A	- Mid-Low-Timpani
@@ -76,7 +76,6 @@ MegaPCM_End:
 	IncludeDAC	Kick, bin
 	IncludeDAC	Snare, bin
 	IncludeDAC	Timpani, bin
-	IncludeDAC	Crash, wav
 	IncludeDAC  CrashHigher, wav
 	even
 
