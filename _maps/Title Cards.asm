@@ -37,24 +37,38 @@ M_Card_LZ:	dc.b 9			; LABYRINTH
 		dc.b $F8, 5, 0,	$42, $24
 		dc.b $F8, 5, 0,	$1C, $34
 		even
-M_Card_MZ:	dc.b 6			; MARBLE
-		dc.b $F8, 5, 0,	$2A, $CF
-		dc.b $F8, 5, 0,	0, $E0
-		dc.b $F8, 5, 0,	$3A, $F0
-		dc.b $F8, 5, 0,	4, 0
-		dc.b $F8, 5, 0,	$26, $10
-		dc.b $F8, 5, 0,	$10, $20
+M_Card_MZ:	dc.b $E	;  CHEMICAL PLANT
+		dc.b $F8, 5, 0, 8, $84
+		dc.b $F8, 5, 0, $1C, $94
+		dc.b $F8, 5, 0, $10, $A4	
+		dc.b $F8, 5, 0, $2A, $B4	
+		dc.b $F8, 1, 0, $20, $C4	
+		dc.b $F8, 5, 0, 8, $CC
+		dc.b $F8, 5, 0, 0, $DC	
+		dc.b $F8, 5, 0, $26, $EC
+		dc.b $F8, 0, 0, $56, $FC	
+		dc.b $F8, 5, 0, $36, $C
+		dc.b $F8, 5, 0, $26, $1C
+		dc.b $F8, 5, 0, 0, $2C		
+		dc.b $F8, 5, 0, $2E, $3C	
+		dc.b $F8, 5, 0, $42, $4C	
 		even
-M_Card_SLZ:	dc.b 9			; STAR LIGHT
-		dc.b $F8, 5, 0,	$3E, $B4
-		dc.b $F8, 5, 0,	$42, $C4
-		dc.b $F8, 5, 0,	0, $D4
-		dc.b $F8, 5, 0,	$3A, $E4
-		dc.b $F8, 5, 0,	$26, 4
-		dc.b $F8, 1, 0,	$20, $14
-		dc.b $F8, 5, 0,	$18, $1C
-		dc.b $F8, 5, 0,	$1C, $2C
-		dc.b $F8, 5, 0,	$42, $3C
+M_Card_SLZ:	dc.b $F	;  SYLMANIA CASTLE
+		dc.b $F8, 5, 0, $3E, $84
+		dc.b $F8, 5, 0, $4A, $94	
+		dc.b $F8, 5, 0, $26, $A4	
+		dc.b $F8, 5, 0, $2A, $B4	
+		dc.b $F8, 5, 0, 0, $C4		
+		dc.b $F8, 5, 0, $2E, $D4	
+		dc.b $F8, 1, 0, $20, $E4	
+		dc.b $F8, 5, 0, 0, $EC		
+		dc.b $F8, 0, 0, $56, $FC	
+		dc.b $F8, 5, 0, 8, $C		
+		dc.b $F8, 5, 0, 0, $1C		
+		dc.b $F8, 5, 0, $3E, $2C	
+		dc.b $F8, 5, 0, $42, $3C	
+		dc.b $F8, 5, 0, $26, $4C	
+		dc.b $F8, 5, 0, $10, $5C	
 		even
 M_Card_SYZ:	dc.b 9	;  SPARKLING
 		dc.b $F8, 5, 0, $3E, $C4

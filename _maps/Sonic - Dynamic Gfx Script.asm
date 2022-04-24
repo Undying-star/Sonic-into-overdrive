@@ -91,14 +91,6 @@ SonicDynPLC_internal:
 		dc.w SonPLC_Injury-SonicDynPLC_internal
 		dc.w SonPLC_GetAir-SonicDynPLC_internal
 		dc.w SonPLC_WaterSlide-SonicDynPLC_internal
-;DPLC_bde4_B0: 	dc.w DPLC_bde4_31A-DPLC_bde4
-;DPLC_bde4_B2: 	dc.w DPLC_bde4_31D-DPLC_bde4
-;DPLC_bde4_B4: 	dc.w DPLC_bde4_320-DPLC_bde4
-;DPLC_bde4_B6: 	dc.w DPLC_bde4_323-DPLC_bde4
-;DPLC_bde4_B8: 	dc.w DPLC_bde4_326-DPLC_bde4
-;DPLC_bde4_BA: 	dc.w DPLC_bde4_329-DPLC_bde4
-;DPLC_bde4_BC: 	dc.b $0
-;DPLC_bde4_BD: 	dc.b $4
 
 SonPLC_Null:	dc.b 0
 SonPLC_Stand:	dc.b 4,	$20, 0,	$70, 3,	$20, $B, $20, $E

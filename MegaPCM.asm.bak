@@ -56,16 +56,18 @@ MegaPCM:
 ; ---------------------------------------------------------------
 
 	DAC_Entry	$1A, Kick, dpcm			; $81	- Kick
-	DAC_Entry	$04, Snare, dpcm		; $82	- Snare
+	DAC_Entry	$05, Beta, dpcm		; $82	- Beta Snare cock
 	DAC_Entry	$1B+4, Timpani, dpcm		; $83	- Timpani
 	dc.l	0,0					; $84	- <Free>
 	dc.l	0,0					; $85	- <Free>
 	DAC_Entry	$01, CrashHigher, pcm		; $86	- <Free>
 	DAC_Entry	$02, CrashHigher, pcm		; $87	- <Free>
 	DAC_Entry	$12+4, Timpani, dpcm		; $88	- Hi-Timpani
-	DAC_Entry	$15+4, Timpani, dpcm		; $89	- Mid-Timpani
+	DAC_Entry	$15+4, Timpani, dpcm		; $89h	- Mid-Timpani
 	DAC_Entry	$1B+4, Timpani, dpcm		; $8A	- Mid-Low-Timpani
 	DAC_Entry	$1D+4, Timpani, dpcm		; $8B	- Low-Timpani
+	DAC_Entry       $03, Taco, pcm
+	DAC_Entry	$04, Snare, dpcm		; $82	- Snare ORIGINAL SONIC 1 DRUMS
 
 MegaPCM_End:
 
@@ -74,8 +76,10 @@ MegaPCM_End:
 ; ---------------------------------------------------------------
 
 	IncludeDAC	Kick, bin
-	IncludeDAC	Snare, bin
+	IncludeDAC	Beta, bin ;beta cock **lenny face**
 	IncludeDAC	Timpani, bin
 	IncludeDAC  CrashHigher, wav
+	IncludeDAC      Taco, wav
+	IncludeDAC	Snare, bin ; ORIGINAL SONIC 1 DRUMS
 	even
 
