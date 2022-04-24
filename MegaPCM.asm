@@ -68,6 +68,11 @@ MegaPCM:
 	DAC_Entry	$1D+4, Timpani, dpcm		; $8B	- Low-Timpani
 	DAC_Entry       $03, Taco, pcm
 	DAC_Entry	$04, Snare, dpcm		; $82	- Snare ORIGINAL SONIC 1 DRUMS
+	DAC_Entry	$04, Clap, dpcm			; - Sonic 2 clap
+	DAC_Entry	$03, TomOne, dpcm 			;final Tom
+	DAC_Entry	$03, TomTwo, dpcm		;Sonic 2 beeta
+	DAC_Entry	$03, TomThree, dpcm 	;Sonic 2 beeta
+	DAC_Entry	$03, TomFour, dpcm  	;Sonic 2 beeta
 
 MegaPCM_End:
 
@@ -81,5 +86,10 @@ MegaPCM_End:
 	IncludeDAC  CrashHigher, wav
 	IncludeDAC      Taco, wav
 	IncludeDAC	Snare, bin ; ORIGINAL SONIC 1 DRUMS
+	IncludeDAC	Clap, wav
+	IncludeDAC	TomOne, wav
+	IncludeDAC	TomTwo, wav
+	IncludeDAC	TomThree, wav
+	IncludeDAC	TomFour, wav
 	even
 

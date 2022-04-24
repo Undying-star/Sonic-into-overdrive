@@ -1,48 +1,44 @@
-; ---------------------------------------------------------------------------
-; Sprite mappings - shield and invincibility stars
-; ---------------------------------------------------------------------------
-Map_Shield_internal:
-		dc.w @shield1-Map_Shield_internal
-		dc.w @shield2-Map_Shield_internal
-		dc.w @shield3-Map_Shield_internal
-		dc.w @shield4-Map_Shield_internal
-		dc.w @stars1-Map_Shield_internal
-		dc.w @stars2-Map_Shield_internal
-		dc.w @stars3-Map_Shield_internal
-		dc.w @stars4-Map_Shield_internal
-@shield2:	dc.b 4
-		dc.b $E8, $A, 0, 0, $E8
-		dc.b $E8, $A, 0, 9, 0
-@shield1:	dc.b 0,	$A, $10, 0, $E8
-		dc.b 0,	$A, $10, 9, 0
-@shield3:	dc.b 4
-		dc.b $E8, $A, 8, $12, $E9
-		dc.b $E8, $A, 0, $12, 0
-		dc.b 0,	$A, $18, $12, $E9
-		dc.b 0,	$A, $10, $12, 0
-@shield4:	dc.b 4
-		dc.b $E8, $A, 8, 9, $E8
-		dc.b $E8, $A, 8, 0, 0
-		dc.b 0,	$A, $18, 9, $E8
-		dc.b 0,	$A, $18, 0, 0
-@stars1:	dc.b 4
-		dc.b $E8, $A, 0, 0, $E8
-		dc.b $E8, $A, 0, 9, 0
-		dc.b 0,	$A, $18, 9, $E8
-		dc.b 0,	$A, $18, 0, 0
-@stars2:	dc.b 4
-		dc.b $E8, $A, 8, 9, $E8
-		dc.b $E8, $A, 8, 0, 0
-		dc.b 0,	$A, $10, 0, $E8
-		dc.b 0,	$A, $10, 9, 0
-@stars3:	dc.b 4
-		dc.b $E8, $A, 0, $12, $E8
-		dc.b $E8, $A, 0, $1B, 0
-		dc.b 0,	$A, $18, $1B, $E8
-		dc.b 0,	$A, $18, $12, 0
-@stars4:	dc.b 4
-		dc.b $E8, $A, 8, $1B, $E8
-		dc.b $E8, $A, 8, $12, 0
-		dc.b 0,	$A, $10, $12, $E8
-		dc.b 0,	$A, $10, $1B, 0
-		even
+Map_1e58:
+Map_1e58_0: 	dc.w Map_1e58_E-Map_1e58
+Map_1e58_2: 	dc.w Map_1e58_23-Map_1e58
+Map_1e58_4: 	dc.w Map_1e58_38-Map_1e58
+Map_1e58_6: 	dc.w Map_1e58_4D-Map_1e58
+Map_1e58_8: 	dc.w Map_1e58_62-Map_1e58
+Map_1e58_A: 	dc.w Map_1e58_77-Map_1e58
+Map_1e58_C: 	dc.w Map_1e58_8C-Map_1e58
+Map_1e58_E: 	dc.b $4
+	dc.b $E8, $A, $20, $0, $E8
+	dc.b $E8, $A, $20, $9, $0
+	dc.b $0, $A, $30, $0, $E8
+	dc.b $0, $A, $30, $9, $0
+Map_1e58_23: 	dc.b $4
+	dc.b $E8, $A, $8, $12, $E9
+	dc.b $E8, $A, $0, $12, $0
+	dc.b $0, $A, $18, $12, $E9
+	dc.b $0, $A, $10, $12, $0
+Map_1e58_38: 	dc.b $4
+	dc.b $E8, $A, $28, $9, $E8
+	dc.b $E8, $A, $28, $0, $0
+	dc.b $0, $A, $38, $9, $E8
+	dc.b $0, $A, $38, $0, $0
+Map_1e58_4D: 	dc.b $4
+	dc.b $E8, $A, $20, $0, $E8
+	dc.b $E8, $A, $20, $9, $0
+	dc.b $0, $A, $38, $9, $E8
+	dc.b $0, $A, $38, $0, $0
+Map_1e58_62: 	dc.b $4
+	dc.b $E8, $A, $28, $9, $E8
+	dc.b $E8, $A, $28, $0, $0
+	dc.b $0, $A, $30, $0, $E8
+	dc.b $0, $A, $30, $9, $0
+Map_1e58_77: 	dc.b $4
+	dc.b $E8, $A, $20, $12, $E8
+	dc.b $E8, $A, $20, $1B, $0
+	dc.b $0, $A, $38, $1B, $E8
+	dc.b $0, $A, $38, $12, $0
+Map_1e58_8C: 	dc.b $4
+	dc.b $E8, $A, $8, $1B, $E8
+	dc.b $E8, $A, $8, $12, $0
+	dc.b $0, $A, $10, $12, $E8
+	dc.b $0, $A, $10, $1B, $0
+	even
