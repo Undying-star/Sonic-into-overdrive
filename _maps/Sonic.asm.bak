@@ -80,8 +80,8 @@ ptr_MS_Surf:	dc.w MS_Surf-Map_Sonic_internal
 ptr_MS_BubStand:dc.w MS_BubStand-Map_Sonic_internal
 ptr_MS_Burnt:	dc.w MS_Burnt-Map_Sonic_internal
 ptr_MS_Drown:	dc.w MS_Drown-Map_Sonic_internal
-ptr_MS_Death:	dc.w MS_Shrink1-Map_Sonic_internal
-ptr_MS_Shrink1:	dc.w MS_Death-Map_Sonic_internal
+ptr_MS_Death:	dc.w MS_Death-Map_Sonic_internal
+ptr_MS_Shrink1:	dc.w MS_Shrink1-Map_Sonic_internal
 ptr_MS_Shrink2:	dc.w MS_Shrink2-Map_Sonic_internal
 ptr_MS_Shrink3:	dc.w MS_Shrink3-Map_Sonic_internal
 ptr_MS_Shrink4:	dc.w MS_Shrink4-Map_Sonic_internal
@@ -447,21 +447,3 @@ MS_WaterSlide:	dc.b 2			; water	slide (LZ)
 		dc.b $F0, $F, 0, 0, $EC
 		dc.b $F8, 2, 0,	$10, $C
 MS_Spindash1: 	dc.b $2
-	dc.b $F9, $E, $0, $0, $F6
-	dc.b $11, $8, $0, $C, $F6
-MS_Spindash2: 	dc.b $2
-	dc.b $F9, $E, $0, $0, $F6
-	dc.b $11, $8, $0, $C, $F6
-MS_Spindash3: 	dc.b $2
-	dc.b $F9, $E, $0, $0, $F6
-	dc.b $11, $8, $0, $C, $F6
-MS_Spindash4: 	dc.b $2
-	dc.b $F9, $E, $0, $0, $F6
-	dc.b $11, $8, $0, $C, $F6
-MS_Spindash5: 	dc.b $2
-	dc.b $F9, $E, $0, $0, $F6
-	dc.b $11, $8, $0, $C, $F6
-MS_Spindash6: 	dc.b $2
-	dc.b $F9, $E, $0, $0, $F6
-	dc.b $11, $8, $0, $C, $F6
-		even

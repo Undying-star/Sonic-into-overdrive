@@ -13,16 +13,18 @@ Map_Card:	dc.w M_Card_GHZ-Map_Card
 		dc.w M_Card_Act3-Map_Card
 		dc.w M_Card_Oval-Map_Card
 		dc.w M_Card_FZ-Map_Card
-M_Card_GHZ:	dc.b 9 			; GREEN HILL
-		dc.b $F8, 5, 0,	$18, $B4
-		dc.b $F8, 5, 0,	$3A, $C4
-		dc.b $F8, 5, 0,	$10, $D4
-		dc.b $F8, 5, 0,	$10, $E4
-		dc.b $F8, 5, 0,	$2E, $F4
-		dc.b $F8, 5, 0,	$1C, $14
-		dc.b $F8, 1, 0,	$20, $24
-		dc.b $F8, 5, 0,	$26, $2C
-		dc.b $F8, 5, 0,	$26, $3C
+M_Card_GHZ:	dc.b $B	;  GREEN HILLS
+		dc.b $F8, 5, 0, $18, $A4
+		dc.b $F8, 5, 0, $3A, $B4	
+		dc.b $F8, 5, 0, $10, $C4	
+		dc.b $F8, 5, 0, $10, $D4	
+		dc.b $F8, 5, 0, $2E, $E4	
+		dc.b $F8, 0, 0, $56, $F4	
+		dc.b $F8, 5, 0, $1C, $4
+		dc.b $F8, 1, 0, $20, $14
+		dc.b $F8, 5, 0, $26, $1C	
+		dc.b $F8, 5, 0, $26, $2C
+		dc.b $F8, 5, 0, $3E, $3C	
 		even
 M_Card_LZ:	dc.b 9			; LABYRINTH
 		dc.b $F8, 5, 0,	$26, $BC
@@ -54,17 +56,16 @@ M_Card_SLZ:	dc.b 9			; STAR LIGHT
 		dc.b $F8, 5, 0,	$1C, $2C
 		dc.b $F8, 5, 0,	$42, $3C
 		even
-M_Card_SYZ:	dc.b $A			; SPRING YARD
-		dc.b $F8, 5, 0,	$3E, $AC
-		dc.b $F8, 5, 0,	$36, $BC
-		dc.b $F8, 5, 0,	$3A, $CC
-		dc.b $F8, 1, 0,	$20, $DC
-		dc.b $F8, 5, 0,	$2E, $E4
-		dc.b $F8, 5, 0,	$18, $F4
-		dc.b $F8, 5, 0,	$4A, $14
-		dc.b $F8, 5, 0,	0, $24
-		dc.b $F8, 5, 0,	$3A, $34
-		dc.b $F8, 5, 0,	$C, $44
+M_Card_SYZ:	dc.b 9	;  SPARKLING
+		dc.b $F8, 5, 0, $3E, $C4
+		dc.b $F8, 5, 0, $36, $D4	
+		dc.b $F8, 5, 0, 0, $E4		
+		dc.b $F8, 5, 0, $3A, $F4	
+		dc.b $F8, 5, 0, $22, $4	
+		dc.b $F8, 5, 0, $26, $14	
+		dc.b $F8, 1, 0, $20, $24	
+		dc.b $F8, 5, 0, $2E, $2C	
+		dc.b $F8, 5, 0, $18, $3C	
 		even
 M_Card_SBZ:	dc.b $A			; SCRAP BRAIN
 		dc.b $F8, 5, 0,	$3E, $AC
