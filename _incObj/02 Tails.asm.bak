@@ -36,7 +36,7 @@ Tails_Control:	; Routine 2
 		jsr	Tails_Modes(pc,d1.w)
 
 loc_12C7E_2:
-		bsr.w	Tails_Display
+		bsr.s	Tails_Display
 		bsr.w	Tails_Water
 		move.b	(v_anglebuffer).w,$36(a0)
 		move.b	($FFFFF76A).w,$37(a0)
