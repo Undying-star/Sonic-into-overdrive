@@ -49,7 +49,7 @@ Sonic_ChkRoll:
 		beq.s	@rolling
 		nop
 @rolling:				
-		sfx	sfx_Roll	; play rolling sound
+		sfx	sfx_Roll,0,0,0	; play rolling sound
 		tst.w	obInertia(a0)
 		bne.s	@ismoving
 		move.w	#$200,obInertia(a0) ; set inertia if 0
