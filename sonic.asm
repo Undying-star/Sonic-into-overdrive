@@ -1971,6 +1971,11 @@ Sega_GotoTitle:
 ; ---------------------------------------------------------------------------
 
 GM_Title:
+;vvvvvvvvvvvvvvvvvvvvvv Comment this before releasing the hack
+		move.b  #1,(f_levselcheat).w
+		move.b	#1,(f_slomocheat).w	
+		move.b	#1,(f_debugcheat).w	
+;^^^^^^^^^^^^^^^^^^^^^^ Comment this before releasing the hack		
 		sfx	bgm_Stop,0,1,1 ; stop music
 		bsr.w	ClearPLC
 		bsr.w	PaletteFadeOut
@@ -2799,13 +2804,13 @@ Level_TtlCardLoop:
 		tst.w	(f_demo).w
 		bmi.s	Level_ChkDebug
 		move.b	#id_HUD,(v_objspace+$40).w ; load HUD object
-
-		move.b    #id_TailsPlayer,(v_player+$200).w ; load Tails object
-		move.l    #Map_Tails,mappings(a0)
-		lea    (Art_Tails).l,a1
-		move.w	(v_player+$8).w,(v_player+$208).w 
-		move.w	(v_player+$C).w,(v_player+$20C).w
-		subi.w	#$20,(v_player+$208).w 
+;-------------- Let's leave this out for now. - Akrenix
+		;move.b    #id_TailsPlayer,(v_player+$200).w ; load Tails object
+		;move.l    #Map_Tails,mappings(a0)
+		;lea    (Art_Tails).l,a1
+		;move.w	(v_player+$8).w,(v_player+$208).w 
+		;move.w	(v_player+$C).w,(v_player+$20C).w
+		;subi.w	#$20,(v_player+$208).w 
 
 Level_ChkDebug:
 		tst.b	(f_debugcheat).w ; has debug cheat been entered?

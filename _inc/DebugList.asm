@@ -22,7 +22,15 @@ dbug:	macro map,object,subtype,frame,vram
 
 ;		mappings	object		subtype	frame	VRAM setting
 	dbug 	Map_Ring,	id_Rings,	0,	0,	$27B2
-	dbug	Map_Monitor,	id_Monitor,	0,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	1,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	2,	0,	$680	
+	dbug	Map_Monitor,	id_Monitor,	3,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	4,	0,	$680	
+	dbug	Map_Monitor,	id_Monitor,	5,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	6,	0,	$680			
+	dbug	Map_Monitor,	id_Monitor,	7,	0,	$680	
+	dbug	Map_Monitor,	id_Monitor,	8,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	9,	0,	$680		
 	dbug	Map_Crab,	id_Crabmeat,	0,	0,	$400
 	dbug	Map_Buzz,	id_BuzzBomber,	0,	0,	$444
 	dbug	Map_Chop,	id_Chopper,	0,	0,	$47B
@@ -44,7 +52,15 @@ dbug:	macro map,object,subtype,frame,vram
 
 ;		mappings	object		subtype	frame	VRAM setting
 	dbug	Map_Ring,	id_Rings,	0,	0,	$27B2
-	dbug	Map_Monitor,	id_Monitor,	0,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	1,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	2,	0,	$680	
+	dbug	Map_Monitor,	id_Monitor,	3,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	4,	0,	$680	
+	dbug	Map_Monitor,	id_Monitor,	5,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	6,	0,	$680			
+	dbug	Map_Monitor,	id_Monitor,	7,	0,	$680	
+	dbug	Map_Monitor,	id_Monitor,	8,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	9,	0,	$680			
 	dbug	Map_Spring,	id_Springs,	0,	0,	$523
 	dbug	Map_Jaws,	id_Jaws,	8,	0,	$2486
 	dbug	Map_Burro,	id_Burrobot,	0,	2,	$84A6
@@ -75,7 +91,15 @@ dbug:	macro map,object,subtype,frame,vram
 
 ;		mappings	object		subtype	frame	VRAM setting
 	dbug	Map_Ring,	id_Rings,	0,	0,	$27B2
-	dbug	Map_Monitor,	id_Monitor,	0,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	1,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	2,	0,	$680	
+	dbug	Map_Monitor,	id_Monitor,	3,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	4,	0,	$680	
+	dbug	Map_Monitor,	id_Monitor,	5,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	6,	0,	$680			
+	dbug	Map_Monitor,	id_Monitor,	7,	0,	$680	
+	dbug	Map_Monitor,	id_Monitor,	8,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	9,	0,	$680		
 	dbug	Map_Buzz,	id_BuzzBomber,	0,	0,	$444
 	dbug	Map_Spike,	id_Spikes,	0,	0,	$51B
 	dbug	Map_Spring,	id_Springs,	0,	0,	$523
@@ -99,7 +123,15 @@ dbug:	macro map,object,subtype,frame,vram
 
 ;		mappings	object		subtype	frame	VRAM setting
 	dbug	Map_Ring,	id_Rings,	0,	0,	$27B2
-	dbug	Map_Monitor,	id_Monitor,	0,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	1,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	2,	0,	$680	
+	dbug	Map_Monitor,	id_Monitor,	3,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	4,	0,	$680	
+	dbug	Map_Monitor,	id_Monitor,	5,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	6,	0,	$680			
+	dbug	Map_Monitor,	id_Monitor,	7,	0,	$680	
+	dbug	Map_Monitor,	id_Monitor,	8,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	9,	0,	$680		
 	dbug	Map_Elev,	id_Elevator,	0,	0,	$4000
 	dbug	Map_CFlo,	id_CollapseFloor, 0,	2,	$44E0
 	dbug	Map_Plat_SLZ,	id_BasicPlatform, 0,	0,	$4000
@@ -120,7 +152,15 @@ dbug:	macro map,object,subtype,frame,vram
 
 ;		mappings	object		subtype	frame	VRAM setting
 	dbug	Map_Ring,	id_Rings,	0,	0,	$27B2
-	dbug	Map_Monitor,	id_Monitor,	0,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	1,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	2,	0,	$680	
+	dbug	Map_Monitor,	id_Monitor,	3,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	4,	0,	$680	
+	dbug	Map_Monitor,	id_Monitor,	5,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	6,	0,	$680			
+	dbug	Map_Monitor,	id_Monitor,	7,	0,	$680	
+	dbug	Map_Monitor,	id_Monitor,	8,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	9,	0,	$680	
 	dbug	Map_Spike,	id_Spikes,	0,	0,	$51B
 	dbug	Map_Spring,	id_Springs,	0,	0,	$523
 	dbug	Map_Roll,	id_Roller,	0,	0,	$4B8
@@ -141,7 +181,15 @@ dbug:	macro map,object,subtype,frame,vram
 
 ;		mappings	object		subtype	frame	VRAM setting
 	dbug	Map_Ring,	id_Rings,	0,	0,	$27B2
-	dbug	Map_Monitor,	id_Monitor,	0,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	1,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	2,	0,	$680	
+	dbug	Map_Monitor,	id_Monitor,	3,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	4,	0,	$680	
+	dbug	Map_Monitor,	id_Monitor,	5,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	6,	0,	$680			
+	dbug	Map_Monitor,	id_Monitor,	7,	0,	$680	
+	dbug	Map_Monitor,	id_Monitor,	8,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	9,	0,	$680	
 	dbug	Map_Bomb,	id_Bomb,	0,	0,	$400
 	dbug	Map_Orb,	id_Orbinaut,	0,	0,	$429
 	dbug	Map_Cat,	id_Caterkiller,	0,	0,	$22B0
@@ -176,7 +224,15 @@ dbug:	macro map,object,subtype,frame,vram
 
 ;		mappings	object		subtype	frame	VRAM setting
 	dbug	Map_Ring,	id_Rings,	0,	0,	$27B2
-	if Revision=0
+	dbug	Map_Monitor,	id_Monitor,	1,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	2,	0,	$680	
+	dbug	Map_Monitor,	id_Monitor,	3,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	4,	0,	$680	
+	dbug	Map_Monitor,	id_Monitor,	5,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	6,	0,	$680			
+	dbug	Map_Monitor,	id_Monitor,	7,	0,	$680	
+	dbug	Map_Monitor,	id_Monitor,	8,	0,	$680
+	dbug	Map_Monitor,	id_Monitor,	9,	0,	$680		
 	dbug	Map_Bump,	id_Bumper,	0,	0,	$380
 	dbug	Map_Animal2,	id_Animals,	$A,	0,	$5A0
 	dbug	Map_Animal2,	id_Animals,	$B,	0,	$5A0
@@ -189,9 +245,6 @@ dbug:	macro map,object,subtype,frame,vram
 	dbug	Map_Animal3,	id_Animals,	$12,	0,	$593
 	dbug	Map_Animal2,	id_Animals,	$13,	0,	$565
 	dbug	Map_Animal3,	id_Animals,	$14,	0,	$5B3
-	else
-	dbug	Map_Ring,	id_Rings,	0,	8,	$27B2
-	endc
 	@Endingend:
 
 	even
