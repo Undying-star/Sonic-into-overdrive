@@ -92,6 +92,11 @@ Bri_Solid:
 		addq.w	#8,d1
 		add.w	d2,d2
 		lea	(v_player).w,a1
+		movem.l	d1-d2/d3-d4,-(sp)
+		bsr.s   @SingleCharacterSolidBridge
+		movem.l	(sp)+,d1-d2/d3-d4
+		lea	(v_player+$200).w,a1
+ @SingleCharacterSolidBridge:
 		tst.w	obVelY(a1)
 		bmi.w	Plat_Exit
 		move.w	obX(a1),d0

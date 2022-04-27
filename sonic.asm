@@ -5488,6 +5488,11 @@ Map_Bri:	include	"_maps\Bridge.asm"
 
 MvSonicOnPtfm:
 		lea	(v_player).w,a1
+		movem.l	d1-d2/d3-d4,-(sp)
+		bsr.s   SingleCharacterMVptfm
+		movem.l	(sp)+,d1-d2/d3-d4
+		lea	(v_player+$200).w,a1
+SingleCharacterMVptfm:
 		move.w	obY(a0),d0
 		sub.w	d3,d0
 		bra.s	MvSonic2
@@ -5502,6 +5507,11 @@ MvSonicOnPtfm:
 
 MvSonicOnPtfm2:
 		lea	(v_player).w,a1
+		movem.l	d1-d2/d3-d4,-(sp)
+		bsr.s   SingleCharacterMVptfm2
+		movem.l	(sp)+,d1-d2/d3-d4
+		lea	(v_player+$200).w,a1
+SingleCharacterMVptfm2:
 		move.w	obY(a0),d0
 		subi.w	#9,d0
 
@@ -5520,7 +5530,7 @@ MvSonic2:
 		sub.w	d2,obX(a1)
 
 locret_7B62:
-		rts	
+		rts
 ; End of function MvSonicOnPtfm2
 
 		include	"_incObj\15 Swinging Platforms (part 2).asm"
