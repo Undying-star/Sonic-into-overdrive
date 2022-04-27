@@ -17,7 +17,8 @@ Tails_Animate:
 
 	@do:
 		add.w	d0,d0
-		adda.w	(a1,d0.w),a1	; jump to appropriate animation	script
+		add.w	d0,d0
+		adda.l	d0,a1	; jump to appropriate animation	script
 		move.b	(a1),d0
 		bmi.s	@walkrunroll	; if animation is walk/run/roll/jump, branch
 		move.b	obStatus(a0),d1
@@ -39,7 +40,7 @@ Tails_Animate:
 		addq.b	#1,obAniFrame(a0) ; next frame number
 
 	@delay:
-		rts	
+		rts
 ; ===========================================================================
 
 @end_FF:
@@ -100,11 +101,11 @@ Tails_Animate:
 		neg.w	d2		; modulus speed
 
 	@nomodspeed:
-		lea	(SonAni_Run).l,a1 ; use	running	animation
+		lea	(TailsAni_Run).l,a1 ; use	running	animation
 		cmpi.w	#$600,d2	; is Tails at running speed?
 		bcc.s	@running	; if yes, branch
 
-		lea	(SonAni_Walk).l,a1 ; use walking animation
+		lea	(TailsAni_Walk).l,a1 ; use walking animation
 		move.b	d0,d1
 		lsr.b	#1,d1
 		add.b	d1,d0
@@ -133,10 +134,10 @@ Tails_Animate:
 		neg.w	d2
 
 	@nomodspeed2:
-		lea	(SonAni_Roll2).l,a1 ; use fast animation
+		lea	(TailsAni_Roll2).l,a1 ; use fast animation
 		cmpi.w	#$600,d2	; is Tails moving fast?
 		bcc.s	@rollfast	; if yes, branch
-		lea	(SonAni_Roll).l,a1 ; use slower	animation
+		lea	(TailsAni_Roll).l,a1 ; use slower	animation
 
 	@rollfast:
 		neg.w	d2
@@ -167,7 +168,7 @@ Tails_Animate:
 	@belowmax3:
 		lsr.w	#6,d2
 		move.b	d2,obTimeFrame(a0) ; modify frame duration
-		lea	(SonAni_Push).l,a1
+		lea	(TailsAni_Push).l,a1
 		move.b	obStatus(a0),d1
 		andi.b	#1,d1
 		andi.b	#$FC,obRender(a0)
