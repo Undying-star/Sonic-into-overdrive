@@ -46,15 +46,15 @@ Over_Move:	; Routine 2
 ; ===========================================================================
 
 Over_SetWait:
-		move.w	#720,obTimeFrame(a0) ; set time delay to 12 seconds
+		move.w	#1140,obTimeFrame(a0) ; set time delay to 12 seconds
 		addq.b	#2,obRoutine(a0)
 		rts	
 ; ===========================================================================
 
 Over_Wait:	; Routine 4
-		move.b	(v_jpadpress1).w,d0
-		andi.b	#btnABC,d0	; is button A, B or C pressed?
-		bne.s	Over_ChgMode	; if yes, branch
+;		move.b	(v_jpadpress1).w,d0
+	;	andi.b	#btnABC,d0	; is button A, B or C pressed?
+;		bne.s	Over_ChgMode	; if yes, branch
 		btst	#0,obFrame(a0)
 		bne.s	Over_Display
 		tst.w	obTimeFrame(a0)	; has time delay reached zero?

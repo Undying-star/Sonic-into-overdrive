@@ -76,9 +76,15 @@ Lamp_Blue:	; Routine 2
 		sub.w	obY(a0),d0
 		addi.w	#$40,d0
 		cmpi.w	#$68,d0
-		bcc.s	@donothing
+		bcc.w	@donothing
 
 		sfx	sfx_Lamppost,0,0,0	; play lamppost sound
+		cmpi.b    #6,($FFFFFE57).w ; DeltaWooloo: from here and below is what we'll be focusing on
+		beq.s    @fail
+		cmpi.w    #$32,($FFFFFE20).w
+		bcs.s    @fail 
+		move.b    #1,($FFFFF7CD).w
+		move.b    #id_Special,(v_gamemode).w ; => SpecialStage
 		addq.b	#2,obRoutine(a0)
 		jsr	(FindFreeObj).l
 		bne.s	@fail
