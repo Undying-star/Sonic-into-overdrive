@@ -2804,13 +2804,12 @@ Level_TtlCardLoop:
 		bmi.s	Level_ChkDebug
 		move.b	#id_HUD,(v_objspace+$40).w ; load HUD object
 ;-------------- Let's leave this out for now. - Akrenix
-		;move.b    #id_TailsPlayer,(v_player+$200).w ; load Tails object
-		move.l    #Map_Tails,mappings(a0)
-		;move.l    #TailsDynPLC,mappings(a0)
-		lea    (Art_Tails).l,a0
-		;move.w	(v_player+$8).w,(v_player+$208).w 
-		;move.w	(v_player+$C).w,(v_player+$20C).w
-		;subi.w	#$20,(v_player+$208).w 
+		move.b    #$8D,(v_player+$200).w ; load Tails object
+		move.l    #Map_Tails,(v_player+$200+mappings).w
+
+		move.w	(v_player+obX).w,(v_player+$200+obX).w
+		move.w	(v_player+obY).w,(v_player+$200+obY).w
+		subi.w	#$20,(v_player+$200+obX).w
 
 Level_ChkDebug:
 		tst.b	(f_debugcheat).w ; has debug cheat been entered?
@@ -8405,7 +8404,10 @@ Nem_JapNames:	incbin	"artnem\Hidden Japanese Credits.bin"
 Map_Sonic:	include	"_maps\Sonic.asm"
 SonicDynPLC:	include	"_maps\Sonic - Dynamic Gfx Script.asm"
 Map_Tails:	incbin	"_maps\Tails.bin"
+              even
+               align $20
 TailsDynPLC:	incbin	"_maps\Tails dplc.bin"
+                 even
 ; ---------------------------------------------------------------------------
 ; Uncompressed graphics	- Sonic
 ; ---------------------------------------------------------------------------

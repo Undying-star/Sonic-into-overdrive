@@ -22,7 +22,7 @@ Tails_Main:	; Routine 0
 		move.b	#$13,obHeight(a0)
 		move.b	#9,obWidth(a0)
 		move.l	#Map_Tails,obMap(a0)
-		move.w	#$780,obGfx(a0)
+		move.w	#$79F,obGfx(a0)
 		move.b	#2,obPriority(a0)
 		move.b	#$18,obActWid(a0)
 		move.b	#4,obRender(a0)
@@ -37,12 +37,12 @@ Tails_Control:	; Routine 2
 
 loc_12C7E_2:
 		bsr.w	Tails_Display
-		bsr.w	Tails_Water
+	;	bsr.w	Tails_Water
 		move.b	(v_anglebuffer).w,$36(a0)
 		move.b	($FFFFF76A).w,$37(a0)
 		tst.b	(f_wtunnelmode).w
 		beq.s	loc_12CA6_2
-		tst.b	obAnim(a0)
+           	tst.b	obAnim(a0)
 		bne.s	loc_12CA6_2
 		move.b	obNextAni(a0),obAnim(a0)
 
@@ -53,9 +53,9 @@ loc_12CA6_2:
 		jsr	(ReactToItem).l
 
 loc_12CB6_2:
-		bsr.w	Sonic_Loops
-		bsr.w	Sonic_LoadGfx
-		rts	
+	;	bsr.w	Sonic_Loops
+		bsr.w	Tails_LoadGfx
+		rts
 ; ===========================================================================
 Tails_Modes:	dc.w Tails_MdNormal-Tails_Modes
 		dc.w Tails_MdJump-Tails_Modes
@@ -137,3 +137,39 @@ loc_12EA6_2:
 Ani_Tails:
 		include	"_anim\Tails.asm"
 		;include	"_incObj\Tails LoadGfx.asm"
+Tails_LoadGfx:
+		moveq	#0,d0
+		move.b	$1A(a0),d0	; load frame number
+	;	cmp.b	($FFFFF5C0).w,d0
+	;	beq.s	@Return
+	;	move.b	d0,($FFFFF5C0).w
+		lea	(TailsDynPLC).l,a2
+		add.w	d0,d0
+		adda.w	(a2,d0.w),a2
+		moveq	#0,d5
+		move.b	(a2)+,d5
+		subq.w	#1,d5
+		bmi.s	@Return
+		move.w	#$79F*$20,d4
+		move.l	#Art_Tails,d6
+
+	@readentry:
+		moveq	#0,d1
+		move.b	(a2)+,d1
+		lsl.w	#8,d1
+		move.b	(a2)+,d1
+		move.w	d1,d3
+		lsr.w	#8,d3
+		andi.w	#$F0,d3
+		addi.w	#$10,d3
+		andi.w	#$FFF,d1
+		lsl.l	#5,d1
+		add.l	d6,d1
+		move.w	d4,d2
+		add.w	d3,d4
+		add.w	d3,d4
+		jsr	(QueueDMATransfer).l
+                dbf	d5,@readentry	; repeat for number of entries
+
+ @Return:
+		rts
