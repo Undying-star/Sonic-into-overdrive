@@ -251,7 +251,7 @@ v_pal_water:	equ $FFFFFA80	; main underwater palette ($80 bytes)
 v_pal_dry:	equ $FFFFFB00	; main palette ($80 bytes)
 v_pal_dry_dup:	equ $FFFFFB80	; duplicate palette, used for transitions ($80 bytes)
 v_objstate:	equ $FFFFFC00	; object state list ($200 bytes)
-
+TailsSpeedBuffers: equ  $FFFFFF5C0
 
 v_systemstack:	equ $FFFFFE00
 f_restart:	equ $FFFFFE02	; restart level flag (2 bytes)

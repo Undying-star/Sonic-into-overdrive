@@ -6791,7 +6791,7 @@ Sonic_Control:	; Routine 2
 		beq.s	loc_12C58_2	; if not, branch
 		move.w	#1,(v_debuguse).w ; change Sonic into a ring/item
 		clr.b	(f_lockctrl).w
-		rts	
+		rts
 ; ===========================================================================
 
 loc_12C58_2:
@@ -6829,7 +6829,7 @@ loc_12CA6:
 loc_12CB6:
 		bsr.w	Sonic_Loops
 		bsr.w	Sonic_LoadGfx
-		rts	
+		rts
 ; ===========================================================================
 Sonic_Modes:	dc.w Sonic_MdNormal-Sonic_Modes
 		dc.w Sonic_MdJump-Sonic_Modes
@@ -7266,7 +7266,7 @@ loc_14DDE:
 		move.b	d2,d3
 
 locret_14DE6:
-		rts	
+		rts
 
 ; End of function Sonic_HitFloor
 
@@ -7290,7 +7290,7 @@ loc_14E0A:
 		move.b	d2,d3
 
 locret_14E16:
-		rts	
+		rts
 
 		include	"_incObj\sub ObjFloorDist.asm"
 
@@ -7376,7 +7376,7 @@ ObjHitWallRight:
 		move.b	#-$40,d3
 
 locret_14F06:
-		rts	
+		rts
 
 ; End of function ObjHitWallRight
 
@@ -7462,7 +7462,7 @@ ObjHitCeiling:
 		move.b	#-$80,d3
 
 locret_14FD4:
-		rts	
+		rts
 ; End of function ObjHitCeiling
 
 ; ===========================================================================
