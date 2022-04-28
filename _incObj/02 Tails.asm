@@ -26,6 +26,10 @@ Tails_Main:	; Routine 0
 		move.b	#2,obPriority(a0)
 		move.b	#$18,obActWid(a0)
 		move.b	#4,obRender(a0)
+		lea     (TailsSpeedBuffers).w,a2
+		move.w	#$600,(a2) ; tails's top speed
+		move.w	#$C,2(a2) ; tails's acceleration
+		move.w	#$80,4(a2) ; tails's deceleration
 
 Tails_Control:	; Routine 2
 		move.w	(v_jpadhold1).w,(v_jpadhold2).w ; enable joypad control
@@ -67,9 +71,9 @@ Tails_Modes:	dc.w Tails_MdNormal-Tails_Modes
 ; ---------------------------------------------------------------------------
 
 Tails_MdNormal:
-		bsr.w	Sonic_Jump
+		bsr.w	Tails_Jump
 		bsr.w	Sonic_SlopeResist
-		bsr.w	Sonic_Move
+		bsr.w	Tails_Move
 		bsr.w	Sonic_Roll
 		bsr.w	Sonic_LevelBound
 		jsr	(SpeedToPos).l
@@ -80,7 +84,7 @@ Tails_MdNormal:
 
 Tails_MdJump:
 		bsr.w	Sonic_JumpHeight
-		bsr.w	Sonic_JumpDirection
+		bsr.w	Tails_JumpDirection
 		bsr.w	Sonic_LevelBound
 		jsr	(ObjectFall).l
 		btst	#6,obStatus(a0)
@@ -94,9 +98,9 @@ loc_12E5C_2:
 ; ===========================================================================
 
 Tails_MdRoll:
-		bsr.w	Sonic_Jump
+		bsr.w	Tails_Jump
 		bsr.w	Sonic_RollRepel
-		bsr.w	Sonic_RollSpeed
+		bsr.w	TailsRollSpeed
 		bsr.w	Sonic_LevelBound
 		jsr	(SpeedToPos).l
 		bsr.w	Sonic_AnglePos
@@ -106,7 +110,7 @@ Tails_MdRoll:
 
 Tails_MdJump2:
 		bsr.w	Sonic_JumpHeight
-		bsr.w	Sonic_JumpDirection
+		bsr.w	Tails_JumpDirection
 		bsr.w	Sonic_LevelBound
 		jsr	(ObjectFall).l
 		btst	#6,obStatus(a0)
@@ -116,7 +120,7 @@ Tails_MdJump2:
 loc_12EA6_2:
 		bsr.w	Sonic_JumpAngle
 		bsr.w	Sonic_Floor
-		rts	
+		rts
 
 		;include	"_incObj\Tails Move.asm"
 		;include	"_incObj\Tails RollSpeed.asm"
@@ -173,3 +177,53 @@ Tails_LoadGfx:
 
  @Return:
 		rts
+Tails_Jump:
+		move.b	(v_jpadpress2).w,d0
+		andi.b	#btnABC,d0	; is A, B or C pressed?
+		beq.w	.return	; if not, branch
+		moveq	#0,d0
+		move.b	obAngle(a0),d0
+		addi.b	#$80,d0
+		bsr.w	sub_14D48
+		cmpi.w	#6,d1
+		blt.w	.return
+		move.w	#$680,d2
+		btst	#6,obStatus(a0)
+		beq.s	.TailsJumpPixelCalc
+		move.w	#$380,d2
+
+ .TailsJumpPixelCalc:
+		moveq	#0,d0
+		move.b	obAngle(a0),d0
+		subi.b	#$40,d0
+		jsr	(CalcSine).l
+		muls.w	d2,d1
+		asr.l	#8,d1
+		add.w	d1,obVelX(a0)	; make Sonic jump
+		muls.w	d2,d0
+		asr.l	#8,d0
+		add.w	d0,obVelY(a0)	; make Sonic jump
+		bset	#1,obStatus(a0)
+		bclr	#5,obStatus(a0)
+		addq.l	#4,sp
+		move.b	#1,$3C(a0)
+		clr.b	$38(a0)
+		sfx	sfx_Jump,0,0,0	; play jumping sound
+		move.b	#$13,obHeight(a0)
+		move.b	#9,obWidth(a0)
+		btst	#2,obStatus(a0)
+		bne.s	.setstatusnumber4
+		move.b	#$E,obHeight(a0)
+		move.b	#7,obWidth(a0)
+		move.b	#2,obAnim(a0) ; use "jumping" animation
+		bset	#2,obStatus(a0)
+		addq.w	#5,obY(a0)
+
+ .return:
+		rts
+; ===========================================================================
+
+ .setstatusnumber4:
+		bset	#4,obStatus(a0)
+		rts
+; End of function Sonic_Jump

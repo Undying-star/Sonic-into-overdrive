@@ -3,11 +3,14 @@
 ; ---------------------------------------------------------------------------
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
-
-
+Tails_JumpDirection:
+               lea     (TailsSpeedBuffers).w,a2
+                bra.s    Tails_JumpDirectionPart2
 Sonic_JumpDirection:
-		move.w	(v_sonspeedmax).w,d6
-		move.w	(v_sonspeedacc).w,d5
+                lea     (v_sonspeedmax).w,a2
+Tails_JumpDirectionPart2:
+		move.w	(a2),d6
+		move.w	2(a2),d5
 		asl.w	#1,d5
 		btst	#4,obStatus(a0)
 		bne.s	Obj01_ResetScr2
@@ -63,7 +66,7 @@ loc_132A4:
 
 loc_132C0:
 		move.w	d0,obVelX(a0)
-		rts	
+		rts
 ; ===========================================================================
 
 loc_132C6:
@@ -75,5 +78,5 @@ loc_132CE:
 		move.w	d0,obVelX(a0)
 
 locret_132D2:
-		rts	
+		rts
 ; End of function Sonic_JumpDirection

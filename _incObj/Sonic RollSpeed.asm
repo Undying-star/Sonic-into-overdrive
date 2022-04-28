@@ -4,13 +4,16 @@
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
-
-Sonic_RollSpeed:
-		move.w	(v_sonspeedmax).w,d6
+TailsRollSpeed:  
+                 lea  (TailsSpeedBuffers).w,a2
+                 bra.s  TailsRollSpeedpt2
+Sonic_RollSpeed: lea (v_sonspeedmax).w,a2
+ TailsRollSpeedpt2:
+		move.w	(a2),d6
 		asl.w	#1,d6
-		move.w	(v_sonspeedacc).w,d5
+		move.w	2(a2),d5
 		asr.w	#1,d5
-		move.w	(v_sonspeeddec).w,d4
+		move.w	4(a2),d4
 		asr.w	#2,d4
 		tst.b	(f_jumponly).w
 		bne.w	loc_131CC
@@ -89,7 +92,7 @@ Sonic_RollLeft:
 loc_1320A:
 		bset	#0,obStatus(a0)
 		move.b	#id_Roll,obAnim(a0) ; use "rolling" animation
-		rts	
+		rts
 ; ===========================================================================
 
 loc_13218:
@@ -99,7 +102,7 @@ loc_13218:
 
 loc_13220:
 		move.w	d0,obInertia(a0)
-		rts	
+		rts
 ; End of function Sonic_RollLeft
 
 
@@ -111,7 +114,7 @@ Sonic_RollRight:
 		bmi.s	loc_1323A
 		bclr	#0,obStatus(a0)
 		move.b	#id_Roll,obAnim(a0) ; use "rolling" animation
-		rts	
+		rts
 ; ===========================================================================
 
 loc_1323A:
@@ -121,5 +124,5 @@ loc_1323A:
 
 loc_13242:
 		move.w	d0,obInertia(a0)
-		rts	
+		rts
 ; End of function Sonic_RollRight

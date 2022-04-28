@@ -5,10 +5,13 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 Tails_Move:
-Sonic_Move:
-		move.w	(v_sonspeedmax).w,d6
-		move.w	(v_sonspeedacc).w,d5
-		move.w	(v_sonspeeddec).w,d4
+                lea     (TailsSpeedBuffers).w,a2
+                bra.s    TailsMovePart2
+Sonic_Move:     lea     (v_sonspeedmax).w,a2
+TailsMovePart2:
+		move.w	(a2),d6
+		move.w	2(a2),d5
+		move.w	4(a2),d4
 		tst.b	(f_jumponly).w
 		bne.w	loc_12FEE
 		tst.w	$3E(a0)
@@ -170,26 +173,26 @@ loc_13024:
 		add.w	d1,obVelX(a0)
 		bset	#5,obStatus(a0)
 		move.w	#0,obInertia(a0)
-		rts	
+		rts
 ; ===========================================================================
 
 loc_13060:
 		sub.w	d1,obVelY(a0)
-		rts	
+		rts
 ; ===========================================================================
 
 loc_13066:
 		sub.w	d1,obVelX(a0)
 		bset	#5,obStatus(a0)
 		move.w	#0,obInertia(a0)
-		rts	
+		rts
 ; ===========================================================================
 
 loc_13078:
 		add.w	d1,obVelY(a0)
 
 locret_1307C:
-		rts	
+		rts
 ; End of function Sonic_Move
 
 
@@ -242,7 +245,7 @@ loc_130BA:
 		sfx	sfx_Skid,0,0,0	; play stopping sound
 
 locret_130E8:
-		rts	
+		rts
 ; End of function Sonic_MoveLeft
 
 
@@ -290,5 +293,5 @@ loc_13120:
 		sfx	sfx_Skid,0,0,0	; play stopping sound
 
 locret_1314E:
-		rts	
+		rts
 ; End of function Sonic_MoveRight
