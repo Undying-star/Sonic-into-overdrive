@@ -17,8 +17,7 @@ Tails_Animate:
 
 	@do:
 		add.w	d0,d0
-		add.w	d0,d0
-		adda.l	d0,a1	; jump to appropriate animation	script
+		adda.w	(a1,d0.w),a1	; jump to appropriate animation	script
 		move.b	(a1),d0
 		bmi.s	@walkrunroll	; if animation is walk/run/roll/jump, branch
 		move.b	obStatus(a0),d1
