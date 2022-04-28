@@ -26,6 +26,8 @@ ZoneCount:	equ 6	; discrete zones are: GHZ, MZ, SYZ, LZ, SLZ, and SBZ
 
 OptimiseSound:	equ 0	; change to 1 to optimise sound queuing
 
+SkipError:  equ 1   ; Skip Errors
+
 ; ===========================================================================
 
 StartOfRom:
@@ -431,22 +433,44 @@ loc_43A:
 		move.l	(sp)+,(v_spbuffer).w
 		addq.w	#2,sp
 		movem.l	d0-a7,(v_regbuffer).w
+		
+		if SkipError=0
 		bsr.w	ShowErrorMessage
+		endc
+		
 		move.l	2(sp),d0
+		
+		if SkipError=0
 		bsr.w	ShowErrorValue
+		endc
+		
 		move.l	(v_spbuffer).w,d0
+		
+		if SkipError=0
 		bsr.w	ShowErrorValue
+		endc
+		
 		bra.s	loc_478
 ; ===========================================================================
 
 loc_462:
 		disable_ints
 		movem.l	d0-a7,(v_regbuffer).w
+		
+		if SkipError=0
 		bsr.w	ShowErrorMessage
+		endc
+		
 		move.l	2(sp),d0
+		
+		if SkipError=0
 		bsr.w	ShowErrorValue
+		endc
 
 loc_478:
+		if SkipError=0
+		bsr.w	ErrorWaitForC
+		endc
 		movem.l	(v_regbuffer).w,d0-a7
 		enable_ints
 		rte	
