@@ -30,6 +30,10 @@ Tails_Main:	; Routine 0
 		move.w	#$600,(a2) ; tails's top speed
 		move.w	#$C,2(a2) ; tails's acceleration
 		move.w	#$80,4(a2) ; tails's deceleration
+		jsr	FindFreeObj
+		bne.s	failMakingtailsTail
+		move.b  #$8E,(a1)
+		move.w  a0,$3E(a1)
 
 Tails_Control:	; Routine 2
 		move.w	(v_jpadhold1).w,(v_jpadhold2).w ; enable joypad control
@@ -59,6 +63,7 @@ loc_12CA6_2:
 loc_12CB6_2:
 	;	bsr.w	Sonic_Loops
 		bsr.w	Tails_LoadGfx
+ failMakingtailsTail:
 		rts
 ; ===========================================================================
 Tails_Modes:	dc.w Tails_MdNormal-Tails_Modes
@@ -141,11 +146,26 @@ loc_12EA6_2:
 Ani_Tails:
 		include	"_anim\Tails.asm"
 		;include	"_incObj\Tails LoadGfx.asm"
+LoadTailsTailsDynPLC:
+	moveq	#0,d0
+	move.b	$1A(a0),d0
+;	cmp.b	(TailsTails_LastLoadedDPLC).w,d0
+;;	beq.s	return_1D1FE
+;	move.b	d0,(TailsTails_LastLoadedDPLC).w
+	lea	(TailsDynPLC).l,a2
+	add.w	d0,d0
+	adda.w	(a2,d0.w),a2
+	moveq	#0,d5 ; this is the change in the dplc format 
+	move.b	(a2)+,d5
+	subq.w	#1,d5
+	bmi.s	TailsLoadGfxReturn
+	move.w	#$7AF*$20,d4
+	bra.s	TailsLoadGfxreadentry
 Tails_LoadGfx:
 		moveq	#0,d0
 		move.b	$1A(a0),d0	; load frame number
 	;	cmp.b	($FFFFF5C0).w,d0
-	;	beq.s	@Return
+	;	beq.s	TailsLoadGfxReturn
 	;	move.b	d0,($FFFFF5C0).w
 		lea	(TailsDynPLC).l,a2
 		add.w	d0,d0
@@ -153,11 +173,11 @@ Tails_LoadGfx:
 		moveq	#0,d5
 		move.b	(a2)+,d5
 		subq.w	#1,d5
-		bmi.s	@Return
+		bmi.s	TailsLoadGfxReturn
 		move.w	#$79F*$20,d4
 		move.l	#Art_Tails,d6
 
-	@readentry:
+	TailsLoadGfxreadentry:
 		moveq	#0,d1
 		move.b	(a2)+,d1
 		lsl.w	#8,d1
@@ -173,10 +193,11 @@ Tails_LoadGfx:
 		add.w	d3,d4
 		add.w	d3,d4
 		jsr	(QueueDMATransfer).l
-                dbf	d5,@readentry	; repeat for number of entries
+                dbf	d5,TailsLoadGfxreadentry	; repeat for number of entries
 
- @Return:
+ TailsLoadGfxReturn:
 		rts
+
 Tails_Jump:
 		move.b	(v_jpadpress2).w,d0
 		andi.b	#btnABC,d0	; is A, B or C pressed?
@@ -227,3 +248,8 @@ Tails_Jump:
 		bset	#4,obStatus(a0)
 		rts
 ; End of function Sonic_Jump
+; ===========================================================================
+; ----------------------------------------------------------------------------
+; Object 05 - Tails' tails
+; ----------------------------------------------------------------------------
+; Sprite_1D200:

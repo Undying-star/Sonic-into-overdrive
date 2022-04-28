@@ -7685,10 +7685,134 @@ BossMove:
 		add.l	d0,d3
 		move.l	d2,$30(a0)
 		move.l	d3,$38(a0)
-		rts	
+		rts
 ; End of function BossMove
 
 ; ===========================================================================
+Obj_TailsTails:
+	moveq	#0,d0
+	move.b	routine(a0),d0
+	move.w	Obj_TailsTails_Index(pc,d0.w),d1
+	jmp	Obj_TailsTails_Index(pc,d1.w)
+; ===========================================================================
+; off_1D20E: Obj_TailsTails_States:
+Obj_TailsTails_Index:
+		dc.w Obj_TailsTails_Init-Obj_TailsTails_Index	; 0
+		dc.w Obj_TailsTails_Main-Obj_TailsTails_Index	; 2
+; ===========================================================================
+
+Obj_TailsTails_parent_prev_anim = $30
+
+; loc_1D212
+Obj_TailsTails_Init:
+	addq.b	#2,routine(a0) ; => Obj_TailsTails_Main
+	move.l	#Map_Tails,mappings(a0)
+	move.w	#$7AF,art_tile(a0)
+
+	move.b	#2,priority(a0)
+	move.b	#$18,width_pixels(a0)
+	move.b	#4,render_flags(a0)
+
+; loc_1D23A:
+Obj_TailsTails_Main:
+	movea.w	$3E(a0),a2 ; a2=character
+	move.b	angle(a2),angle(a0)
+	move.b	status(a2),status(a0)
+	move.w	x_pos(a2),x_pos(a0)
+	move.w	y_pos(a2),y_pos(a0)
+	andi.w	#$7FFF,art_tile(a0)
+	tst.w	art_tile(a2)
+	bpl.s	@ArtTileIsPositve
+	ori.w	#(1<<15),art_tile(a0)
+ @ArtTileIsPositve:
+	moveq	#0,d0
+	move.b	anim(a2),d0
+	btst	#5,status(a2)
+	beq.s	@notbit5
+	moveq	#4,d0
+ @notbit5:
+	; This is here so Obj_TailsTailsAni_Flick works
+	; It changes anim(a0) itself, so we don't want the below code changing it as well
+	cmp.b	Obj_TailsTails_parent_prev_anim(a0),d0	; Did Tails' animation change?
+	beq.s	.display
+	move.b	d0,Obj_TailsTails_parent_prev_anim(a0)
+	move.b	Obj_TailsTailsAniSelection(pc,d0.w),anim(a0)	; If so, update Tails' tails' animation
+; loc_1D288:
+.display:
+	lea	(Obj_TailsTailsAniData).l,a1
+	bsr.w	Tails_Animate_Part2
+	jsr	LoadTailsTailsDynPLC
+	jsr	(DisplaySprite).l
+        rts
+; ===========================================================================
+; animation master script table for the tails
+; chooses which animation script to run depending on what Tails is doing
+; byte_1D29E:
+Obj_TailsTailsAniSelection:
+	dc.b	0,0	; TailsAni_Walk,Run	->
+	dc.b	3	; TailsAni_Roll		-> Directional
+	dc.b	3	; TailsAni_Roll2	-> Directional
+	dc.b	9	; TailsAni_Push		-> Pushing
+	dc.b	1	; TailsAni_Wait		-> Swish
+	dc.b	0	; TailsAni_Balance	-> Blank
+	dc.b	2	; TailsAni_LookUp	-> Flick
+	dc.b	1	; TailsAni_Duck		-> Swish
+	dc.b	7	; TailsAni_Spindash	-> Spindash
+	dc.b	0,0,0	; TailsAni_Dummy1,2,3	->
+	dc.b	8	; TailsAni_Stop		-> Skidding
+	dc.b	0,0	; TailsAni_Float,2	->
+	dc.b	0	; TailsAni_Spring	->
+	dc.b	0	; TailsAni_Hang		->
+	dc.b	0,0	; TailsAni_Blink,2	->
+	dc.b	$A	; TailsAni_Hang2	-> Hanging
+	dc.b	0	; TailsAni_Bubble	->
+	dc.b	0,0,0,0	; TailsAni_Death,2,3,4	->
+	dc.b	0,0	; TailsAni_Hurt,Slide	->
+	dc.b	0	; TailsAni_Blank	->
+	dc.b	0,0	; TailsAni_Dummy4,5	->
+	dc.b	0	; TailsAni_HaulAss	->
+	dc.b	0	; TailsAni_Fly		->
+	even
+
+; ---------------------------------------------------------------------------
+; Animation script - Tails' tails
+; ---------------------------------------------------------------------------
+; off_1D2C0:
+Obj_TailsTailsAniData:
+		dc.w Obj_TailsTailsAni_Blank-Obj_TailsTailsAniData	;  0
+		dc.w Obj_TailsTailsAni_Swish-Obj_TailsTailsAniData	;  1
+		dc.w Obj_TailsTailsAni_Flick-Obj_TailsTailsAniData	;  2
+		dc.w Obj_TailsTailsAni_Directional-Obj_TailsTailsAniData	;  3
+		dc.w Obj_TailsTailsAni_DownLeft-Obj_TailsTailsAniData	;  4
+		dc.w Obj_TailsTailsAni_Down-Obj_TailsTailsAniData	;  5
+		dc.w Obj_TailsTailsAni_DownRight-Obj_TailsTailsAniData	;  6
+		dc.w Obj_TailsTailsAni_Spindash-Obj_TailsTailsAniData	;  7
+		dc.w Obj_TailsTailsAni_Skidding-Obj_TailsTailsAniData	;  8
+		dc.w Obj_TailsTailsAni_Pushing-Obj_TailsTailsAniData	;  9
+		dc.w Obj_TailsTailsAni_Hanging-Obj_TailsTailsAniData	; $A
+
+Obj_TailsTailsAni_Blank:		dc.b $20,  0,$FF
+	even
+Obj_TailsTailsAni_Swish:		dc.b   7,  9, $A, $B, $C, $D,$FF
+	even
+Obj_TailsTailsAni_Flick:		dc.b   3,  9, $A, $B, $C, $D,$FD,  1
+	even
+Obj_TailsTailsAni_Directional:	dc.b $FC,$49,$4A,$4B,$4C,$FF ; Tails is moving right
+	even
+Obj_TailsTailsAni_DownLeft:	dc.b   3,$4D,$4E,$4F,$50,$FF ; Tails is moving up-right
+	even
+Obj_TailsTailsAni_Down:		dc.b   3,$51,$52,$53,$54,$FF ; Tails is moving up
+	even
+Obj_TailsTailsAni_DownRight:	dc.b   3,$55,$56,$57,$58,$FF ; Tails is moving up-left
+	even
+Obj_TailsTailsAni_Spindash:	dc.b   2,$81,$82,$83,$84,$FF
+	even
+Obj_TailsTailsAni_Skidding:	dc.b   2,$87,$88,$89,$8A,$FF
+	even
+Obj_TailsTailsAni_Pushing:	dc.b   9,$87,$88,$89,$8A,$FF
+	even
+Obj_TailsTailsAni_Hanging:	dc.b   9,$81,$82,$83,$84,$FF
+	even
 
 		include	"_incObj\3D Boss - Green Hill (part 2).asm"
 		include	"_incObj\48 Eggman's Swinging Ball.asm"

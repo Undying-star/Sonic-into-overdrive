@@ -7,6 +7,7 @@
 
 Tails_Animate:
 		lea	(Ani_Tails).l,a1
+Tails_Animate_Part2:		
 		moveq	#0,d0
 		move.b	obAnim(a0),d0
 		cmp.b	obNextAni(a0),d0 ; is animation set to restart?

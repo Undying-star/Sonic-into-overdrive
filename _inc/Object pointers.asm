@@ -142,6 +142,7 @@ ptr_CreditsText:	dc.l CreditsText
 ptr_EndEggman:		dc.l EndEggman
 ptr_TryChaos:		dc.l TryChaos
 ptr_TailsPlayer:    dc.l TailsPlayer    ; $01
+                    dc.l  Obj_TailsTails  ;8E
 
 NullObject:
 		;jmp	(DeleteObject).l	; It would be safer to have this instruction here, but instead it just falls through to ObjectFall
