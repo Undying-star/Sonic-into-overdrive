@@ -172,12 +172,12 @@ Debug_ChgItem:
 		move.b	(v_debugitem).w,d0
 		lsl.w	#3,d0
 		move.b	4(a2,d0.w),obSubtype(a1)
-		rts	
+		rts
 ; ===========================================================================
 
 @backtonormal:
 		btst	#bitB,(v_jpadpress1).w ; is button B pressed?
-		beq.s	@stayindebug	; if not, branch
+		beq.w	@stayindebug	; if not, branch
 		moveq	#0,d0
 		move.w	d0,(v_debuguse).w ; deactivate debug mode
 		move.l	#Map_Sonic,(v_player+obMap).w
@@ -188,11 +188,15 @@ Debug_ChgItem:
 		move.w	d0,obVelY(a0)
 		move.w	(v_limittopdb).w,(v_limittop2).w ; restore level boundaries
 		move.w	(v_limitbtmdb).w,(v_limitbtm1).w
-		move.l    #Map_Tails,(v_player+$200+mappings).w
-
+		movea.w  a0,a2
+                lea      (v_player+$200).w,a0
 		move.w	(v_player+obX).w,(v_player+$200+obX).w
 		move.w	(v_player+obY).w,(v_player+$200+obY).w
 		subi.w	#$20,(v_player+$200+obX).w
+		move.w	d0,obInertia(a0)
+		move.w	d0,obVelX(a0)
+		move.w	d0,obVelY(a0)
+		movea.w  a2,a0
 		cmpi.b	#id_Special,(v_gamemode).w ; are you in the special stage?
 		bne.s	@stayindebug	; if not, branch
 
@@ -205,7 +209,7 @@ Debug_ChgItem:
 		bset	#1,(v_player+obStatus).w
 
 	@stayindebug:
-		rts	
+		rts
 ; End of function Debug_Control
 
 
@@ -219,5 +223,5 @@ Debug_ShowItem:
 		move.l	(a2,d0.w),obMap(a0) ; load mappings for item
 		move.w	6(a2,d0.w),obGfx(a0) ; load VRAM setting for item
 		move.b	5(a2,d0.w),obFrame(a0) ; load frame number for item
-		rts	
+		rts
 ; End of function Debug_ShowItem
