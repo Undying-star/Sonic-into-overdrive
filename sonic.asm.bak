@@ -20,11 +20,13 @@ AddressSRAM:	equ 3	; 0 = odd+even; 2 = even only; 3 = odd only
 ; Change to 0 to build the original version of the game, dubbed REV00
 ; Change to 1 to build the later vesion, dubbed REV01, which includes various bugfixes and enhancements
 ; Change to 2 to build the version from Sonic Mega Collection, dubbed REVXB, which fixes the infamous "spike bug"
-Revision:	equ 1
+Revision:	equ 2
 
 ZoneCount:	equ 6	; discrete zones are: GHZ, MZ, SYZ, LZ, SLZ, and SBZ
 
 OptimiseSound:	equ 0	; change to 1 to optimise sound queuing
+
+SkipError:  equ 1   ; Skip Errors
 
 ; ===========================================================================
 
@@ -431,23 +433,44 @@ loc_43A:
 		move.l	(sp)+,(v_spbuffer).w
 		addq.w	#2,sp
 		movem.l	d0-a7,(v_regbuffer).w
+		
+		if SkipError=0
 		bsr.w	ShowErrorMessage
+		endc
+		
 		move.l	2(sp),d0
+		
+		if SkipError=0
 		bsr.w	ShowErrorValue
+		endc
+		
 		move.l	(v_spbuffer).w,d0
+		
+		if SkipError=0
 		bsr.w	ShowErrorValue
+		endc
+		
 		bra.s	loc_478
 ; ===========================================================================
 
 loc_462:
 		disable_ints
 		movem.l	d0-a7,(v_regbuffer).w
+		
+		if SkipError=0
 		bsr.w	ShowErrorMessage
+		endc
+		
 		move.l	2(sp),d0
+		
+		if SkipError=0
 		bsr.w	ShowErrorValue
+		endc
 
 loc_478:
+		if SkipError=0
 		bsr.w	ErrorWaitForC
+		endc
 		movem.l	(v_regbuffer).w,d0-a7
 		enable_ints
 		rte	
@@ -1971,6 +1994,11 @@ Sega_GotoTitle:
 ; ---------------------------------------------------------------------------
 
 GM_Title:
+;vvvvvvvvvvvvvvvvvvvvvv Comment this before releasing the hack
+		move.b  #1,(f_levselcheat).w
+		move.b	#1,(f_slomocheat).w	
+		move.b	#1,(f_debugcheat).w	
+;^^^^^^^^^^^^^^^^^^^^^^ Comment this before releasing the hack		
 		sfx	bgm_Stop,0,1,1 ; stop music
 		bsr.w	ClearPLC
 		bsr.w	PaletteFadeOut
@@ -2799,13 +2827,13 @@ Level_TtlCardLoop:
 		tst.w	(f_demo).w
 		bmi.s	Level_ChkDebug
 		move.b	#id_HUD,(v_objspace+$40).w ; load HUD object
+;-------------- Let's leave this out for now. - Akrenix
+		;move.b    #$8D,(v_player+$200).w ; load Tails object
+		;move.l    #Map_Tails,(v_player+$200+mappings).w
 
-		move.b    #id_TailsPlayer,(v_player+$200).w ; load Tails object
-		move.l    #Map_Tails,mappings(a0)
-		;lea    (Art_Tails).l,a1
-		move.w	(v_player+$8).w,(v_player+$208).w 
-		move.w	(v_player+$C).w,(v_player+$20C).w
-		subi.w	#$20,(v_player+$208).w 
+		move.w	(v_player+obX).w,(v_player+$200+obX).w
+		move.w	(v_player+obY).w,(v_player+$200+obY).w
+		subi.w	#$20,(v_player+$200+obX).w
 
 Level_ChkDebug:
 		tst.b	(f_debugcheat).w ; has debug cheat been entered?
@@ -5484,6 +5512,11 @@ Map_Bri:	include	"_maps\Bridge.asm"
 
 MvSonicOnPtfm:
 		lea	(v_player).w,a1
+		movem.l	d1-d2/d3-d4,-(sp)
+		bsr.s   SingleCharacterMVptfm
+		movem.l	(sp)+,d1-d2/d3-d4
+		lea	(v_player+$200).w,a1
+SingleCharacterMVptfm:
 		move.w	obY(a0),d0
 		sub.w	d3,d0
 		bra.s	MvSonic2
@@ -5498,6 +5531,11 @@ MvSonicOnPtfm:
 
 MvSonicOnPtfm2:
 		lea	(v_player).w,a1
+		movem.l	d1-d2/d3-d4,-(sp)
+		bsr.s   SingleCharacterMVptfm2
+		movem.l	(sp)+,d1-d2/d3-d4
+		lea	(v_player+$200).w,a1
+SingleCharacterMVptfm2:
 		move.w	obY(a0),d0
 		subi.w	#9,d0
 
@@ -5516,7 +5554,7 @@ MvSonic2:
 		sub.w	d2,obX(a1)
 
 locret_7B62:
-		rts	
+		rts
 ; End of function MvSonicOnPtfm2
 
 		include	"_incObj\15 Swinging Platforms (part 2).asm"
@@ -6777,7 +6815,7 @@ Sonic_Control:	; Routine 2
 		beq.s	loc_12C58_2	; if not, branch
 		move.w	#1,(v_debuguse).w ; change Sonic into a ring/item
 		clr.b	(f_lockctrl).w
-		rts	
+		rts
 ; ===========================================================================
 
 loc_12C58_2:
@@ -6815,7 +6853,7 @@ loc_12CA6:
 loc_12CB6:
 		bsr.w	Sonic_Loops
 		bsr.w	Sonic_LoadGfx
-		rts	
+		rts
 ; ===========================================================================
 Sonic_Modes:	dc.w Sonic_MdNormal-Sonic_Modes
 		dc.w Sonic_MdJump-Sonic_Modes
@@ -7252,7 +7290,7 @@ loc_14DDE:
 		move.b	d2,d3
 
 locret_14DE6:
-		rts	
+		rts
 
 ; End of function Sonic_HitFloor
 
@@ -7276,7 +7314,7 @@ loc_14E0A:
 		move.b	d2,d3
 
 locret_14E16:
-		rts	
+		rts
 
 		include	"_incObj\sub ObjFloorDist.asm"
 
@@ -7362,7 +7400,7 @@ ObjHitWallRight:
 		move.b	#-$40,d3
 
 locret_14F06:
-		rts	
+		rts
 
 ; End of function ObjHitWallRight
 
@@ -7448,7 +7486,7 @@ ObjHitCeiling:
 		move.b	#-$80,d3
 
 locret_14FD4:
-		rts	
+		rts
 ; End of function ObjHitCeiling
 
 ; ===========================================================================
@@ -8399,8 +8437,11 @@ Nem_JapNames:	incbin	"artnem\Hidden Japanese Credits.bin"
 
 Map_Sonic:	include	"_maps\Sonic.asm"
 SonicDynPLC:	include	"_maps\Sonic - Dynamic Gfx Script.asm"
-Map_Tails:	include	"_maps\Tails.asm"
-TailsDynPLC:	incbin	"_maps\Tails dlpc.bin"
+Map_Tails:	incbin	"_maps\Tails.bin"
+              even
+               align $20
+TailsDynPLC:	incbin	"_maps\Tails dplc.bin"
+                 even
 ; ---------------------------------------------------------------------------
 ; Uncompressed graphics	- Sonic
 ; ---------------------------------------------------------------------------
