@@ -47,7 +47,7 @@ Pow_ChkEggman:
 		move.b	obAnim(a0),d0
 		cmpi.b	#1,d0		; does monitor contain Eggman?
 		bne.s	Pow_ChkSonic
-		rts			; Eggman monitor does nothing
+		bra		Spik_Hurt  ; Eggman monitor hurts Sonic
 ; ===========================================================================
 
 Pow_ChkSonic:
@@ -106,7 +106,7 @@ Pow_ChkInvinc:
 ; ===========================================================================
 
 Pow_NoMusic:
-        lea    (MusicList).l,a1 ; load    music playlist
+		move.l   (MusicList).l,a1 ; load    music playlist
 		rts	
 ; ===========================================================================
 
@@ -132,7 +132,18 @@ Pow_ChkRings:
 Pow_ChkS:
 		cmpi.b	#7,d0		; does monitor contain 'S'?
 		bne.s	Pow_ChkEnd
-		nop	
+		move.b	#1,(v_invinc).w	; make Sonic invincible
+		move.w	#$0,(v_player+$32).w ; time limit for the power-up
+		move.b	#id_ShieldItem,(v_objspace+$200).w ; load stars object ($3801)
+		move.b	#1,(v_objspace+$200+obAnim).w
+		move.b	#id_ShieldItem,(v_objspace+$240).w ; load stars object ($3802)
+		move.b	#2,(v_objspace+$240+obAnim).w
+		move.b	#id_ShieldItem,(v_objspace+$280).w ; load stars object ($3803)
+		move.b	#3,(v_objspace+$280+obAnim).w
+		move.b	#id_ShieldItem,(v_objspace+$2C0).w ; load stars object ($3804)
+		move.w	#$C00,(v_sonspeedmax).w ; change Sonic's top speed
+		move.w	#$18,(v_sonspeedacc).w	; change Sonic's acceleration
+		move.w	#$80,(v_sonspeeddec).w	; change Sonic's deceleration		
 
 Pow_ChkEnd:
 		rts			; 'S' and goggles monitors do nothing
