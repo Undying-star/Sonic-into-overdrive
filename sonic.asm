@@ -5475,6 +5475,9 @@ ExitPlatform:
 ExitPlatform2:
 		add.w	d2,d2
 		lea	(v_player).w,a1
+		bsr.s   @singleobjexit
+		lea     $200(a1),a1
+ @singleobjexit:
 		btst	#1,obStatus(a1)
 		bne.s	loc_75E0
 		move.w	obX(a1),d0
@@ -5490,7 +5493,7 @@ loc_75E0:
 		bclr	#3,obStatus(a0)
 
 locret_75F2:
-		rts	
+		rts
 ; End of function ExitPlatform
 
 		include	"_incObj\11 Bridge (part 3).asm"
@@ -5507,10 +5510,13 @@ Map_Bri:	include	"_maps\Bridge.asm"
 
 MvSonicOnPtfm:
 		lea	(v_player).w,a1
-		movem.l	d1-d2/d3-d4,-(sp)
+
 		bsr.s   SingleCharacterMVptfm
-		movem.l	(sp)+,d1-d2/d3-d4
-		lea	(v_player+$200).w,a1
+
+
+
+		lea	$200(a1),a1
+
 SingleCharacterMVptfm:
 		move.w	obY(a0),d0
 		sub.w	d3,d0
@@ -5526,10 +5532,12 @@ SingleCharacterMVptfm:
 
 MvSonicOnPtfm2:
 		lea	(v_player).w,a1
-		movem.l	d1-d2/d3-d4,-(sp)
 		bsr.s   SingleCharacterMVptfm2
-		movem.l	(sp)+,d1-d2/d3-d4
-		lea	(v_player+$200).w,a1
+
+
+		lea	$200(a1),a1
+
+
 SingleCharacterMVptfm2:
 		move.w	obY(a0),d0
 		subi.w	#9,d0
@@ -5537,7 +5545,7 @@ SingleCharacterMVptfm2:
 MvSonic2:
 		tst.b	(f_lockmulti).w
 		bmi.s	locret_7B62
-		cmpi.b	#6,(v_player+obRoutine).w
+		cmpi.b	#6,obRoutine(a1)
 		bhs.s	locret_7B62
 		tst.w	(v_debuguse).w
 		bne.s	locret_7B62
