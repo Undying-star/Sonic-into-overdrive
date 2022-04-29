@@ -149,13 +149,25 @@ ob2ndRout:	equ $25	; secondary routine number
 obAngle:	equ $26	; angle
 obSubtype:	equ $28	; object subtype
 obSolid:	equ ob2ndRout ; solid status flag
-
+inertia =		$14 ; and $15 ; directionless representation of speed... not updated in the air
+double_jump_flag =	$21
+flip_angle =		$27 ; angle about the x axis (360 degrees = 256) (twist/tumble)
+air_left =		$28
+flip_turned =		$29 ; 0 for normal, 1 to invert flipping (it's a 180 degree rotation about the axis of Sonic's spine, so he stays in the same position but looks turned around)
+obj_control =		$2A ; 0 for normal, 1 for hanging or for resting on a flipper, $81 for going through CNZ/OOZ/MTZ tubes or stopped in CNZ cages or stoppers or flying if Tails
+status_secondary =	$2B
+flips_remaining =	$2C ; number of flip revolutions remaining
+flip_speed =		$2D ; number of flip revolutions per frame / 256
 ; Object variables used by Sonic
 flashtime:	equ $30	; time between flashes after getting hit
 invtime:	equ $32	; time left for invincibility
 shoetime:	equ $34	; time left for speed shoes
 standonobject:	equ $3D	; object Sonic stands on
-
+interact equ   standonobject
+spindash_flag =		$39 ; 0 for normal, 1 for charging a spindash or forced rolling
+spindash_counter =	$3A ; and $3B
+restart_countdown =	spindash_counter; and 1+spindash_counter ;s3 thing
+move_lock =		$2E ; and $2F ; horizontal control lock, counts down to 0
 ; Object variables (Sonic 2 disassembly nomenclature)
 render_flags:	equ 1	; bitfield for x/y flip, display mode
 art_tile:	equ 2	; palette line & VRAM setting (2 bytes)

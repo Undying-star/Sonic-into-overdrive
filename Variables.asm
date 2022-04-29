@@ -19,7 +19,35 @@ v_player:	equ v_objspace	; object variable space for Sonic ($40 bytes)
 v_lvlobjspace:	equ $FFFFD800	; level object variable space ($1800 bytes)
 
 v_snddriver_ram:	equ $FFFFF000 ; start of RAM for the sound driver data ($5C0 bytes)
+Ctrl_2_Logical =		 $FFFFF66A  ; 2 bytes
+Ctrl_2_Held_Logical =	 $FFFFF66A ; 1 byte
+Ctrl_2_Press_Logical =		 $FFFFF66B ; 1 byte
+Sonic_Look_delay_counter = 	 $FFFFF66C  ; 2 bytes
+Tails_Look_delay_counter = 	 $FFFFF66E  ; 2 bytes
+Ctrl_1_Logical =		$FFFFF602  ; 2 bytes
+Ctrl_1_Held_Logical =	  $FFFFF602  ; 1 byte
+Ctrl_1_Press_Logical =	 $FFFFF603  ; 1 byte
+Ctrl_1 =			 $FFFFF604  ; 2 bytes
+Ctrl_1_Held =			 $FFFFF604  ; 1 byte ; (pressed and held were switched around before)
+Ctrl_1_Press =		$FFFFF605  ; 1 byte
+Ctrl_2 =			 $FFFFF606  ; 2 bytes
+Ctrl_2_Held =		 $FFFFF606  ; 1 byte
+Ctrl_2_Press =			 $FFFFF607  ; 1 byte
+Tails_control_counter =		v_sgfx_buffer+$210;	 $FFFFF702  ; how long until the CPU takes control
+Tails_respawn_counter =		v_sgfx_buffer+$20E;	 $FFFFF704
+Tails_CPU_routine =		 v_sgfx_buffer+$20C;	 $FFFFF708
+Tails_CPU_target_x =		 v_sgfx_buffer+$208;	 $FFFFF70A
+Tails_CPU_target_y =	 v_sgfx_buffer+$204	;	 $FFFFF70C
+Tails_interact_ID =	v_sgfx_buffer+$200	;	 $FFFFF70E  ; object ID of last object stood on
+Timer_frames =			$FFFFFE04 ; (2 bytes)
+Sonic_Stat_Record_Buf =		 $FFFF8200 ;v_sgfx_buffer
 
+
+
+Tails_Pos_Record_Buf =		 $FFFF8000; v_lvllayout-$400
+Tails_Pos_Record_Index =	 $FFFF8400;v_lvllayout-$400  ; into Tails_Pos_Record_Buf
+Water_Level_1 =			 $FFFFF646
+Water_flag =			 $FFFFF730  ; if the level has water or oil
 ; =================================================================================
 ; From here on, until otherwise stated, all offsets are relative to v_snddriver_ram
 ; =================================================================================
@@ -347,5 +375,6 @@ v_creditsnum:	equ $FFFFFFF4	; credits index number (2 bytes)
 v_megadrive:	equ $FFFFFFF8	; Megadrive machine type
 f_debugmode:	equ $FFFFFFFA	; debug mode flag (sometimes 2 bytes)
 v_init:		equ $FFFFFFFC	; 'init' text string (4 bytes)
+Sonic_Pos_Record_Index =	v_trackpos  ; into Sonic_Pos_Record_Buf and Sonic_Stat_Record_Buf
+Sonic_Pos_Record_Buf =		 v_tracksonic
 
-f_spindash		= $39
