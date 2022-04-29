@@ -3,39 +3,39 @@
 ; ---------------------------------------------------------------------------
 ; off_1D038:
 TailsAniData:
-TailsAni_Walk_ptr:	dc.w  TailsAni_Walk-TailsAniData	;  0 ;   0
-TailsAni_Run_ptr:	dc.w  TailsAni_Run-TailsAniData		;  1 ;   1
-TailsAni_Roll_ptr:	dc.w  TailsAni_Roll-TailsAniData	;  2 ;   2
-TailsAni_Roll2_ptr:	dc.w  TailsAni_Roll2-TailsAniData	;  3 ;   3
-TailsAni_Push_ptr:	dc.w  TailsAni_Push-TailsAniData	;  4 ;   4
-TailsAni_Wait_ptr:	dc.w  TailsAni_Wait-TailsAniData	;  5 ;   5
-TailsAni_Balance_ptr:	dc.w  TailsAni_Balance-TailsAniData	;  6 ;   6
-TailsAni_LookUp_ptr:	dc.w  TailsAni_LookUp-TailsAniData	;  7 ;   7
-TailsAni_Duck_ptr:	dc.w  TailsAni_Duck-TailsAniData	;  8 ;   8
-TailsAni_Spindash_ptr:	dc.w  TailsAni_Spindash-TailsAniData	;  9 ;   9
-TailsAni_Dummy1_ptr:	dc.w  TailsAni_Dummy1-TailsAniData	; 10 ;  $A
-TailsAni_Dummy2_ptr:	dc.w  TailsAni_Dummy2-TailsAniData	; 11 ;  $B
-TailsAni_Dummy3_ptr:	dc.w  TailsAni_Dummy3-TailsAniData	; 12 ;  $C
-TailsAni_Stop_ptr:	dc.w  TailsAni_Stop-TailsAniData	; 13 ;  $D
-TailsAni_Float_ptr:	dc.w  TailsAni_Float-TailsAniData	; 14 ;  $E
-TailsAni_Float2_ptr:	dc.w  TailsAni_Float2-TailsAniData	; 15 ;  $F
-TailsAni_Spring_ptr:	dc.w  TailsAni_Spring-TailsAniData	; 16 ; $10
-TailsAni_Hang_ptr:	dc.w  TailsAni_Hang-TailsAniData	; 17 ; $11
-TailsAni_Blink_ptr:	dc.w  TailsAni_Blink-TailsAniData	; 18 ; $12
-TailsAni_Blink2_ptr:	dc.w  TailsAni_Blink2-TailsAniData	; 19 ; $13
-TailsAni_Hang2_ptr:	dc.w  TailsAni_Hang2-TailsAniData	; 20 ; $14
-TailsAni_Bubble_ptr:	dc.w  TailsAni_Bubble-TailsAniData	; 21 ; $15
-TailsAni_DeathBW_ptr:	dc.w  TailsAni_DeathBW-TailsAniData	; 22 ; $16
-TailsAni_Drown_ptr:	dc.w  TailsAni_Drown-TailsAniData	; 23 ; $17
-TailsAni_Death_ptr:	dc.w  TailsAni_Death-TailsAniData	; 24 ; $18
-TailsAni_Hurt_ptr:	dc.w  TailsAni_Hurt-TailsAniData	; 25 ; $19
-TailsAni_Hurt2_ptr:	dc.w  TailsAni_Hurt2-TailsAniData	; 26 ; $1A
-TailsAni_Slide_ptr:	dc.w  TailsAni_Slide-TailsAniData	; 27 ; $1B
-TailsAni_Blank_ptr:	dc.w  TailsAni_Blank-TailsAniData	; 28 ; $1C
-TailsAni_Dummy4_ptr:	dc.w  TailsAni_Dummy4-TailsAniData	; 29 ; $1D
-TailsAni_Dummy5_ptr:	dc.w  TailsAni_Dummy5-TailsAniData	; 30 ; $1E
-TailsAni_HaulAss_ptr:	dc.w  TailsAni_HaulAss-TailsAniData	; 31 ; $1F
-TailsAni_Fly_ptr:	dc.w  TailsAni_Fly-TailsAniData		; 32 ; $20
+TailsAni_Walk_ptr:	dc.l  TailsAni_Walk	;  0 ;   0
+TailsAni_Run_ptr:	dc.l  TailsAni_Run		;  1 ;   1
+TailsAni_Roll_ptr:	dc.l  TailsAni_Roll	;  2 ;   2
+TailsAni_Roll2_ptr:	dc.l  TailsAni_Roll2	;  3 ;   3
+TailsAni_Push_ptr:	dc.l  TailsAni_Push	;  4 ;   4
+TailsAni_Wait_ptr:	dc.l  TailsAni_Wait	;  5 ;   5
+TailsAni_Balance_ptr:	dc.l  TailsAni_Balance	;  6 ;   6
+TailsAni_LookUp_ptr:	dc.l  TailsAni_LookUp	;  7 ;   7
+TailsAni_Duck_ptr:	dc.l  TailsAni_Duck	;  8 ;   8
+TailsAni_Spindash_ptr:	dc.l  TailsAni_Spindash	;  9 ;   9
+TailsAni_Dummy1_ptr:	dc.l  TailsAni_Dummy1	; 10 ;  $A
+TailsAni_Dummy2_ptr:	dc.l  TailsAni_Dummy2	; 11 ;  $B
+TailsAni_Dummy3_ptr:	dc.l  TailsAni_Dummy3	; 12 ;  $C
+TailsAni_Stop_ptr:	dc.l  TailsAni_Stop	; 13 ;  $D
+TailsAni_Float_ptr:	dc.l  TailsAni_Float	; 14 ;  $E
+TailsAni_Float2_ptr:	dc.l  TailsAni_Float2	; 15 ;  $F
+TailsAni_Spring_ptr:	dc.l  TailsAni_Spring	; 16 ; $10
+TailsAni_Hang_ptr:	dc.l  TailsAni_Hang	; 17 ; $11
+TailsAni_Blink_ptr:	dc.l  TailsAni_Blink	; 18 ; $12
+TailsAni_Blink2_ptr:	dc.l  TailsAni_Blink2	; 19 ; $13
+TailsAni_Hang2_ptr:	dc.l  TailsAni_Hang2	; 20 ; $14
+TailsAni_Bubble_ptr:	dc.l  TailsAni_Bubble	; 21 ; $15
+TailsAni_DeathBW_ptr:	dc.l  TailsAni_DeathBW	; 22 ; $16
+TailsAni_Drown_ptr:	dc.l  TailsAni_Drown	; 23 ; $17
+TailsAni_Death_ptr:	dc.l  TailsAni_Death	; 24 ; $18
+TailsAni_Hurt_ptr:	dc.l  TailsAni_Hurt	; 25 ; $19
+TailsAni_Hurt2_ptr:	dc.l  TailsAni_Hurt2	; 26 ; $1A
+TailsAni_Slide_ptr:	dc.l  TailsAni_Slide	; 27 ; $1B
+TailsAni_Blank_ptr:	dc.l  TailsAni_Blank	; 28 ; $1C
+TailsAni_Dummy4_ptr:	dc.l  TailsAni_Dummy4	; 29 ; $1D
+TailsAni_Dummy5_ptr:	dc.l  TailsAni_Dummy5	; 30 ; $1E
+TailsAni_HaulAss_ptr:	dc.l  TailsAni_HaulAss	; 31 ; $1F
+TailsAni_Fly_ptr:	dc.l  TailsAni_Fly		; 32 ; $20
 
 TailsAni_Walk:	dc.b $FF,$10,$11,$12,$13,$14,$15, $E, $F,$FF
 	even
