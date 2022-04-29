@@ -2110,6 +2110,7 @@ GM_Title:
 		dbf	d1,Tit_ClrObj2
 
 		move.b	#id_TitleSonic,(v_objspace+$40).w ; load big Sonic object
+	;	move.b	#id_TitleTails,(v_objspace+$40).w ; load big Tails object
 		move.b	#id_PSBTM,(v_objspace+$80).w ; load "PRESS START BUTTON" object
 		;clr.b	(v_objspace+$80+obRoutine).w ; The 'Mega Games 10' version of Sonic 1 added this line, to fix the 'PRESS START BUTTON' object not appearing
 		;move.b	#id_PSBTM,(v_objspace+$C0).w ; load "TM" object
@@ -5867,6 +5868,7 @@ Map_Monitor:	include	"_maps\Monitor.asm"
 
 Map_PSB:	include	"_maps\Press Start and TM.asm"
 Map_TSon:	include	"_maps\Title Screen Sonic.asm"
+Map_TTails:	incbin	"_maps\Tails in title screen.bin"
 
 		include	"_incObj\2B Chopper.asm"
 		include	"_anim\Chopper.asm"
@@ -8552,6 +8554,8 @@ Eni_SegaLogo:	incbin	"tilemaps\Sega Logo.bin" ; large Sega logo (mappings)
 Eni_Title:	incbin	"tilemaps\Title Screen.bin" ; title screen foreground (mappings)
 		even
 Nem_TitleFg:	incbin	"artnem\Title Screen Foreground.bin"
+		even
+Nem_TitleTails: incbin	"artnem\Tails art in the title screen.bin"
 		even
 Nem_TitleSonic:	incbin	"artnem\Title Screen Sonic.bin"
 		even
