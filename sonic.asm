@@ -2002,11 +2002,11 @@ GM_Title:
 		lea	(vdp_control_port).l,a6
 		move.w	#$8004,(a6)	; 8-colour mode
 		move.w	#$8200+(vram_fg>>10),(a6) ; set foreground nametable address
-		move.w	#$8400+(vram_bg>>13),(a6) ; set background nametable address
+		;move.w	#$8400+(vram_bg>>13),(a6) ; set background nametable address
 		move.w	#$9001,(a6)	; 64-cell hscroll size
 		move.w	#$9200,(a6)	; window vertical position
 		move.w	#$8B03,(a6)
-		move.w	#$8720,(a6)	; set background colour (palette line 2, entry 0)
+		;move.w	#$8720,(a6)	; set background colour (palette line 2, entry 0)
 		clr.b	(f_wtr_state).w
 		bsr.w	ClearScreen
 
@@ -2068,34 +2068,34 @@ GM_Title:
 		move.w	#(id_GHZ<<8),(v_zone).w	; set level to GHZ (00)
 		move.w	#0,(v_pcyc_time).w ; disable palette cycling
 		bsr.w	LevelSizeLoad
-		bsr.w	DeformLayers
-		lea	(v_16x16).w,a1
-		lea	(Blk16_GHZ).l,a0 ; load	GHZ 16x16 mappings
-		move.w	#0,d0
-		bsr.w	EniDec
-		lea	(Blk256_GHZ).l,a0 ; load GHZ 256x256 mappings
-		lea	(v_256x256).l,a1
-		bsr.w	KosDec
-		bsr.w	LevelLayoutLoad
+		;bsr.w	DeformLayers
+		;lea	(v_16x16).w,a1
+		;lea	(Blk16_GHZ).l,a0 ; load	GHZ 16x16 mappings
+		;move.w	#0,d0
+		;bsr.w	EniDec
+		;lea	(Blk256_GHZ).l,a0 ; load GHZ 256x256 mappings
+		;lea	(v_256x256).l,a1
+		;bsr.w	KosDec
+		;bsr.w	LevelLayoutLoad
 		bsr.w	PaletteFadeOut
-		disable_ints
+		;disable_ints
 		bsr.w	ClearScreen
 		lea	(vdp_control_port).l,a5
 		lea	(vdp_data_port).l,a6
 		lea	(v_bgscreenposx).w,a3
 		lea	(v_lvllayout+$40).w,a4
-		move.w	#$6000,d2
-		bsr.w	DrawChunks
+		;move.w	#$6000,d2
+		;bsr.w	DrawChunks
 		lea	($FF0000).l,a1
 		lea	(Eni_Title).l,a0 ; load	title screen mappings
 		move.w	#0,d0
-		bsr.w	EniDec
+		;bsr.w	EniDec
 
 		copyTilemap	$FF0000,$C206,$21,$15
 
 		locVRAM	0
-		lea	(Nem_Title8x8).l,a0 ; load GHZ patterns
-		bsr.w	NemDec
+		;lea	(Nem_Title8x8).l,a0 ; load GHZ patterns
+		;bsr.w	NemDec
 		moveq	#palid_Title,d0	; load title screen palette
 		bsr.w	PalLoad1
 		sfx	bgm_Title,0,1,1	; play title screen music
@@ -2119,7 +2119,7 @@ GM_Title:
 		move.b	#id_PSBTM,(v_objspace+$100).w ; load object which hides part of Sonic
 		move.b	#2,(v_objspace+$100+obFrame).w
 		jsr	(ExecuteObjects).l
-		bsr.w	DeformLayers
+		;bsr.w	DeformLayers
 		jsr	(BuildSprites).l
 		moveq	#plcid_Main,d0
 		bsr.w	NewPLC
@@ -2134,7 +2134,7 @@ Tit_MainLoop:
 		move.b	#4,(v_vbla_routine).w
 		bsr.w	WaitforVBla
 		jsr	(ExecuteObjects).l
-		bsr.w	DeformLayers
+		;bsr.w	DeformLayers
 		jsr	(BuildSprites).l
 		bsr.w	PCycle_Title
 		bsr.w	RunPLC
