@@ -112,8 +112,8 @@ loc_E0:
 	endif
 Console:	dc.b "SEGA MEGA DRIVE " ; Hardware system ID (Console name)
 Date:		dc.b "(C)SEGA 1991.APR" ; Copyright holder and release date (generally year)
-Title_Local:	dc.b "SONIC THE               HEDGEHOG                " ; Domestic name
-Title_Int:	dc.b "SONIC THE               HEDGEHOG                " ; International name
+Title_Local:	dc.b "SONIC IN OVERDRIVE (ROM HACK BY UNDYING STAR)   " ; Domestic name
+Title_Int:	dc.b "SONIC IN OVERDRIVE (ROM HACK BY UNDYING STAR)   " ; International name
 Serial:		if Revision=0
 		dc.b "GM 00001009-00"   ; Serial/version number (Rev 0)
 		else
@@ -2110,7 +2110,7 @@ GM_Title:
 		dbf	d1,Tit_ClrObj2
 
 		move.b	#id_TitleSonic,(v_objspace+$40).w ; load big Sonic object
-		move.b	#id_TitleTTails,(v_objspace+$40).w ; load big Tails object
+	;	move.b	#id_TitleTails,(v_objspace+$40).w ; load big Tails object
 		move.b	#id_PSBTM,(v_objspace+$80).w ; load "PRESS START BUTTON" object
 		;clr.b	(v_objspace+$80+obRoutine).w ; The 'Mega Games 10' version of Sonic 1 added this line, to fix the 'PRESS START BUTTON' object not appearing
 		;move.b	#id_PSBTM,(v_objspace+$C0).w ; load "TM" object

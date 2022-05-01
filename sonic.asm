@@ -112,10 +112,10 @@ loc_E0:
 	endif
 Console:	dc.b "SEGA MEGA DRIVE " ; Hardware system ID (Console name)
 Date:		dc.b "(C)SEGA 1991.APR" ; Copyright holder and release date (generally year)
-Title_Local:	dc.b "SONIC THE               HEDGEHOG                " ; Domestic name
-Title_Int:	dc.b "SONIC THE               HEDGEHOG                " ; International name
+Title_Local:	dc.b "SONIC IN OVERDRIVE (ROM HACK BY UNDYING STAR)   " ; Domestic name
+Title_Int:	dc.b "SONIC IN OVERDRIVE (ROM HACK BY UNDYING STAR)   " ; International name
 Serial:		if Revision=0
-		dc.b "GM 00001009-00"   ; Serial/version number (Rev 0)
+		dc.b "GM 42069219-69"   ; Serial/version number (Rev 0)
 		else
 			dc.b "GM 00004049-01" ; Serial/version number (Rev non-0)
 		endc
