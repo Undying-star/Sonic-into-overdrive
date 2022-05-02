@@ -112,8 +112,8 @@ loc_E0:
 	endif
 Console:	dc.b "SEGA MEGA DRIVE " ; Hardware system ID (Console name)
 Date:		dc.b "(C)SEGA 1991.APR" ; Copyright holder and release date (generally year)
-Title_Local:	dc.b "SONIC IN OVERDRIVE (ROM HACK BY UNDYING STAR)   " ; Domestic name
-Title_Int:	dc.b "SONIC IN OVERDRIVE (ROM HACK BY UNDYING STAR)   " ; International name
+Title_Local:	dc.b "SONIC INTO OVERDRIVE                            " ; Domestic name
+Title_Int:	dc.b "SONIC INTO OVERDRIVE                            " ; International name
 Serial:		if Revision=0
 		dc.b "GM 42069219-69"   ; Serial/version number (Rev 0)
 		else
@@ -140,9 +140,11 @@ EndOfHeader:
 ; Crash/Freeze the 68000. Unlike Sonic 2, Sonic 1 uses the 68000 for playing music, so it stops too
 
 ErrorTrap:
-		nop	
-		nop	
-		bra.s	ErrorTrap
+		move.b	#id_Sega,(v_gamemode).w ; go to Sega screen
+		;nop	
+		;nop	
+		;nop
+		;bra.s	ErrorTrap
 ; ===========================================================================
 
 EntryPoint:
@@ -2180,7 +2182,7 @@ Tit_EnterCheat:
 
 	Tit_PlayRing:
 		move.b	#1,(a0,d1.w)	; activate cheat
-		sfx	sfx_Ring,0,1,1	; play ring sound when code is entered
+		sfx	sfx_Lamppost,0,1,1	; play ring sound when code is entered
 		bra.s	Tit_CountC
 ; ===========================================================================
 
@@ -2208,7 +2210,9 @@ Tit_ChkLevSel:
 		beq.w	PlayLevel	; if not, play level
 		btst	#bitA,(v_jpadhold1).w ; check if A is pressed
 		beq.w	PlayLevel	; if not, play level
-
+;-------VVVVVVVVVVVVVVVVVVVVV	Comment this line if you want the S2 level select gone
+		jmp	Level_Select_Menu	; if yes, goto Sonic 1 level select	
+;-------^^^^^^^^^^^^^^^^^^^^^	Comment this line if you want the S2 level select gone			
 		moveq	#palid_LevelSel,d0
 		bsr.w	PalLoad1	; load level select palette
 		sfx	sfx_Lamppost,0,1,1	; play ring sound when code is entered
@@ -9320,12 +9324,9 @@ ObjPos_Null:	dc.b $FF, $FF, 0, 0, 0,	0
 		dcb.b $63C,$FF
 		endc
 		;dcb.b ($10000-(*%$10000))-(EndOfRom-SoundDriver),$FF
-
 SoundDriver:	include "s1.sounddriver.asm"
-
 ; end of 'ROM'
-		even
+		even	
+				include	"s2_menu.asm"	; Sonic 2 level select			
 EndOfRom:
-
-
-		END
+	END
