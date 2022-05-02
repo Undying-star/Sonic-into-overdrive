@@ -2089,7 +2089,7 @@ GM_Title:
 		lea	($FF0000).l,a1
 		lea	(Eni_Title).l,a0 ; load	title screen mappings
 		move.w	#0,d0
-		;bsr.w	EniDec
+		bsr.w	EniDec
 
 		copyTilemap	$FF0000,$C206,$21,$15
 
@@ -2100,7 +2100,7 @@ GM_Title:
 		bsr.w	PalLoad1
 		sfx	bgm_Title,0,1,1	; play title screen music
 		move.b	#0,(f_debugmode).w ; disable debug mode
-		move.w	#$178,(v_demolength).w ; run title screen for $178 frames
+		move.w	#$FFFA,(v_demolength).w ; run title screen for $216000 frames
 		lea	(v_objspace+$80).w,a1
 		moveq	#0,d0
 		move.w	#7,d1
@@ -2114,7 +2114,7 @@ GM_Title:
 		move.b	#id_PSBTM,(v_objspace+$80).w ; load "PRESS START BUTTON" object
 		;clr.b	(v_objspace+$80+obRoutine).w ; The 'Mega Games 10' version of Sonic 1 added this line, to fix the 'PRESS START BUTTON' object not appearing
 		;move.b	#id_PSBTM,(v_objspace+$C0).w ; load "TM" object
-		;move.b	#3,(v_objspace+$C0+obFrame).w
+		move.b	#3,(v_objspace+$C0+obFrame).w
 	@isjap:
 		move.b	#id_PSBTM,(v_objspace+$100).w ; load object which hides part of Sonic
 		move.b	#2,(v_objspace+$100+obFrame).w
@@ -2144,7 +2144,7 @@ Tit_MainLoop:
 		cmpi.w	#$1C00,d0	; has Sonic object passed $1C00 on x-axis?
 		blo.s	Tit_ChkRegion	; if not, branch
 
-		move.b	#id_Sega,(v_gamemode).w ; go to Sega screen
+	;	move.b	#id_Sega,(v_gamemode).w ; go to Sega screen
 		rts	
 ; ===========================================================================
 
@@ -2199,7 +2199,7 @@ Tit_CountC:
 
 loc_3230:
 		tst.w	(v_demolength).w
-		beq.w	GotoDemo
+	;	beq.w	GotoDemo
 		andi.b	#btnStart,(v_jpadpress1).w ; check if Start is pressed
 		beq.w	Tit_MainLoop	; if not, branch
 
@@ -2396,60 +2396,60 @@ LevSelCode_US:	dc.b btnUp,btnDn,btnL,btnR,0,$FF
 ; Demo mode
 ; ---------------------------------------------------------------------------
 
-GotoDemo:
-		move.w	#$1E,(v_demolength).w
+;GotoDemo:
+;		move.w	#$1E,(v_demolength).w
 
-loc_33B6:
-		move.b	#4,(v_vbla_routine).w
-		bsr.w	WaitforVBla
-		bsr.w	DeformLayers
-		bsr.w	PaletteCycle
-		bsr.w	RunPLC
-		move.w	(v_objspace+obX).w,d0
-		addq.w	#2,d0
-		move.w	d0,(v_objspace+obX).w
-		cmpi.w	#$1C00,d0
-		blo.s	loc_33E4
-		move.b	#id_Sega,(v_gamemode).w
-		rts	
+;loc_33B6:
+;		move.b	#4,(v_vbla_routine).w
+;		bsr.w	WaitforVBla
+;		bsr.w	DeformLayers
+;		bsr.w	PaletteCycle
+;		bsr.w	RunPLC
+;		move.w	(v_objspace+obX).w,d0
+;		addq.w	#2,d0
+;		move.w	d0,(v_objspace+obX).w
+;		cmpi.w	#$1C00,d0
+;		blo.s	loc_33E4
+;		move.b	#id_Sega,(v_gamemode).w
+;		rts	
 ; ===========================================================================
 
-loc_33E4:
-		andi.b	#btnStart,(v_jpadpress1).w ; is Start button pressed?
-		bne.w	Tit_ChkLevSel	; if yes, branch
-		tst.w	(v_demolength).w
-		bne.w	loc_33B6
-		sfx	bgm_Fade,0,1,1 ; fade out music
-		move.w	(v_demonum).w,d0 ; load	demo number
-		andi.w	#7,d0
-		add.w	d0,d0
-		move.w	Demo_Levels(pc,d0.w),d0	; load level number for	demo
-		move.w	d0,(v_zone).w
-		addq.w	#1,(v_demonum).w ; add 1 to demo number
-		cmpi.w	#4,(v_demonum).w ; is demo number less than 4?
-		blo.s	loc_3422	; if yes, branch
-		move.w	#0,(v_demonum).w ; reset demo number to	0
+;loc_33E4:
+;		andi.b	#btnStart,(v_jpadpress1).w ; is Start button pressed?
+;		bne.w	Tit_ChkLevSel	; if yes, branch
+;		tst.w	(v_demolength).w
+;		bne.w	loc_33B6
+;		sfx	bgm_Fade,0,1,1 ; fade out music
+;		move.w	(v_demonum).w,d0 ; load	demo number
+;		andi.w	#7,d0
+;		add.w	d0,d0
+;		move.w	Demo_Levels(pc,d0.w),d0	; load level number for	demo
+;		move.w	d0,(v_zone).w
+;		addq.w	#1,(v_demonum).w ; add 1 to demo number
+;		cmpi.w	#4,(v_demonum).w ; is demo number less than 4?
+;		blo.s	loc_3422	; if yes, branch
+;		move.w	#0,(v_demonum).w ; reset demo number to	0
 
-loc_3422:
-		move.w	#1,(f_demo).w	; turn demo mode on
-		move.b	#id_Demo,(v_gamemode).w ; set screen mode to 08 (demo)
-		cmpi.w	#$600,d0	; is level number 0600 (special	stage)?
-		bne.s	Demo_Level	; if not, branch
-		move.b	#id_Special,(v_gamemode).w ; set screen mode to $10 (Special Stage)
-		clr.w	(v_zone).w	; clear	level number
-		clr.b	(v_lastspecial).w ; clear special stage number
+;loc_3422:
+;		move.w	#1,(f_demo).w	; turn demo mode on
+;		move.b	#id_Demo,(v_gamemode).w ; set screen mode to 08 (demo)
+;		cmpi.w	#$600,d0	; is level number 0600 (special	stage)?
+;		bne.s	Demo_Level	; if not, branch
+;		move.b	#id_Special,(v_gamemode).w ; set screen mode to $10 (Special Stage)
+;		clr.w	(v_zone).w	; clear	level number
+;		clr.b	(v_lastspecial).w ; clear special stage number
 
-Demo_Level:
-		move.b	#3,(v_lives).w	; set lives to 3
-		moveq	#0,d0
-		move.w	d0,(v_rings).w	; clear rings
-		move.l	d0,(v_time).w	; clear time
-		move.l	d0,(v_score).w	; clear score
-		if Revision=0
-		else
-			move.l	#5000,(v_scorelife).w ; extra life is awarded at 50000 points
-		endc
-		rts	
+;Demo_Level:
+	;	move.b	#3,(v_lives).w	; set lives to 3
+	;	moveq	#0,d0
+;;		move.w	d0,(v_rings).w	; clear rings
+;		move.l	d0,(v_time).w	; clear time
+;		move.l	d0,(v_score).w	; clear score
+;		if Revision=0
+;		else
+;			move.l	#5000,(v_scorelife).w ; extra life is awarded at 50000 points
+;		endc
+;		rts	
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Levels used in demos
