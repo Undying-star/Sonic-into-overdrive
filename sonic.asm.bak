@@ -29,7 +29,7 @@ OptimiseSound:	equ 0	; change to 1 to optimise sound queuing
 SkipError:  equ 1   ; Skip Errors
 
 ; ===========================================================================
-
+v_palmuscounter = $FFFFFFBF ; counts up to 5 then runs UpdateMusic twice
 StartOfRom:
 Vectors:	dc.l v_systemstack&$FFFFFF	; Initial stack pointer value
 		dc.l EntryPoint			; Start of program
@@ -378,55 +378,6 @@ CheckSumError:
 	@endlessloop:
 		bra.s	@endlessloop
 ; ===========================================================================
-
-BusError:
-		move.b	#2,(v_errortype).w
-		bra.s	loc_43A
-
-AddressError:
-		move.b	#4,(v_errortype).w
-		bra.s	loc_43A
-
-IllegalInstr:
-		move.b	#6,(v_errortype).w
-		addq.l	#2,2(sp)
-		bra.s	loc_462
-
-ZeroDivide:
-		move.b	#8,(v_errortype).w
-		bra.s	loc_462
-
-ChkInstr:
-		move.b	#$A,(v_errortype).w
-		bra.s	loc_462
-
-TrapvInstr:
-		move.b	#$C,(v_errortype).w
-		bra.s	loc_462
-
-PrivilegeViol:
-		move.b	#$E,(v_errortype).w
-		bra.s	loc_462
-
-Trace:
-		move.b	#$10,(v_errortype).w
-		bra.s	loc_462
-
-Line1010Emu:
-		move.b	#$12,(v_errortype).w
-		addq.l	#2,2(sp)
-		bra.s	loc_462
-
-Line1111Emu:
-		move.b	#$14,(v_errortype).w
-		addq.l	#2,2(sp)
-		bra.s	loc_462
-
-ErrorExcept:
-		move.b	#0,(v_errortype).w
-		bra.s	loc_462
-; ===========================================================================
-
 loc_43A:
 		disable_ints
 		addq.w	#2,sp
@@ -2100,7 +2051,7 @@ GM_Title:
 		bsr.w	PalLoad1
 		sfx	bgm_Title,0,1,1	; play title screen music
 		move.b	#0,(f_debugmode).w ; disable debug mode
-		move.w	#$FFF,(v_demolength).w ; run title screen for $216000 frames
+		move.w	#-$1,(v_demolength).w ; run title screen for $216000 frames
 		lea	(v_objspace+$80).w,a1
 		moveq	#0,d0
 		move.w	#7,d1
@@ -9324,6 +9275,67 @@ SoundDriver:	include "s1.sounddriver.asm"
 
 ; end of 'ROM'
 		even
+; ===============================================================
+; ---------------------------------------------------------------
+; Error handling module
+; ---------------------------------------------------------------
+ 
+BusError:   jsr ErrorHandler(pc)
+        dc.b    "BUS ERROR",0           ; text
+        dc.b    1               ; extended stack frame
+        even
+ 
+AddressError:   jsr ErrorHandler(pc)
+        dc.b    "ADDRESS ERROR",0       ; text
+        dc.b    1               ; extended stack frame
+        even
+ 
+IllegalInstr:   jsr ErrorHandler(pc)
+        dc.b    "ILLEGAL INSTRUCTION",0     ; text
+        dc.b    0               ; extended stack frame
+        even
+ 
+ZeroDivide: jsr ErrorHandler(pc)
+        dc.b    "ZERO DIVIDE",0         ; text
+        dc.b    0               ; extended stack frame
+        even
+ 
+ChkInstr:   jsr ErrorHandler(pc)
+        dc.b    "CHK INSTRUCTION",0         ; text
+        dc.b    0               ; extended stack frame
+        even
+ 
+TrapvInstr: jsr ErrorHandler(pc)
+        dc.b    "TRAPV INSTRUCTION",0       ; text
+        dc.b    0               ; extended stack frame
+        even
+ 
+PrivilegeViol:  jsr ErrorHandler(pc)
+        dc.b    "PRIVILEGE VIOLATION",0     ; text
+        dc.b    0               ; extended stack frame
+        even
+ 
+Trace:      jsr ErrorHandler(pc)
+        dc.b    "TRACE",0           ; text
+        dc.b    0               ; extended stack frame
+        even
+ 
+Line1010Emu:    jsr ErrorHandler(pc)
+        dc.b    "LINE 1010 EMULATOR",0      ; text
+        dc.b    0               ; extended stack frame
+        even
+ 
+Line1111Emu:    jsr ErrorHandler(pc)
+        dc.b    "LINE 1111 EMULATOR",0      ; text
+        dc.b    0               ; extended stack frame
+        even
+ 
+ErrorExcept:    jsr ErrorHandler(pc)
+        dc.b    "ERROR EXCEPTION",0         ; text
+        dc.b    0               ; extended stack frame
+        even
+ 
+ErrorHandler:   incbin  "ErrorHandler.bin"
 EndOfRom:
 
 

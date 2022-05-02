@@ -1,9 +1,9 @@
-Map_fd16:
-Map_fd16_0: 	dc.w Map_fd16_8-Map_fd16
-Map_fd16_2: 	dc.w Map_fd16_3B-Map_fd16
-Map_fd16_4: 	dc.w Map_fd16_6E-Map_fd16
-Map_fd16_6: 	dc.w Map_fd16_A1-Map_fd16
-Map_fd16_8: 	dc.b $A
+Map_da5b:
+Map_da5b_0: 	dc.w Map_da5b_8-Map_da5b
+Map_da5b_2: 	dc.w Map_da5b_3B-Map_da5b
+Map_da5b_4: 	dc.w Map_da5b_64-Map_da5b
+Map_da5b_6: 	dc.w Map_da5b_92-Map_da5b
+Map_da5b_8: 	dc.b $A
 	dc.b $80, $D, $A0, $0, $0
 	dc.b $80, $D, $A0, $18, $20
 	dc.b $80, $D, $A0, $20, $40
@@ -14,36 +14,30 @@ Map_fd16_8: 	dc.b $A
 	dc.b $A0, $9, $A0, $30, $30
 	dc.b $40, $5, $81, $A, $0
 	dc.b $40, $D, $A1, $E, $10
-Map_fd16_3B: 	dc.b $A
+Map_da5b_3B: 	dc.b $8
 	dc.b $80, $D, $A0, $0, $0
 	dc.b $80, $D, $A0, $18, $20
 	dc.b $80, $D, $80, $20, $40
 	dc.b $90, $D, $A0, $10, $0
 	dc.b $90, $D, $80, $28, $28
-	dc.b $A0, $D, $80, $8, $0
-	dc.b $A0, $1, $80, $0, $20
 	dc.b $A0, $9, $80, $30, $30
 	dc.b $40, $5, $81, $A, $0
 	dc.b $40, $D, $A1, $E, $10
-Map_fd16_6E: 	dc.b $A
+Map_da5b_64: 	dc.b $9
 	dc.b $80, $D, $A0, $0, $0
 	dc.b $80, $D, $A0, $18, $20
 	dc.b $80, $D, $A0, $20, $40
-	dc.b $90, $D, $80, $10, $0
 	dc.b $90, $D, $A0, $28, $28
 	dc.b $A0, $D, $A0, $8, $0
 	dc.b $A0, $1, $A0, $0, $20
 	dc.b $A0, $9, $A0, $30, $30
 	dc.b $40, $5, $81, $A, $0
 	dc.b $40, $D, $A1, $E, $10
-Map_fd16_A1: 	dc.b $A
+Map_da5b_92: 	dc.b $7
 	dc.b $80, $D, $A0, $0, $0
 	dc.b $80, $D, $A0, $18, $20
 	dc.b $80, $D, $A0, $20, $40
-	dc.b $90, $D, $80, $10, $0
 	dc.b $90, $D, $A0, $28, $28
-	dc.b $A0, $D, $80, $8, $0
-	dc.b $A0, $1, $80, $0, $20
 	dc.b $A0, $9, $A0, $30, $30
 	dc.b $40, $5, $81, $A, $0
 	dc.b $40, $D, $E1, $E, $10

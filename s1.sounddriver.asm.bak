@@ -202,18 +202,9 @@ UpdateMusic:
 		jsr	PSGUpdateTrack(pc)
 ; loc_71C44:
 DoStartZ80:
-	startZ80
-		btst #6,(v_megadrive).w ; is Megadrive PAL?
-		beq.s @end ; if not, branch
-		cmpi.b #$5,(v_palmuscounter).w ; 5th frame?
-		bne.s @end ; if not, branch
-		move.b #$0,(v_palmuscounter).w ; reset counter
-		bra.w UpdateMusic ; run sound driver again
-	@end:
-
-		addq.b #$1,(v_palmuscounter).w ; add 1 to frame count
-	rts
+		rts
 ; End of function UpdateMusic
+
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 

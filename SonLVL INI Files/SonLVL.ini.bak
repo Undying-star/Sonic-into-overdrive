@@ -98,7 +98,7 @@ animtiles1=../artunc/MZ Lava Surface.bin:0:0x2E2:8
 animtiles2=MZ/MZ Lava.bin:0:0x2D2:16
 animtiles3=../artunc/MZ Background Torch.bin:0:0x2F2:6
 [Spring Yard Zone Act 1]
-tiles=../artkos/8x8 - SYZ  Kopio.bin
+tiles=../artnem/8x8 - SYZ.bin
 blocks=../map16/SYZ.bin
 chunks=../map256/SYZ.bin
 fglayout=../levels/syz1.bin
