@@ -2459,7 +2459,7 @@ Music8F:	incbin	"sound/music/Mus8F - Game Over.bin"
 		even
 Music90:	incbin	"sound/music/Mus90 - Continue Screen.bin"
 		even
-Music91:	incbin	"sound/music/Mus91 - Credits.bin"
+Music91:	incbin	"sound/music/S3Credits.bin"
 		even
 Music92:	incbin	"sound/music/Mus92 - Drowning.bin"
 		even

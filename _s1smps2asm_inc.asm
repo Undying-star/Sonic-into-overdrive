@@ -127,7 +127,8 @@ dHiTimpani		EQU	$88
 dMidTimpani		EQU	$89
 dLowTimpani		EQU	$8A
 dVLowTimpani		EQU	$8B
-
+dCreidtsBreath		EQU	$8C
+dCreditsClap		EQU	$8D
 ; Header Macros
 ; Header - Set up Voice Location
 smpsHeaderVoice macro loc

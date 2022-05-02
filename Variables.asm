@@ -379,3 +379,4 @@ v_init:		equ $FFFFFFFC	; 'init' text string (4 bytes)
 Sonic_Pos_Record_Index =	v_trackpos  ; into Sonic_Pos_Record_Buf and Sonic_Stat_Record_Buf
 Sonic_Pos_Record_Buf =		 v_tracksonic
 
+f_spindash		= $39

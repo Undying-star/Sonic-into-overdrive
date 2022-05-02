@@ -210,19 +210,19 @@ Map_Cred_internal:
 		dc.b $30, 5, 0,	4, $18
 		dc.b $30, 1, 0,	$46, $28
 		dc.b $30, 5, 0,	$1A, $30
-@sonicteam:	dc.b $14	;  SONIC TEAM PRESENTS | UNDYING STARPRESENTS
-		dc.b $E8, 5, 0, $32, $98	; U
-		dc.b $E8, 5, 0, $1A, $A8	; N
-		dc.b $E8, 5, 0, $42, $B8	; D
-		dc.b $E8, 5, 0, $2A, $C8	; Y
-		dc.b $E8, 1, 0, $46, $D8	; I
-		dc.b $E8, 5, 0, $1A, $E0	; N
-		dc.b $E8, 5, 0, 0, $F0		; G
+@sonicteam:	dc.b $15	;  SONIC TEAM PRESENTS | BRISKEST TEAMPRESENTS
 		dc.b $E8, 0, 0, $60, $C   	 ; Space
-		dc.b $E8, 5, 0, $2E, $10	; S
-		dc.b $E8, 5, 0, $3E, $20	; T
-		dc.b $E8, 5, 0, 4, $30		; A
-		dc.b $E8, 5, 0, $22, $40	; R
+		dc.b $E8, 0, 0, $60, $C   	 ; Space
+		dc.b $E8, 0, 0, $60, $C   	 ; Space
+		dc.b $E8, 0, 0, $60, $C   	 ; Space
+		dc.b $E8, 0, 0, $60, $C   	 ; Space
+		dc.b $E8, 0, 0, $60, $C   	 ; Space
+		dc.b $E8, 0, 0, $60, $C   	 ; Space												
+		dc.b $E8, 0, 0, $60, $C   	 ; Space
+		dc.b $E8, 0, 0, $60, $C   	 ; Space
+		dc.b $E8, 0, 0, $60, $C   	 ; Space
+		dc.b $E8, 0, 0, $60, $C   	 ; Space
+		dc.b $E8, 0, 0, $60, $C   	 ; Space						
 
 		dc.b 0,	5, 0, $12, $C0	; P
 		dc.b 0,	5, 0, $22, $D0	; R
