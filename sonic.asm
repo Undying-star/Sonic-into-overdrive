@@ -33,29 +33,29 @@ SkipError:  equ 1   ; Skip Errors
 StartOfRom:
 Vectors:	dc.l v_systemstack&$FFFFFF	; Initial stack pointer value
 		dc.l EntryPoint			; Start of program
-		dc.l BusError			; Bus error
-		dc.l AddressError		; Address error (4)
-		dc.l IllegalInstr		; Illegal instruction
-		dc.l ZeroDivide			; Division by zero
-		dc.l ChkInstr			; CHK exception
-		dc.l TrapvInstr			; TRAPV exception (8)
-		dc.l PrivilegeViol		; Privilege violation
+		dc.l ErrorTrap			; Bus error
+		dc.l ErrorTrap		; Address error (4)
+		dc.l ErrorTrap		; Illegal instruction
+		dc.l ErrorTrap			; Division by zero
+		dc.l ErrorTrap			; CHK exception
+		dc.l ErrorTrap			; TRAPV exception (8)
+		dc.l ErrorTrap		; Privilege violation
 		dc.l Trace				; TRACE exception
-		dc.l Line1010Emu		; Line-A emulator
-		dc.l Line1111Emu		; Line-F emulator (12)
-		dc.l ErrorExcept		; Unused (reserved)
-		dc.l ErrorExcept		; Unused (reserved)
-		dc.l ErrorExcept		; Unused (reserved)
-		dc.l ErrorExcept		; Unused (reserved) (16)
-		dc.l ErrorExcept		; Unused (reserved)
-		dc.l ErrorExcept		; Unused (reserved)
-		dc.l ErrorExcept		; Unused (reserved)
-		dc.l ErrorExcept		; Unused (reserved) (20)
-		dc.l ErrorExcept		; Unused (reserved)
-		dc.l ErrorExcept		; Unused (reserved)
-		dc.l ErrorExcept		; Unused (reserved)
-		dc.l ErrorExcept		; Unused (reserved) (24)
-		dc.l ErrorExcept		; Spurious exception
+		dc.l ErrorTrap		; Line-A emulator
+		dc.l ErrorTrap		; Line-F emulator (12)
+		dc.l ErrorTrap		; Unused (reserved)
+		dc.l ErrorTrap		; Unused (reserved)
+		dc.l ErrorTrap		; Unused (reserved)
+		dc.l ErrorTrap		; Unused (reserved) (16)
+		dc.l ErrorTrap		; Unused (reserved)
+		dc.l ErrorTrap		; Unused (reserved)
+		dc.l ErrorTrap		; Unused (reserved)
+		dc.l ErrorTrap		; Unused (reserved) (20)
+		dc.l ErrorTrap		; Unused (reserved)
+		dc.l ErrorTrap		; Unused (reserved)
+		dc.l ErrorTrap		; Unused (reserved)
+		dc.l ErrorTrap		; Unused (reserved) (24)
+		dc.l ErrorTrap		; Spurious exception
 		dc.l ErrorTrap			; IRQ level 1
 		dc.l ErrorTrap			; IRQ level 2
 		dc.l ErrorTrap			; IRQ level 3 (28)
@@ -138,12 +138,14 @@ EndOfHeader:
 
 ; ===========================================================================
 ; Crash/Freeze the 68000. Unlike Sonic 2, Sonic 1 uses the 68000 for playing music, so it stops too
-
+Line1111EmuError:
+		nop
+		nop
+		nop
 ErrorTrap:
-		move.b	#id_Sega,(v_gamemode).w ; go to Sega screen
-		;nop	
-		;nop	
-		;nop
+		nop	
+		nop	
+		nop
 		;bra.s	ErrorTrap
 ; ===========================================================================
 
@@ -2064,7 +2066,7 @@ GM_Title:
 		dbf	d1,Tit_ClrObj2
 
 		move.b	#id_TitleSonic,(v_objspace+$40).w ; load big Sonic object
-	;	move.b	#id_TitleTails,(v_objspace+$40).w ; load big Tails object
+		;move.b	#id_TitleTails,(v_objspace+$40).w ; load big Tails object
 		move.b	#id_PSBTM,(v_objspace+$80).w ; load "PRESS START BUTTON" object
 		;clr.b	(v_objspace+$80+obRoutine).w ; The 'Mega Games 10' version of Sonic 1 added this line, to fix the 'PRESS START BUTTON' object not appearing
 		;move.b	#id_PSBTM,(v_objspace+$C0).w ; load "TM" object
@@ -2163,7 +2165,7 @@ Tit_ChkLevSel:
 		btst	#bitA,(v_jpadhold1).w ; check if A is pressed
 		beq.w	PlayLevel	; if not, play level
 ;-------VVVVVVVVVVVVVVVVVVVVV	Comment this line if you want the S2 level select gone
-		jmp	Level_Select_Menu	; if yes, goto Sonic 1 level select	
+		jmp	Level_Select_Menu	; if yes, goto Sonic 2 level select	
 ;-------^^^^^^^^^^^^^^^^^^^^^	Comment this line if you want the S2 level select gone			
 		moveq	#palid_LevelSel,d0
 		bsr.w	PalLoad1	; load level select palette
@@ -6865,6 +6867,7 @@ MusicList2:
 ; ---------------------------------------------------------------------------
 
 Sonic_MdNormal:
+		bsr.w	Sonic_PeelOut
 		bsr.w	Sonic_SpinDash
 		bsr.w	Sonic_Jump
 		bsr.w	Sonic_SlopeResist
@@ -6920,7 +6923,7 @@ loc_12EA6:
 		include	"_incObj\Sonic Move.asm"
 		include	"_incObj\Sonic RollSpeed.asm"
 		include	"_incObj\Sonic JumpDirection.asm"
-		include	"_incObj\peelout.asm"
+		include "_incObj\Sonic Peel-Out.asm"
 		include "_incObj\Sonic Spindash.asm"
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -9295,7 +9298,8 @@ AddressError:   jsr ErrorHandler(pc)
         dc.b    1               ; extended stack frame
         even
  
-IllegalInstr:   jsr ErrorHandler(pc)
+IllegalInstr:   
+		jsr ErrorHandler(pc)
         dc.b    "ILLEGAL INSTRUCTION",0     ; text
         dc.b    0               ; extended stack frame
         even

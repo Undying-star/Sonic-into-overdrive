@@ -380,3 +380,4 @@ Sonic_Pos_Record_Index =	v_trackpos  ; into Sonic_Pos_Record_Buf and Sonic_Stat_
 Sonic_Pos_Record_Buf =		 v_tracksonic
 
 f_spindash		= $39
+f_peelout       = $69

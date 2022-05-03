@@ -13,38 +13,43 @@ Map_Cred_internal:
 		dc.w @presentedby-Map_Cred_internal
 		dc.w @tryagain-Map_Cred_internal
 		dc.w @sonicteam-Map_Cred_internal
-@staff:		dc.b $E			 ; SONIC TEAM STAFF
-		dc.b $F8, 5, 0,	$2E, $88
-		dc.b $F8, 5, 0,	$26, $98
-		dc.b $F8, 5, 0,	$1A, $A8
-		dc.b $F8, 1, 0,	$46, $B8
-		dc.b $F8, 5, 0,	$1E, $C0
-		dc.b $F8, 5, 0,	$3E, $D8
-		dc.b $F8, 5, 0,	$E, $E8
-		dc.b $F8, 5, 0,	4, $F8
-		dc.b $F8, 9, 0,	8, 8
-		dc.b $F8, 5, 0,	$2E, $28
-		dc.b $F8, 5, 0,	$3E, $38
-		dc.b $F8, 5, 0,	4, $48
-		dc.b $F8, 5, 0,	$5C, $58
-		dc.b $F8, 5, 0,	$5C, $68
-@gameplan:	dc.b $10		; GAME PLAN CAROL YAS
-		dc.b $D8, 5, 0,	0, $80
-		dc.b $D8, 5, 0,	4, $90
-		dc.b $D8, 9, 0,	8, $A0
-		dc.b $D8, 5, 0,	$E, $B4
-		dc.b $D8, 5, 0,	$12, $D0
-		dc.b $D8, 5, 0,	$16, $E0
-		dc.b $D8, 5, 0,	4, $F0
-		dc.b $D8, 5, 0,	$1A, 0
-		dc.b 8,	5, 0, $1E, $C8
-		dc.b 8,	5, 0, 4, $D8
-		dc.b 8,	5, 0, $22, $E8
-		dc.b 8,	5, 0, $26, $F8
-		dc.b 8,	5, 0, $16, 8
-		dc.b 8,	5, 0, $2A, $20
-		dc.b 8,	5, 0, 4, $30
-		dc.b 8,	5, 0, $2E, $44
+@staff:	dc.b $D	;  SONIC TEAM STAFF |   OVERDRIVE    
+		dc.b $90, 0, 0, $60, $C    ;Space
+
+		dc.b $F8, 5, 0, $26, $C0	; O
+		dc.b $F8, 0, 0, $60, $C    ;Space
+		dc.b $F8, 5, 0, $0E, $E0	; E
+		dc.b $F8, 5, 0, $22, $F0	; R
+		dc.b $F8, 5, 0, $42, $0	; D
+		dc.b $F8, 5, 0, $22, $10	; R
+		dc.b $F8, 1, 0, $46, $20	; I
+		dc.b $90, 0, 0, $60, $C    ;Space
+		dc.b $F8, 5, 0, $0E, $38	; E
+		dc.b $F8, 5, 0, $3E, $C0	; T
+		dc.b $F8, 5, 0, $0E, $D0	; E
+		dc.b $F8, 5, 0, 4, $E0		; A
+		dc.b $F8, 9, 0, 8, $F0		; M
+@gameplan:	dc.b $14	;  GAME PLAN CAROL YAS | DIRECTOR UNDYING STAR   
+		dc.b $D8, 5, 0, $42, $C0	; D
+		dc.b $D8, 1, 0, $46, $D0	; I
+		dc.b $D8, 5, 0, $22, $D8	; R
+		dc.b $D8, 5, 0, $0E, $E8	; E
+		dc.b $D8, 5, 0, $1E, $F8	; C
+		dc.b $D8, 5, 0, $3E, $8	; T
+		dc.b $D8, 5, 0, $26, $18	; O
+		dc.b $D8, 5, 0, $22, $28	; R
+		dc.b $F8, 5, 0, $32, $94	; U
+		dc.b $F8, 5, 0, $1A, $A4	; N
+		dc.b $F8, 5, 0, $42, $B4	; D
+		dc.b $F8, 5, 0, $2A, $C4	; Y
+		dc.b $F8, 1, 0, $46, $D4	; I
+		dc.b $F8, 5, 0, $1A, $DC	; N
+		dc.b $F8, 5, 0, 0, $EC		; G
+		dc.b $F8, 0, 0, $60, $C    ;Space
+		dc.b $F8, 5, 0, $2E, $C	; S
+		dc.b $F8, 5, 0, $3E, $1C	; T
+		dc.b $F8, 5, 0, 4, $2C		; A
+		dc.b $F8, 5, 0, $22, $3C	; R
 @program:	dc.b $A			 ; PROGRAM YU 2
 		dc.b $D8, 5, 0,	$12, $80
 		dc.b $D8, 5, 0,	$22, $90
@@ -102,33 +107,38 @@ Map_Cred_internal:
 		dc.b $20, 5, 0,	$22, $30
 		dc.b $20, 1, 0,	$46, $40
 		dc.b $20, 5, 0,	$E, $48
-@soundproduce:	dc.b $1A		 ; SOUND PRODUCE MASATO	NAKAMURA
-		dc.b $D8, 5, 0,	$2E, $98
-		dc.b $D8, 5, 0,	$26, $A8
-		dc.b $D8, 5, 0,	$32, $B8
-		dc.b $D8, 5, 0,	$1A, $C8
-		dc.b $D8, 5, 0,	$54, $D8
-		dc.b $D8, 5, 0,	$12, $F8
-		dc.b $D8, 5, 0,	$22, 8
-		dc.b $D8, 5, 0,	$26, $18
-		dc.b $D8, 5, 0,	$42, $28
-		dc.b $D8, 5, 0,	$32, $38
-		dc.b $D8, 5, 0,	$1E, $48
-		dc.b $D8, 5, 0,	$E, $58
-		dc.b 8,	9, 0, 8, $88
-		dc.b 8,	5, 0, 4, $9C
-		dc.b 8,	5, 0, $2E, $AC
-		dc.b 8,	5, 0, 4, $BC
-		dc.b 8,	5, 0, $3E, $CC
-		dc.b 8,	5, 0, $26, $DC
-		dc.b 8,	5, 0, $1A, $F8
-		dc.b 8,	5, 0, 4, 8
-		dc.b 8,	5, 0, $58, $18
-		dc.b 8,	5, 0, 4, $28
-		dc.b 8,	9, 0, 8, $38
-		dc.b 8,	5, 0, $32, $4C
-		dc.b 8,	5, 0, $22, $5C
-		dc.b 8,	5, 0, 4, $6C
+@soundproduce:	dc.b $1F	;  PROGRAM YU 2 | SOUND DESIGN SONIX CHRON D AKRENIX
+		dc.b $D8, 5, 0, $2E, $94	; S
+		dc.b $D8, 5, 0, $26, $A4	; O
+		dc.b $D8, 5, 0, $32, $B4	; U
+		dc.b $D8, 5, 0, $1A, $C4	; N
+		dc.b $D8, 5, 0, $42, $D4	; D
+		dc.b $D8, 0, 0, $60, $C    ;Space
+		dc.b $D8, 5, 0, $42, $F4	; D
+		dc.b $D8, 5, 0, $0E, $4	; E
+		dc.b $D8, 5, 0, $2E, $14	; S
+		dc.b $D8, 1, 0, $46, $24	; I
+		dc.b $D8, 5, 0, 0, $2C		; G
+		dc.b $D8, 5, 0, $1A, $3C	; N
+		dc.b $F8, 5, 0, $2E, $4	; S
+		dc.b $F8, 5, 0, $26, $14	; O
+		dc.b $F8, 5, 0, $1A, $24	; N
+		dc.b $F8, 1, 0, $46, $34	; I
+		dc.b $F8, 5, 0, $50, $3C	; X
+		dc.b $F8, 5, 0, $1E, $A4	; C
+		dc.b $F8, 5, 0, $3A, $B4	; H
+		dc.b $F8, 5, 0, $22, $C4	; R
+		dc.b $F8, 5, 0, $26, $D4	; O
+		dc.b $F8, 5, 0, $1A, $E4	; N
+		dc.b $F8, 0, 0, $60, $C    ;Space
+		dc.b $F8, 5, 0, $42, $4	; D
+		dc.b $18, 5, 0, 4, $E4		; A
+		dc.b $18, 5, 0, $58, $F4	; K
+		dc.b $18, 5, 0, $22, $4	; R
+		dc.b $18, 5, 0, $0E, $14	; E
+		dc.b $18, 5, 0, $1A, $24	; N
+		dc.b $18, 1, 0, $46, $34	; I
+		dc.b $18, 5, 0, $50, $3C	; X
 @soundprogram:	dc.b $17		 ; SOUND PROGRAM JIMITA	MACKY
 		dc.b $D0, 5, 0,	$2E, $98
 		dc.b $D0, 5, 0,	$26, $A8
@@ -210,19 +220,19 @@ Map_Cred_internal:
 		dc.b $30, 5, 0,	4, $18
 		dc.b $30, 1, 0,	$46, $28
 		dc.b $30, 5, 0,	$1A, $30
-@sonicteam:	dc.b $15	;  SONIC TEAM PRESENTS | BRISKEST TEAMPRESENTS
+@sonicteam:	dc.b $14	;  SONIC TEAM PRESENTS | TEAM DYNAMICPRESENTS
+		dc.b $E8, 5, 0, $3E, $A0	; T
+		dc.b $E8, 5, 0, $0E, $B0	; E
+		dc.b $E8, 5, 0, 4, $C0		; A
+		dc.b $E8, 9, 0, 8, $D0		; M
 		dc.b $E8, 0, 0, $60, $C   	 ; Space
-		dc.b $E8, 0, 0, $60, $C   	 ; Space
-		dc.b $E8, 0, 0, $60, $C   	 ; Space
-		dc.b $E8, 0, 0, $60, $C   	 ; Space
-		dc.b $E8, 0, 0, $60, $C   	 ; Space
-		dc.b $E8, 0, 0, $60, $C   	 ; Space
-		dc.b $E8, 0, 0, $60, $C   	 ; Space												
-		dc.b $E8, 0, 0, $60, $C   	 ; Space
-		dc.b $E8, 0, 0, $60, $C   	 ; Space
-		dc.b $E8, 0, 0, $60, $C   	 ; Space
-		dc.b $E8, 0, 0, $60, $C   	 ; Space
-		dc.b $E8, 0, 0, $60, $C   	 ; Space						
+		dc.b $E8, 5, 0, $42, $F4	; D
+		dc.b $E8, 5, 0, $2A, $4	; Y
+		dc.b $E8, 5, 0, $1A, $14	; N
+		dc.b $E8, 5, 0, 4, $24		; A
+		dc.b $E8, 9, 0, 8, $34		; M
+		dc.b $E8, 1, 0, $46, $48	; I
+		dc.b $E8, 5, 0, $1E, $50	; C
 
 		dc.b 0,	5, 0, $12, $C0	; P
 		dc.b 0,	5, 0, $22, $D0	; R
