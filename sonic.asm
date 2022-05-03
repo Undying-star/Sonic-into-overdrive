@@ -381,54 +381,6 @@ CheckSumError:
 		bra.s	@endlessloop
 ; ===========================================================================
 
-BusError:
-		move.b	#2,(v_errortype).w
-		bra.s	loc_43A
-
-AddressError:
-		move.b	#4,(v_errortype).w
-		bra.s	loc_43A
-
-IllegalInstr:
-		move.b	#6,(v_errortype).w
-		addq.l	#2,2(sp)
-		bra.s	loc_462
-
-ZeroDivide:
-		move.b	#8,(v_errortype).w
-		bra.s	loc_462
-
-ChkInstr:
-		move.b	#$A,(v_errortype).w
-		bra.s	loc_462
-
-TrapvInstr:
-		move.b	#$C,(v_errortype).w
-		bra.s	loc_462
-
-PrivilegeViol:
-		move.b	#$E,(v_errortype).w
-		bra.s	loc_462
-
-Trace:
-		move.b	#$10,(v_errortype).w
-		bra.s	loc_462
-
-Line1010Emu:
-		move.b	#$12,(v_errortype).w
-		addq.l	#2,2(sp)
-		bra.s	loc_462
-
-Line1111Emu:
-		move.b	#$14,(v_errortype).w
-		addq.l	#2,2(sp)
-		bra.s	loc_462
-
-ErrorExcept:
-		move.b	#0,(v_errortype).w
-		bra.s	loc_462
-; ===========================================================================
-
 loc_43A:
 		disable_ints
 		addq.w	#2,sp
@@ -9327,5 +9279,66 @@ ObjPos_Null:	dc.b $FF, $FF, 0, 0, 0,	0
 SoundDriver:	include "s1.sounddriver.asm"
 ; end of 'ROM'
 		even	
-				include	"s2_menu.asm"	; Sonic 2 level select			
+				include	"s2_menu.asm"	; Sonic 2 level select	
+; ===============================================================
+; ---------------------------------------------------------------
+; Error handling module
+; ---------------------------------------------------------------
+ 
+BusError:   jsr ErrorHandler(pc)
+        dc.b    "BUS ERROR",0           ; text
+        dc.b    1               ; extended stack frame
+        even
+ 
+AddressError:   jsr ErrorHandler(pc)
+        dc.b    "ADDRESS ERROR",0       ; text
+        dc.b    1               ; extended stack frame
+        even
+ 
+IllegalInstr:   jsr ErrorHandler(pc)
+        dc.b    "ILLEGAL INSTRUCTION",0     ; text
+        dc.b    0               ; extended stack frame
+        even
+ 
+ZeroDivide: jsr ErrorHandler(pc)
+        dc.b    "ZERO DIVIDE",0         ; text
+        dc.b    0               ; extended stack frame
+        even
+ 
+ChkInstr:   jsr ErrorHandler(pc)
+        dc.b    "CHK INSTRUCTION",0         ; text
+        dc.b    0               ; extended stack frame
+        even
+ 
+TrapvInstr: jsr ErrorHandler(pc)
+        dc.b    "TRAPV INSTRUCTION",0       ; text
+        dc.b    0               ; extended stack frame
+        even
+ 
+PrivilegeViol:  jsr ErrorHandler(pc)
+        dc.b    "PRIVILEGE VIOLATION",0     ; text
+        dc.b    0               ; extended stack frame
+        even
+ 
+Trace:      jsr ErrorHandler(pc)
+        dc.b    "TRACE",0           ; text
+        dc.b    0               ; extended stack frame
+        even
+ 
+Line1010Emu:    jsr ErrorHandler(pc)
+        dc.b    "LINE 1010 EMULATOR",0      ; text
+        dc.b    0               ; extended stack frame
+        even
+ 
+Line1111Emu:    jsr ErrorHandler(pc)
+        dc.b    "LINE 1111 EMULATOR",0      ; text
+        dc.b    0               ; extended stack frame
+        even
+ 
+ErrorExcept:    jsr ErrorHandler(pc)
+        dc.b    "ERROR EXCEPTION",0         ; text
+        dc.b    0               ; extended stack frame
+        even
+ 
+ErrorHandler:   incbin  "ErrorHandler.bin"				
 EndOfRom:

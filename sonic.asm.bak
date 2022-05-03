@@ -29,7 +29,7 @@ OptimiseSound:	equ 0	; change to 1 to optimise sound queuing
 SkipError:  equ 1   ; Skip Errors
 
 ; ===========================================================================
-v_palmuscounter = $FFFFFFBF ; counts up to 5 then runs UpdateMusic twice
+
 StartOfRom:
 Vectors:	dc.l v_systemstack&$FFFFFF	; Initial stack pointer value
 		dc.l EntryPoint			; Start of program
@@ -112,8 +112,8 @@ loc_E0:
 	endif
 Console:	dc.b "SEGA MEGA DRIVE " ; Hardware system ID (Console name)
 Date:		dc.b "(C)SEGA 1991.APR" ; Copyright holder and release date (generally year)
-Title_Local:	dc.b "SONIC IN OVERDRIVE (ROM HACK BY UNDYING STAR)   " ; Domestic name
-Title_Int:	dc.b "SONIC IN OVERDRIVE (ROM HACK BY UNDYING STAR)   " ; International name
+Title_Local:	dc.b "SONIC INTO OVERDRIVE                            " ; Domestic name
+Title_Int:	dc.b "SONIC INTO OVERDRIVE                            " ; International name
 Serial:		if Revision=0
 		dc.b "GM 42069219-69"   ; Serial/version number (Rev 0)
 		else
@@ -140,9 +140,11 @@ EndOfHeader:
 ; Crash/Freeze the 68000. Unlike Sonic 2, Sonic 1 uses the 68000 for playing music, so it stops too
 
 ErrorTrap:
-		nop	
-		nop	
-		bra.s	ErrorTrap
+		move.b	#id_Sega,(v_gamemode).w ; go to Sega screen
+		;nop	
+		;nop	
+		;nop
+		;bra.s	ErrorTrap
 ; ===========================================================================
 
 EntryPoint:
@@ -378,6 +380,55 @@ CheckSumError:
 	@endlessloop:
 		bra.s	@endlessloop
 ; ===========================================================================
+
+BusError:
+		move.b	#2,(v_errortype).w
+		bra.s	loc_43A
+
+AddressError:
+		move.b	#4,(v_errortype).w
+		bra.s	loc_43A
+
+IllegalInstr:
+		move.b	#6,(v_errortype).w
+		addq.l	#2,2(sp)
+		bra.s	loc_462
+
+ZeroDivide:
+		move.b	#8,(v_errortype).w
+		bra.s	loc_462
+
+ChkInstr:
+		move.b	#$A,(v_errortype).w
+		bra.s	loc_462
+
+TrapvInstr:
+		move.b	#$C,(v_errortype).w
+		bra.s	loc_462
+
+PrivilegeViol:
+		move.b	#$E,(v_errortype).w
+		bra.s	loc_462
+
+Trace:
+		move.b	#$10,(v_errortype).w
+		bra.s	loc_462
+
+Line1010Emu:
+		move.b	#$12,(v_errortype).w
+		addq.l	#2,2(sp)
+		bra.s	loc_462
+
+Line1111Emu:
+		move.b	#$14,(v_errortype).w
+		addq.l	#2,2(sp)
+		bra.s	loc_462
+
+ErrorExcept:
+		move.b	#0,(v_errortype).w
+		bra.s	loc_462
+; ===========================================================================
+
 loc_43A:
 		disable_ints
 		addq.w	#2,sp
@@ -2051,7 +2102,7 @@ GM_Title:
 		bsr.w	PalLoad1
 		sfx	bgm_Title,0,1,1	; play title screen music
 		move.b	#0,(f_debugmode).w ; disable debug mode
-		move.w	#-$1,(v_demolength).w ; run title screen for $216000 frames
+		move.w	#$FFFA,(v_demolength).w ; run title screen for $216000 frames
 		lea	(v_objspace+$80).w,a1
 		moveq	#0,d0
 		move.w	#7,d1
@@ -2131,7 +2182,7 @@ Tit_EnterCheat:
 
 	Tit_PlayRing:
 		move.b	#1,(a0,d1.w)	; activate cheat
-		sfx	sfx_Ring,0,1,1	; play ring sound when code is entered
+		sfx	sfx_Lamppost,0,1,1	; play ring sound when code is entered
 		bra.s	Tit_CountC
 ; ===========================================================================
 
@@ -2159,7 +2210,9 @@ Tit_ChkLevSel:
 		beq.w	PlayLevel	; if not, play level
 		btst	#bitA,(v_jpadhold1).w ; check if A is pressed
 		beq.w	PlayLevel	; if not, play level
-
+;-------VVVVVVVVVVVVVVVVVVVVV	Comment this line if you want the S2 level select gone
+		jmp	Level_Select_Menu	; if yes, goto Sonic 1 level select	
+;-------^^^^^^^^^^^^^^^^^^^^^	Comment this line if you want the S2 level select gone			
 		moveq	#palid_LevelSel,d0
 		bsr.w	PalLoad1	; load level select palette
 		sfx	sfx_Lamppost,0,1,1	; play ring sound when code is entered
@@ -6860,6 +6913,7 @@ MusicList2:
 ; ---------------------------------------------------------------------------
 
 Sonic_MdNormal:
+		bsr.w	Sonic_SpinDash
 		bsr.w	Sonic_Jump
 		bsr.w	Sonic_SlopeResist
 		bsr.w	Sonic_Move
@@ -6915,7 +6969,7 @@ loc_12EA6:
 		include	"_incObj\Sonic RollSpeed.asm"
 		include	"_incObj\Sonic JumpDirection.asm"
 		include	"_incObj\peelout.asm"
-
+		include "_incObj\Sonic Spindash.asm"
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Unused subroutine to squash Sonic
@@ -9270,73 +9324,8 @@ ObjPos_Null:	dc.b $FF, $FF, 0, 0, 0,	0
 		dcb.b $63C,$FF
 		endc
 		;dcb.b ($10000-(*%$10000))-(EndOfRom-SoundDriver),$FF
-
 SoundDriver:	include "s1.sounddriver.asm"
-
 ; end of 'ROM'
-		even
-; ===============================================================
-; ---------------------------------------------------------------
-; Error handling module
-; ---------------------------------------------------------------
- 
-BusError:   jsr ErrorHandler(pc)
-        dc.b    "BUS ERROR",0           ; text
-        dc.b    1               ; extended stack frame
-        even
- 
-AddressError:   jsr ErrorHandler(pc)
-        dc.b    "ADDRESS ERROR",0       ; text
-        dc.b    1               ; extended stack frame
-        even
- 
-IllegalInstr:   jsr ErrorHandler(pc)
-        dc.b    "ILLEGAL INSTRUCTION",0     ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-ZeroDivide: jsr ErrorHandler(pc)
-        dc.b    "ZERO DIVIDE",0         ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-ChkInstr:   jsr ErrorHandler(pc)
-        dc.b    "CHK INSTRUCTION",0         ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-TrapvInstr: jsr ErrorHandler(pc)
-        dc.b    "TRAPV INSTRUCTION",0       ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-PrivilegeViol:  jsr ErrorHandler(pc)
-        dc.b    "PRIVILEGE VIOLATION",0     ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-Trace:      jsr ErrorHandler(pc)
-        dc.b    "TRACE",0           ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-Line1010Emu:    jsr ErrorHandler(pc)
-        dc.b    "LINE 1010 EMULATOR",0      ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-Line1111Emu:    jsr ErrorHandler(pc)
-        dc.b    "LINE 1111 EMULATOR",0      ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-ErrorExcept:    jsr ErrorHandler(pc)
-        dc.b    "ERROR EXCEPTION",0         ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-ErrorHandler:   incbin  "ErrorHandler.bin"
+		even	
+				include	"s2_menu.asm"	; Sonic 2 level select			
 EndOfRom:
-
-
-		END
