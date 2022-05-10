@@ -10,7 +10,7 @@ TailsAni_Roll2_ptr:	dc.w  TailsAni_Roll2-TailsAniData	;  3 ;   3
 TailsAni_Push_ptr:	dc.w  TailsAni_Push-TailsAniData	;  4 ;   4
 TailsAni_Wait_ptr:	dc.w  TailsAni_Wait-TailsAniData	;  5 ;   5
 TailsAni_Balance_ptr:	dc.w  TailsAni_Balance-TailsAniData	;  6 ;   6
-TailsAni_Death_ptr:	dc.w  TailsAni_Death-TailsAniData	; 24 ; $18
+TailsAni_LookUp_ptr:	dc.w  TailsAni_LookUp-TailsAniData	;  7 ;   7
 TailsAni_Duck_ptr:	dc.w  TailsAni_Duck-TailsAniData	;  8 ;   8
 TailsAni_Spindash_ptr:	dc.w  TailsAni_Spindash-TailsAniData	;  9 ;   9
 TailsAni_Dummy1_ptr:	dc.w  TailsAni_Dummy1-TailsAniData	; 10 ;  $A
@@ -27,7 +27,7 @@ TailsAni_Hang2_ptr:	dc.w  TailsAni_Hang2-TailsAniData	; 20 ; $14
 TailsAni_Bubble_ptr:	dc.w  TailsAni_Bubble-TailsAniData	; 21 ; $15
 TailsAni_DeathBW_ptr:	dc.w  TailsAni_DeathBW-TailsAniData	; 22 ; $16
 TailsAni_Drown_ptr:	dc.w  TailsAni_Drown-TailsAniData	; 23 ; $17
-TailsAni_LookUp_ptr:	dc.w  TailsAni_LookUp-TailsAniData	;  7 ;   7
+TailsAni_Death_ptr:	dc.w  TailsAni_Death-TailsAniData	; 24 ; $18
 TailsAni_Hurt_ptr:	dc.w  TailsAni_Hurt-TailsAniData	; 25 ; $19
 TailsAni_Hurt2_ptr:	dc.w  TailsAni_Hurt2-TailsAniData	; 26 ; $1A
 TailsAni_Slide_ptr:	dc.w  TailsAni_Slide-TailsAniData	; 27 ; $1B
@@ -55,7 +55,7 @@ TailsAni_Wait:	dc.b   7,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  3,  2,  1,  1,
 TailsAni_Balance:	dc.b   9,$69,$69,$6A,$6A,$69,$69,$6A,$6A,$69,$69,$6A,$6A,$69,$69,$6A
 			dc.b $6A,$69,$69,$6A,$6A,$69,$6A,$FF
 	even
-TailsAni_Death:		dc.b   3,$5D,$FF
+TailsAni_LookUp:	dc.b $3F,  4,$FF
 	even
 TailsAni_Duck:		dc.b $3F,$5B,$FF
 	even
@@ -89,7 +89,7 @@ TailsAni_DeathBW:	dc.b $20,$5D,$FF
 	even
 TailsAni_Drown:		dc.b $2F,$5D,$FF
 	even
-TailsAni_LookUp:	dc.b $3F,  4,$FF
+TailsAni_Death:		dc.b   3,$5D,$FF
 	even
 TailsAni_Hurt:		dc.b   3,$5D,$FF
 	even

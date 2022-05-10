@@ -2346,7 +2346,7 @@ LevSelCode_J:	if Revision=0
 		endc
 		even
 
-LevSelCode_US:	dc.b btnUp,btnDn,btnL,btnR,0,$FF
+LevSelCode_US:	dc.b btnUp,btnUp,btnDn,btnDn,btnL,btnR,0,$FF
 		even
 ; ===========================================================================
 
