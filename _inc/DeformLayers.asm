@@ -48,7 +48,7 @@ Deform_Index:	dc.w Deform_GHZ-Deform_Index, Deform_LZ-Deform_Index
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Deform_GHZ:
+Deform_GHZ:       
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#5,d4

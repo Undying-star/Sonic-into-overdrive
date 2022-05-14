@@ -46,6 +46,7 @@ Deform_Index:	dc.w Deform_GHZ-Deform_Index, Deform_LZ-Deform_Index
 
 Deform_GHZ:
 	; block 3 - distant mountains
+
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#5,d4
@@ -84,7 +85,7 @@ Deform_GHZ:
 		addi.l	#$10000,(a2)+
 		addi.l	#$C000,(a2)+
 		addi.l	#$8000,(a2)+
-	; calculate background scroll	
+	; calculate background scroll
 		move.w	(v_bgscroll_buffer).w,d0
 		add.w	(v_bg3screenposx).w,d0
 		neg.w	d0
@@ -138,6 +139,24 @@ Deform_GHZ:
 		move.w	d0,d3
 		move.w	#$47,d1
 		add.w	d4,d1
+	;	move.w  d0,-(sp)
+	;	move.w  d1,-(sp)
+	;	move.w  d2,-(sp)
+	;	move.w  d3,-(sp)
+	;	move.w  d4,-(sp)
+	;	move.w  d5,-(sp)
+	;	move.w  d6,-(sp)
+	;	move.w  a1,-(sp)
+
+               ; move.w  (sp)+,a1
+              ;  move.w  (sp)+,d0
+             ;   move.w  (sp)+,d1
+            ;    move.w  (sp)+,d2
+           ;     move.w  (sp)+,d3
+          ;      move.w  (sp)+,d4
+         ;       move.w  (sp)+,d5
+        ;        move.w  (sp)+,d6
+
 	@waterLoop:			; water deformation
 		move.w	d3,d0
 		neg.w	d0
@@ -146,6 +165,8 @@ Deform_GHZ:
 		add.l	d2,d3
 		swap	d3
 		dbf	d1,@waterLoop
+                bsr.s  LZeffectScroll
+
 		rts
 ; End of function Deform_GHZ
 
@@ -167,6 +188,7 @@ Deform_LZ:
 		bsr.w	BGScroll_XY
 
 		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
+LZeffectScroll:
 		lea	(Lz_Scroll_Data).l,a3
 		lea	(Drown_WobbleData).l,a2
 		move.b	(v_lz_deform).w,d2
@@ -177,6 +199,7 @@ Deform_LZ:
 		andi.w	#$FF,d2
 		add.w	(v_screenposy).w,d3
 		andi.w	#$FF,d3
+
 		lea	(v_hscrolltablebuffer).w,a1
 		move.w	#$DF,d1
 		move.w	(v_screenposx).w,d0
@@ -188,7 +211,7 @@ Deform_LZ:
 		move.w	(v_waterpos1).w,d4
 		move.w	(v_screenposy).w,d5
 	; write normal scroll before meeting water position
-	@normalLoop:		
+	@normalLoop:
 		cmp.w	d4,d5	; is current y >= water y?
 		bge.s	@underwaterLoop	; if yes, branch
 		move.l	d0,(a1)+
