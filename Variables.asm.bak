@@ -1,5 +1,6 @@
 ; Variables (v) and Flags (f)
 
+v_palmuscounter = $FFFFFFBF ; counts up to 5 then runs UpdateMusic twice
 v_regbuffer:	equ $FFFFFC00	; stores registers d0-a7 during an error event ($40 bytes)
 v_spbuffer:	equ $FFFFFC40	; stores most recent sp address (4 bytes)
 v_errortype:	equ $FFFFFC44	; error type
@@ -229,6 +230,7 @@ v_palchgspeed:	equ $FFFFF794	; palette fade/transition speed (0 is fastest) (2 b
 v_collindex:	equ $FFFFF796	; ROM address for collision index of current level (4 bytes)
 v_palss_num:	equ $FFFFF79A	; palette cycling in Special Stage - reference number (2 bytes)
 v_palss_time:	equ $FFFFF79C	; palette cycling in Special Stage - time until next change (2 bytes)
+v_camera_pan:    equ $FFFFF7A0    ; Extended Camera - how far the camera/view is panned to the left or right of Sonic (2 bytes)
 
 v_obj31ypos:	equ $FFFFF7A4	; y-position of object 31 (MZ stomper) (2 bytes)
 v_bossstatus:	equ $FFFFF7A7	; status of boss and prison capsule (01 = boss defeated; 02 = prison opened)
@@ -378,3 +380,5 @@ v_init:		equ $FFFFFFFC	; 'init' text string (4 bytes)
 Sonic_Pos_Record_Index =	v_trackpos  ; into Sonic_Pos_Record_Buf and Sonic_Stat_Record_Buf
 Sonic_Pos_Record_Buf =		 v_tracksonic
 
+f_spindash		= $39
+f_peelout       = $69

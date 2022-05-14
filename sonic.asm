@@ -6771,14 +6771,19 @@ Sonic_Main:	; Routine 0
 		move.w	#$C,(v_sonspeedacc).w ; Sonic's acceleration
 		move.w	#$80,(v_sonspeeddec).w ; Sonic's deceleration
 
-Sonic_Control:	; Routine 2
-		tst.w	(f_debugmode).w	; is debug cheat enabled?
-		beq.s	loc_12C58_2	; if not, branch
-		btst	#bitB,(v_jpadpress1).w ; is button B pressed?
-		beq.s	loc_12C58_2	; if not, branch
-		move.w	#1,(v_debuguse).w ; change Sonic into a ring/item
-		clr.b	(f_lockctrl).w
-		rts
+Sonic_Control:    ; Routine 2
+     
+        bsr.s    Sonic_PanCamera
+     
+        tst.w    (f_debugmode).w    ; is debug cheat enabled?
+        beq.s	loc_12C58_2	; if not, branch
+        btst    #bitB,(v_jpadpress1).w ; is button B pressed?
+        beq.s	loc_12C58_2	; if not, branch
+        move.w    #1,(v_debuguse).w ; change Sonic into a ring/item
+        clr.b    (f_lockctrl).w
+        rts
+     
+        include    "_incObj\Sonic_PanCamera.asm"   
 ; ===========================================================================
 
 loc_12C58_2:
