@@ -1,5 +1,4 @@
 ;  =========================================================================
-;  =========================================================================
 ; |           Sonic the Hedgehog Disassembly for Sega Mega Drive            |
 ;  =========================================================================
 ;
@@ -115,7 +114,7 @@ Date:		dc.b "(C)SEGA 1991.APR" ; Copyright holder and release date (generally ye
 Title_Local:	dc.b "SONIC INTO OVERDRIVE                            " ; Domestic name
 Title_Int:	dc.b "SONIC INTO OVERDRIVE                            " ; International name
 Serial:		if Revision=0
-		dc.b "GM 42069219-69"   ; Serial/version number (Rev 0)
+		dc.b "GM 42069420-69"   ; Serial/version number (Rev 0)
 		else
 			dc.b "GM 00004049-01" ; Serial/version number (Rev non-0)
 		endc
@@ -3787,7 +3786,7 @@ End_LoadSonic:
 		move.b	#1,(f_lockctrl).w ; lock controls
 		move.w	#(btnL<<8),(v_jpadhold2).w ; move Sonic to the left
 		move.w	#$F800,(v_player+obInertia).w ; set Sonic's speed
-		move.b	#id_HUD,(v_objspace+$40).w ; load HUD object
+		;move.b	#id_HUD,(v_objspace+$40).w ; load HUD object
 		jsr	(ObjPosLoad).l
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
