@@ -219,6 +219,7 @@ bgm_Menu:	equ ((ptr_mus95-MusicIndex)/4)+bgm__First
 bgm_Ending:	equ ((ptr_mus8B-MusicIndex)/4)+bgm__First
 bgm_Boss:	equ ((ptr_mus8C-MusicIndex)/4)+bgm__First
 bgm_FZ:		equ ((ptr_mus8D-MusicIndex)/4)+bgm__First
+bgm_FinalBoss:	equ ((ptr_mus96-MusicIndex)/4)+bgm__First
 bgm_GotThrough:	equ ((ptr_mus8E-MusicIndex)/4)+bgm__First
 bgm_GameOver:	equ ((ptr_mus8F-MusicIndex)/4)+bgm__First
 bgm_Continue:	equ ((ptr_mus90-MusicIndex)/4)+bgm__First
