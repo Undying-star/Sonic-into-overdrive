@@ -34,6 +34,7 @@ ptr_Pal_SSResult:	palp	Pal_SSResult,v_pal_dry,$40		; $11 (17) - special stage re
 ptr_Pal_Continue:	palp	Pal_Continue,v_pal_dry,$20		; $12 (18) - special stage results continue
 ptr_Pal_Ending:		palp	Pal_Ending,v_pal_dry,$40		; $13 (19) - ending sequence
 ptr_Pal_Menu:		palp	Pal_Menu,v_pal_dry,$40		; 2 - level select
+ptr_Pal_Crash:		palp	Pal_Crash,v_pal_dry,$10		; 3 - Sonic
 			even
 
 
@@ -57,3 +58,4 @@ palid_SBZ3SonWat:	equ (ptr_Pal_SBZ3SonWat-PalPointers)/8
 palid_SSResult:		equ (ptr_Pal_SSResult-PalPointers)/8
 palid_Continue:		equ (ptr_Pal_Continue-PalPointers)/8
 palid_Ending:		equ (ptr_Pal_Ending-PalPointers)/8
+palid_Crash:		equ (ptr_Pal_Crash-PalPointers)/8
