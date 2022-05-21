@@ -143,6 +143,7 @@ loc_6E98:
 DLE_GHZ3boss:
 		cmpi.w	#$960,(v_screenposx).w
 		bcc.s	loc_6EB0
+		music	bgm_Fade,0,1,0	; play boss music		
 		subq.b	#2,(v_dle_routine).w
 
 loc_6EB0:
@@ -666,7 +667,8 @@ DLE_FZmain:
 		addq.b	#2,(v_dle_routine).w
 		moveq	#plcid_FZBoss,d0
 		bsr.w	AddPLC		; load FZ boss patterns
-
+		music	bgm_Fade,0,1,0	; play boss music
+		
 loc_72F4:
 		bra.s	loc_72C2
 ; ===========================================================================
@@ -676,6 +678,7 @@ DLE_FZboss:
 		bcs.s	loc_7312
 		bsr.w	FindFreeObj
 		bne.s	loc_7312
+		music	bgm_FinalBoss,0,1,0	; play boss music		
 		move.b	#id_BossFinal,(a1) ; load FZ boss object
 		addq.b	#2,(v_dle_routine).w
 		move.b	#1,(f_lockscreen).w ; lock screen

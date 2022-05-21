@@ -80,6 +80,16 @@ ptr_mus93:	dc.l Music93
 ptr_musend
 ptr_mus94:	dc.l Music94
 ptr_mus95:	dc.l Music95
+ptr_mus96:	dc.l Music96
+ptr_mus97:	dc.l Music97
+ptr_mus98:	dc.l Music98
+ptr_mus99:	dc.l Music99
+ptr_mus9A:	dc.l Music9A
+ptr_mus9B:	dc.l Music9B
+ptr_mus9C:	dc.l Music9C
+ptr_mus9D:	dc.l Music9D
+ptr_mus9E:	dc.l Music9E
+ptr_mus9F:	dc.l Music9F
 ; ---------------------------------------------------------------------------
 ; Priority of sound. New music or SFX must have a priority higher than or equal
 ; to what is stored in v_sndprio or it won't play. If bit 7 of new priority is
@@ -2624,7 +2634,18 @@ SoundD0:	incbin	"sound/sfx/SndD0 - Waterfall.bin"
 		even
 Music94:	incbin	"sound/music/GHZ.bin"
 		even
-Music95:	include	"sound/music/Menu.asm"
+Music95:
+Music97:
+Music98:
+Music99:
+Music9A:
+Music9B:
+Music9C:
+Music9D:
+Music9E:
+Music9F:	include	"sound/music/Menu.asm"						;incbin	"sound/music/nowaysk.bin"
+		even
+Music96:	incbin	"sound/music/s3finalboss.bin"
 		even
 SegaPCM:
 SegaPCM_End
