@@ -81,15 +81,6 @@ ptr_musend
 ptr_mus94:	dc.l Music94
 ptr_mus95:	dc.l Music95
 ptr_mus96:	dc.l Music96
-ptr_mus97:	dc.l Music97
-ptr_mus98:	dc.l Music98
-ptr_mus99:	dc.l Music99
-ptr_mus9A:	dc.l Music9A
-ptr_mus9B:	dc.l Music9B
-ptr_mus9C:	dc.l Music9C
-ptr_mus9D:	dc.l Music9D
-ptr_mus9E:	dc.l Music9E
-ptr_mus9F:	dc.l Music9F
 ; ---------------------------------------------------------------------------
 ; Priority of sound. New music or SFX must have a priority higher than or equal
 ; to what is stored in v_sndprio or it won't play. If bit 7 of new priority is
@@ -636,7 +627,7 @@ PlaySoundID:
 		; DANGER! Music ends at $93, yet this checks until $9F; attempting to
 		; play sounds $94-$9F will cause a crash! Remove the '+$C' to fix this.
 		; See LevSel_NoCheat for more.
-		cmpi.b	#bgm__Last+$C,d7	; Is this music ($81-$9F)?
+		cmpi.b	#bgm__Last+3,d7	; Is this music ($81-$9F)?
 		bls.w	Sound_PlayBGM		; Branch if yes
 		cmpi.b	#sfx__First,d7		; Is this after music but before sfx? (redundant check)
 		blo.w	@locret			; Return if yes
@@ -647,10 +638,10 @@ PlaySoundID:
 		; DANGER! Special SFXes end at $D0, yet this checks until $DF; attempting to
 		; play sounds $D1-$DF will cause a crash! Remove the '+$10' and change the 'blo' to a 'bls'
 		; and uncomment the two lines below to fix this.
-		cmpi.b	#spec__Last+$10,d7	; Is this special sfx ($D0-$DF)?
-		blo.w	Sound_PlaySpecial	; Branch if yes
-		;cmpi.b	#flg__First,d7		; Is this after special sfx but before $E0?
-		;blo.w	@locret			; Return if yes
+		cmpi.b	#spec__Last,d7	; Is this special sfx ($D0-$DF)?
+		bls.w	Sound_PlaySpecial	; Branch if yes
+		cmpi.b	#flg__First,d7		; Is this after special sfx but before $E0?
+		blo.w	@locret			; Return if yes
 		cmpi.b	#flg__Last,d7		; Is this $E0-$E4?
 		bls.s	Sound_E0toE4		; Branch if yes
 ; locret_71F8C:
@@ -2471,7 +2462,7 @@ Music90:	incbin	"sound/music/Mus90 - Continue Screen.bin"
 		even
 Music91:	incbin	"sound/music/S3Credits.bin"
 		even
-Music92:	incbin	"sound/music/Mus92 - Drowning.bin"
+Music92:	include	"sound/music/DrowningS1.asm"
 		even
 Music93:	incbin	"sound/music/Mus93 - Get Emerald.bin"
 		even
@@ -2634,16 +2625,7 @@ SoundD0:	incbin	"sound/sfx/SndD0 - Waterfall.bin"
 		even
 Music94:	incbin	"sound/music/GHZ.bin"
 		even
-Music95:
-Music97:
-Music98:
-Music99:
-Music9A:
-Music9B:
-Music9C:
-Music9D:
-Music9E:
-Music9F:	include	"sound/music/Menu.asm"						;incbin	"sound/music/nowaysk.bin"
+Music95:	incbin	"sound/music/Menu.bin"						;incbin	"sound/music/nowaysk.bin"
 		even
 Music96:	incbin	"sound/music/s3finalboss.bin"
 		even
