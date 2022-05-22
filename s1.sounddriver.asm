@@ -2627,7 +2627,7 @@ Music94:	incbin	"sound/music/GHZ.bin"
 		even
 Music95:	incbin	"sound/music/Menu.bin"						;incbin	"sound/music/nowaysk.bin"
 		even
-Music96:	incbin	"sound/music/s3finalboss.bin"
+Music96:	include "sound/music/s3finalboss.asm"
 		even
 SegaPCM:
 SegaPCM_End
