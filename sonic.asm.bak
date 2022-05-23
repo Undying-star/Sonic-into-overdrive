@@ -32,69 +32,69 @@ SkipError:  equ 1   ; Skip Errors
 StartOfRom:
 Vectors:	dc.l v_systemstack&$FFFFFF	; Initial stack pointer value
 		dc.l EntryPoint			; Start of program
-		dc.l ErrorTrap			; Bus error
-		dc.l ErrorTrap		; Address error (4)
-		dc.l ErrorTrap		; Illegal instruction
-		dc.l ErrorTrap			; Division by zero
-		dc.l ErrorTrap			; CHK exception
-		dc.l ErrorTrap			; TRAPV exception (8)
-		dc.l ErrorTrap		; Privilege violation
-		dc.l Trace				; TRACE exception
-		dc.l ErrorTrap		; Line-A emulator
-		dc.l ErrorTrap		; Line-F emulator (12)
-		dc.l ErrorTrap		; Unused (reserved)
-		dc.l ErrorTrap		; Unused (reserved)
-		dc.l ErrorTrap		; Unused (reserved)
-		dc.l ErrorTrap		; Unused (reserved) (16)
-		dc.l ErrorTrap		; Unused (reserved)
-		dc.l ErrorTrap		; Unused (reserved)
-		dc.l ErrorTrap		; Unused (reserved)
-		dc.l ErrorTrap		; Unused (reserved) (20)
-		dc.l ErrorTrap		; Unused (reserved)
-		dc.l ErrorTrap		; Unused (reserved)
-		dc.l ErrorTrap		; Unused (reserved)
-		dc.l ErrorTrap		; Unused (reserved) (24)
-		dc.l ErrorTrap		; Spurious exception
-		dc.l ErrorTrap			; IRQ level 1
-		dc.l ErrorTrap			; IRQ level 2
-		dc.l ErrorTrap			; IRQ level 3 (28)
+		dc.l JmpToCrashRoutine			; Bus error
+		dc.l JmpToCrashRoutine		; Address error (4)
+		dc.l JmpToCrashRoutine		; Illegal instruction
+		dc.l JmpToCrashRoutine			; Division by zero
+		dc.l JmpToCrashRoutine			; CHK exception
+		dc.l JmpToCrashRoutine			; TRAPV exception (8)
+		dc.l JmpToCrashRoutine		; Privilege violation
+		dc.l JmpToCrashRoutine				; TRACE exception
+		dc.l JmpToCrashRoutine		; Line-A emulator
+		dc.l JmpToCrashRoutine		; Line-F emulator (12)
+		dc.l JmpToCrashRoutine		; Unused (reserved)
+		dc.l JmpToCrashRoutine		; Unused (reserved)
+		dc.l JmpToCrashRoutine		; Unused (reserved)
+		dc.l JmpToCrashRoutine		; Unused (reserved) (16)
+		dc.l JmpToCrashRoutine		; Unused (reserved)
+		dc.l JmpToCrashRoutine		; Unused (reserved)
+		dc.l JmpToCrashRoutine		; Unused (reserved)
+		dc.l JmpToCrashRoutine		; Unused (reserved) (20)
+		dc.l JmpToCrashRoutine		; Unused (reserved)
+		dc.l JmpToCrashRoutine		; Unused (reserved)
+		dc.l JmpToCrashRoutine		; Unused (reserved)
+		dc.l JmpToCrashRoutine		; Unused (reserved) (24)
+		dc.l JmpToCrashRoutine		; Spurious exception
+		dc.l JmpToCrashRoutine			; IRQ level 1
+		dc.l JmpToCrashRoutine			; IRQ level 2
+		dc.l JmpToCrashRoutine			; IRQ level 3 (28)
 		dc.l HBlank				; IRQ level 4 (horizontal retrace interrupt)
-		dc.l ErrorTrap			; IRQ level 5
+		dc.l JmpToCrashRoutine			; IRQ level 5
 		dc.l VBlank				; IRQ level 6 (vertical retrace interrupt)
-		dc.l ErrorTrap			; IRQ level 7 (32)
-		dc.l ErrorTrap			; TRAP #00 exception
-		dc.l ErrorTrap			; TRAP #01 exception
-		dc.l ErrorTrap			; TRAP #02 exception
-		dc.l ErrorTrap			; TRAP #03 exception (36)
-		dc.l ErrorTrap			; TRAP #04 exception
-		dc.l ErrorTrap			; TRAP #05 exception
-		dc.l ErrorTrap			; TRAP #06 exception
-		dc.l ErrorTrap			; TRAP #07 exception (40)
-		dc.l ErrorTrap			; TRAP #08 exception
-		dc.l ErrorTrap			; TRAP #09 exception
-		dc.l ErrorTrap			; TRAP #10 exception
-		dc.l ErrorTrap			; TRAP #11 exception (44)
-		dc.l ErrorTrap			; TRAP #12 exception
-		dc.l ErrorTrap			; TRAP #13 exception
-		dc.l ErrorTrap			; TRAP #14 exception
-		dc.l ErrorTrap			; TRAP #15 exception (48)
-		dc.l ErrorTrap			; Unused (reserved)
-		dc.l ErrorTrap			; Unused (reserved)
-		dc.l ErrorTrap			; Unused (reserved)
-		dc.l ErrorTrap			; Unused (reserved)
-		dc.l ErrorTrap			; Unused (reserved)
-		dc.l ErrorTrap			; Unused (reserved)
-		dc.l ErrorTrap			; Unused (reserved)
-		dc.l ErrorTrap			; Unused (reserved)
+		dc.l JmpToCrashRoutine			; IRQ level 7 (32)
+		dc.l JmpToCrashRoutine			; TRAP #00 exception
+		dc.l JmpToCrashRoutine			; TRAP #01 exception
+		dc.l JmpToCrashRoutine			; TRAP #02 exception
+		dc.l JmpToCrashRoutine			; TRAP #03 exception (36)
+		dc.l JmpToCrashRoutine			; TRAP #04 exception
+		dc.l JmpToCrashRoutine			; TRAP #05 exception
+		dc.l JmpToCrashRoutine			; TRAP #06 exception
+		dc.l JmpToCrashRoutine			; TRAP #07 exception (40)
+		dc.l JmpToCrashRoutine			; TRAP #08 exception
+		dc.l JmpToCrashRoutine			; TRAP #09 exception
+		dc.l JmpToCrashRoutine			; TRAP #10 exception
+		dc.l JmpToCrashRoutine			; TRAP #11 exception (44)
+		dc.l JmpToCrashRoutine			; TRAP #12 exception
+		dc.l JmpToCrashRoutine			; TRAP #13 exception
+		dc.l JmpToCrashRoutine			; TRAP #14 exception
+		dc.l JmpToCrashRoutine			; TRAP #15 exception (48)
+		dc.l JmpToCrashRoutine			; Unused (reserved)
+		dc.l JmpToCrashRoutine			; Unused (reserved)
+		dc.l JmpToCrashRoutine			; Unused (reserved)
+		dc.l JmpToCrashRoutine			; Unused (reserved)
+		dc.l JmpToCrashRoutine			; Unused (reserved)
+		dc.l JmpToCrashRoutine			; Unused (reserved)
+		dc.l JmpToCrashRoutine			; Unused (reserved)
+		dc.l JmpToCrashRoutine			; Unused (reserved)
 	if Revision<>2
-		dc.l ErrorTrap			; Unused (reserved)
-		dc.l ErrorTrap			; Unused (reserved)
-		dc.l ErrorTrap			; Unused (reserved)
-		dc.l ErrorTrap			; Unused (reserved)
-		dc.l ErrorTrap			; Unused (reserved)
-		dc.l ErrorTrap			; Unused (reserved)
-		dc.l ErrorTrap			; Unused (reserved)
-		dc.l ErrorTrap			; Unused (reserved)
+		dc.l JmpToCrashRoutine			; Unused (reserved)
+		dc.l JmpToCrashRoutine			; Unused (reserved)
+		dc.l JmpToCrashRoutine			; Unused (reserved)
+		dc.l JmpToCrashRoutine			; Unused (reserved)
+		dc.l JmpToCrashRoutine			; Unused (reserved)
+		dc.l JmpToCrashRoutine			; Unused (reserved)
+		dc.l JmpToCrashRoutine			; Unused (reserved)
+		dc.l JmpToCrashRoutine			; Unused (reserved)
 	else
 loc_E0:
 		; Relocated code from Spik_Hurt. REVXB was a nasty hex-edit.
@@ -104,10 +104,10 @@ loc_E0:
 		asl.l	#8,d0
 		jmp	(loc_D5A2).l
 
-		dc.w ErrorTrap
-		dc.l ErrorTrap
-		dc.l ErrorTrap
-		dc.l ErrorTrap
+		dc.w JmpToCrashRoutine
+		dc.l JmpToCrashRoutine
+		dc.l JmpToCrashRoutine
+		dc.l JmpToCrashRoutine
 	endif
 Console:	dc.b "SEGA MEGA DRIVE " ; Hardware system ID (Console name)
 Date:		dc.b "(C)SEGA 1991.APR" ; Copyright holder and release date (generally year)
@@ -137,15 +137,9 @@ EndOfHeader:
 
 ; ===========================================================================
 ; Crash/Freeze the 68000. Unlike Sonic 2, Sonic 1 uses the 68000 for playing music, so it stops too
-Line1111EmuError:
-		nop
-		nop
-		nop
-ErrorTrap:
-		nop	
-		nop	
-		nop
-		;bra.s	ErrorTrap
+JmpToCrashRoutine:
+		move.b	#$20,(v_gamemode).w ; set Game Mode to Crash Screen
+                rts
 ; ===========================================================================
 
 EntryPoint:
@@ -299,20 +293,6 @@ GameProgram:
 		beq.w	GameInit	; if yes, branch
 
 CheckSumCheck:
-		movea.l	#EndOfHeader,a0	; start	checking bytes after the header	($200)
-		movea.l	#RomEndLoc,a1	; stop at end of ROM
-		move.l	(a1),d0
-		moveq	#0,d1
-
-	@loop:
-		add.w	(a0)+,d1
-		cmp.l	a0,d0
-		bhs.s	@loop
-		movea.l	#Checksum,a1	; read the checksum
-		cmp.w	(a1),d1		; compare checksum in header to ROM
-		bne.w	CheckSumError	; if they don't match, branch
-
-	CheckSumOk:
 		lea	($FFFFFE00).w,a6
 		moveq	#0,d7
 		move.w	#$7F,d6
@@ -340,7 +320,7 @@ GameInit:
 
 MainGameLoop:
 		move.b	(v_gamemode).w,d0 ; load Game Mode
-		andi.w	#$1C,d0	; limit Game Mode value to $1C max (change to a maximum of 7C to add more game modes)
+		andi.w	#$7C,d0	; limit Game Mode value to $1C max (change to a maximum of 7C to add more game modes)
 		jsr	GameModeArray(pc,d0.w) ; jump to apt location in ROM
 		bra.s	MainGameLoop	; loop indefinitely
 ; ===========================================================================
@@ -366,159 +346,7 @@ ptr_GM_Ending:	bra.w	GM_Ending	; End of game sequence ($18)
 
 ptr_GM_Credits:	bra.w	GM_Credits	; Credits ($1C)
 
-		rts	
-; ===========================================================================
-
-CheckSumError:
-		bsr.w	VDPSetupGame
-		move.l	#$C0000000,(vdp_control_port).l ; set VDP to CRAM write
-		moveq	#$3F,d7
-
-	@fillred:
-		move.w	#cRed,(vdp_data_port).l ; fill palette with red
-		dbf	d7,@fillred	; repeat $3F more times
-
-	@endlessloop:
-		bra.s	@endlessloop
-; ===========================================================================
-
-loc_43A:
-		disable_ints
-		addq.w	#2,sp
-		move.l	(sp)+,(v_spbuffer).w
-		addq.w	#2,sp
-		movem.l	d0-a7,(v_regbuffer).w
-		
-		if SkipError=0
-		bsr.w	ShowErrorMessage
-		endc
-		
-		move.l	2(sp),d0
-		
-		if SkipError=0
-		bsr.w	ShowErrorValue
-		endc
-		
-		move.l	(v_spbuffer).w,d0
-		
-		if SkipError=0
-		bsr.w	ShowErrorValue
-		endc
-		
-		bra.s	loc_478
-; ===========================================================================
-
-loc_462:
-		disable_ints
-		movem.l	d0-a7,(v_regbuffer).w
-		
-		if SkipError=0
-		bsr.w	ShowErrorMessage
-		endc
-		
-		move.l	2(sp),d0
-		
-		if SkipError=0
-		bsr.w	ShowErrorValue
-		endc
-
-loc_478:
-		if SkipError=0
-		bsr.w	ErrorWaitForC
-		endc
-		movem.l	(v_regbuffer).w,d0-a7
-		enable_ints
-		rte	
-
-; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
-
-
-ShowErrorMessage:
-		lea	(vdp_data_port).l,a6
-		locVRAM	$F800
-		lea	(Art_Text).l,a0
-		move.w	#$27F,d1
-	@loadgfx:
-		move.w	(a0)+,(a6)
-		dbf	d1,@loadgfx
-
-		moveq	#0,d0		; clear	d0
-		move.b	(v_errortype).w,d0 ; load error code
-		move.w	ErrorText(pc,d0.w),d0
-		lea	ErrorText(pc,d0.w),a0
-		locVRAM	(vram_fg+$604)
-		moveq	#$12,d1		; number of characters (minus 1)
-
-	@showchars:
-		moveq	#0,d0
-		move.b	(a0)+,d0
-		addi.w	#$790,d0
-		move.w	d0,(a6)
-		dbf	d1,@showchars	; repeat for number of characters
-		rts	
-; End of function ShowErrorMessage
-
-; ===========================================================================
-ErrorText:	dc.w @exception-ErrorText, @bus-ErrorText
-		dc.w @address-ErrorText, @illinstruct-ErrorText
-		dc.w @zerodivide-ErrorText, @chkinstruct-ErrorText
-		dc.w @trapv-ErrorText, @privilege-ErrorText
-		dc.w @trace-ErrorText, @line1010-ErrorText
-		dc.w @line1111-ErrorText
-@exception:	dc.b "ERROR EXCEPTION    "
-@bus:		dc.b "BUS ERROR          "
-@address:	dc.b "ADDRESS ERROR      "
-@illinstruct:	dc.b "  U FUCKED UP CHIEF"
-@zerodivide:	dc.b "@ERO DIVIDE        "
-@chkinstruct:	dc.b "CHK INSTRUCTION    "
-@trapv:		dc.b "TRAPV INSTRUCTION  "
-@privilege:	dc.b "PRIVILEGE VIOLATION"
-@trace:		dc.b "TRACE              "
-@line1010:	dc.b "LINE 1010 EMULATOR "
-@line1111:	dc.b "     EMULATOR DEATH"
-		even
-
-; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
-
-
-ShowErrorValue:
-		move.w	#$7CA,(a6)	; display "$" symbol
-		moveq	#7,d2
-
-	@loop:
-		rol.l	#4,d0
-		bsr.s	@shownumber	; display 8 numbers
-		dbf	d2,@loop
-		rts	
-; End of function ShowErrorValue
-
-
-; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
-
-
-@shownumber:
-		move.w	d0,d1
-		andi.w	#$F,d1
-		cmpi.w	#$A,d1
-		blo.s	@chars0to9
-		addq.w	#7,d1		; add 7 for characters A-F
-
-	@chars0to9:
-		addi.w	#$7C0,d1
-		move.w	d1,(a6)
-		rts	
-; End of function sub_5CA
-
-
-; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
-
-
-ErrorWaitForC:
-		bsr.w	ReadJoypads
-		cmpi.b	#btnC,(v_jpadpress1).w ; is button C pressed?
-		bne.w	ErrorWaitForC	; if not, branch
-		rts	
-; End of function ErrorWaitForC
+ptr_GM_Crash:	bra.w	GM_Crash		; Sega Screen ($20)
 
 ; ===========================================================================
 
@@ -1855,6 +1683,7 @@ Pal_SBZ3SonWat:	incbin	"palette\Sonic - SBZ3 Underwater.bin"
 Pal_SSResult:	incbin	"palette\Special Stage Results.bin"
 Pal_Continue:	incbin	"palette\Special Stage Continue Bonus.bin"
 Pal_Ending:	incbin	"palette\Ending.bin"
+Pal_Crash:	incbin	"palette\Crash.bin"
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	wait for VBlank routines to complete
@@ -3783,10 +3612,10 @@ End_LoadData:
 End_LoadSonic:
 		move.b	#id_SonicPlayer,(v_player).w ; load Sonic object
 		bset	#0,(v_player+obStatus).w ; make Sonic face left
-;		move.b	#1,(f_lockctrl).w ; lock controls
+		move.b	#1,(f_lockctrl).w ; lock controls
 		move.w	#(btnL<<8),(v_jpadhold2).w ; move Sonic to the left
 		move.w	#$F800,(v_player+obInertia).w ; set Sonic's speed
-		move.b	#id_HUD,(v_objspace+$40).w ; load HUD object
+		;move.b	#id_HUD,(v_objspace+$40).w ; load HUD object
 		jsr	(ObjPosLoad).l
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
@@ -8529,6 +8358,10 @@ Eni_JapNames:	incbin	"tilemaps\Hidden Japanese Credits.bin" ; Japanese credits (
 		even
 Nem_JapNames:	incbin	"artnem\Hidden Japanese Credits.bin"
 		even
+Eni_Crash:	incbin	"tilemaps\Crash.bin"
+		even
+Nem_Crash:	incbin	"artnem\0x18000.bin"
+		even
 
 Map_Sonic:	include	"_maps\Sonic.asm"
 SonicDynPLC:	include	"_maps\Sonic - Dynamic Gfx Script.asm"
@@ -9286,67 +9119,6 @@ ObjPos_Null:	dc.b $FF, $FF, 0, 0, 0,	0
 SoundDriver:	include "s1.sounddriver.asm"
 ; end of 'ROM'
 		even	
-				include	"s2_menu.asm"	; Sonic 2 level select	
-; ===============================================================
-; ---------------------------------------------------------------
-; Error handling module
-; ---------------------------------------------------------------
- 
-BusError:   jsr ErrorHandler(pc)
-        dc.b    "BUS ERROR",0           ; text
-        dc.b    1               ; extended stack frame
-        even
- 
-AddressError:   jsr ErrorHandler(pc)
-        dc.b    "ADDRESS ERROR",0       ; text
-        dc.b    1               ; extended stack frame
-        even
- 
-IllegalInstr:   
-		jsr ErrorHandler(pc)
-        dc.b    "ILLEGAL INSTRUCTION",0     ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-ZeroDivide: jsr ErrorHandler(pc)
-        dc.b    "ZERO DIVIDE",0         ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-ChkInstr:   jsr ErrorHandler(pc)
-        dc.b    "CHK INSTRUCTION",0         ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-TrapvInstr: jsr ErrorHandler(pc)
-        dc.b    "TRAPV INSTRUCTION",0       ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-PrivilegeViol:  jsr ErrorHandler(pc)
-        dc.b    "PRIVILEGE VIOLATION",0     ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-Trace:      jsr ErrorHandler(pc)
-        dc.b    "TRACE",0           ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-Line1010Emu:    jsr ErrorHandler(pc)
-        dc.b    "LINE 1010 EMULATOR",0      ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-Line1111Emu:    jsr ErrorHandler(pc)
-        dc.b    "LINE 1111 EMULATOR",0      ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-ErrorExcept:    jsr ErrorHandler(pc)
-        dc.b    "ERROR EXCEPTION",0         ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-ErrorHandler:   incbin  "ErrorHandler.bin"				
+				include	"s2_menu.asm"	; Sonic 2 level select
+				include "Crash.asm"	;crash handler
 EndOfRom:
