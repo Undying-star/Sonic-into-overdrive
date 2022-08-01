@@ -383,3 +383,4 @@ Sonic_Pos_Record_Buf =		 v_tracksonic
 
 f_spindash		= $39
 f_peelout       = $69
+Super_Sonic_palette  equ 		$FFFFF65F	;Super palette

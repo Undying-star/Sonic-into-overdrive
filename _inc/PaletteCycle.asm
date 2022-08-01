@@ -6,6 +6,7 @@
 
 
 PaletteCycle:
+		bsr     loc_24A2
 		moveq	#0,d2
 		moveq	#0,d0
 		move.b	(v_zone).w,d0	; get level number
@@ -264,3 +265,46 @@ loc_1B52:
 locret_1B64:
 		rts	
 ; End of function PalCycle_SBZ
+loc_24A2:
+        tst.b   ($FFFFF65F).w
+        beq.s   loc_24DE
+        bmi.s   loc_24E0
+        subq.b  #$1,($FFFFF65E).w 
+        bpl.s   loc_24DE
+        move.b  #$3,($FFFFF65E).w
+        lea     (loc_2516), a0
+        move.w  ($FFFFF65C).w,d0
+        addq.w  #$8,($FFFFF65C).w
+        cmpi.w  #$30,($FFFFF65C).w
+        bcs.s   loc_24D2
+        move.b  #$FF,($FFFFF65F).w
+loc_24D2:
+        lea     ($FFFFFB04).w,a1
+        move.l  $00(a0,d0),(a1)+
+        move.l  $4(a0,d0),(a1)
+loc_24DE:
+        rts
+loc_24E0:
+        subq.b  #$1,($FFFFF65E).w
+        bpl.s   loc_24DE
+        move.b  #$7,($FFFFF65E).w
+        lea     (loc_2516), a0
+        move.w  ($FFFFF65C).w,d0
+        addq.w  #$8,($FFFFF65C).w
+        cmpi.w  #$78,($FFFFF65C).w
+        bcs.s   loc_2508
+        move.w  #$30,($FFFFF65C).w
+loc_2508:
+        lea     ($FFFFFB04).w,a1
+        move.l  $00(a0,d0),(a1)+
+        move.l  $4(a0,d0),(a1)
+        rts
+loc_2516:              
+        dc.w    $A22, $C42, $E44, $E66, $844, $A64, $E66, $E88
+        dc.w    $666, $A86, $E88, $EAA, $488, $AA8, $EAA, $ECC
+        dc.w    $4AA, $ACA, $ECC, $EEE, $4CC, $AEC, $EEE, $EEE
+        dc.w    $4EE, $AEE, $EEE, $EEE, $6EE, $EEE, $EEE, $EEE
+        dc.w    $8EE, $EEE, $EEE, $EEE, $6EE, $CEE, $EEE, $EEE
+        dc.w    $4EE, $AEE, $EEE, $EEE, $2EE, $8EE, $CEE, $EEE
+        dc.w    $EE, $6EE, $AEE, $EEE, $EE, $4EE, $8EE, $CEE
+        dc.w    $EE, $6EE, $AEE, $EEE, $EE, $8EE, $CEE, $EEE

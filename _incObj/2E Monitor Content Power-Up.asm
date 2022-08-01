@@ -82,6 +82,8 @@ Pow_ChkShield:
 ; ===========================================================================
 
 Pow_ChkInvinc:
+		tst.b	($FFFFF65F).w	; is Sonic super?
+		bne.s	Pow_ChkS2		; if yes, branch
 		cmpi.b	#5,d0		; does monitor contain invincibility?
 		bne.s	Pow_ChkRings
 
@@ -104,7 +106,9 @@ Pow_ChkInvinc:
 		endc
 		music	bgm_Invincible,1,0,0 ; play invincibility music
 ; ===========================================================================
-
+Pow_ChkS2:
+	jmp		Pow_ChkS
+	rts
 Pow_NoMusic:
 		move.l   (MusicList).l,a1 ; load    music playlist
 		rts	
@@ -132,23 +136,36 @@ Pow_ChkRings:
 Pow_ChkS:
 		cmpi.b	#7,d0		; does monitor contain 'S'?
 		bne.s	Pow_ChkEnd
+		move.b  #$1,($FFFFF65F).w
+		addi.w	#50,(v_rings).w	; add 50 rings to the number of rings you have	
+		ori.b	#1,(f_ringcount).w ; update the ring counter
 		move.b	#1,(v_invinc).w	; make Sonic invincible
 		move.w	#$0,(v_player+$32).w ; time limit for the power-up
-		move.b	#id_ShieldItem,(v_objspace+$200).w ; load stars object ($3801)
-		move.b	#1,(v_objspace+$200+obAnim).w
-		move.b	#id_ShieldItem,(v_objspace+$240).w ; load stars object ($3802)
-		move.b	#2,(v_objspace+$240+obAnim).w
-		move.b	#id_ShieldItem,(v_objspace+$280).w ; load stars object ($3803)
-		move.b	#3,(v_objspace+$280+obAnim).w
-		move.b	#id_ShieldItem,(v_objspace+$2C0).w ; load stars object ($3804)
+		move.b	#$81,(obj_control).w		
+		;move.b	#id_ShieldItem,(v_objspace+$200).w ; load stars object ($3801)
+		;move.b	#1,(v_objspace+$200+obAnim).w
+		;move.b	#id_ShieldItem,(v_objspace+$240).w ; load stars object ($3802)
+		;move.b	#2,(v_objspace+$240+obAnim).w
+		;move.b	#id_ShieldItem,(v_objspace+$280).w ; load stars object ($3803)
+		;move.b	#3,(v_objspace+$280+obAnim).w
+		;move.b	#id_ShieldItem,(v_objspace+$2C0).w ; load stars object ($3804)
 		move.w	#$C00,(v_sonspeedmax).w ; change Sonic's top speed
 		move.w	#$18,(v_sonspeedacc).w	; change Sonic's acceleration
-		move.w	#$80,(v_sonspeeddec).w	; change Sonic's deceleration		
-
+		move.w	#$80,(v_sonspeeddec).w	; change Sonic's deceleration	
+		tst.b	(f_lockscreen).w ; is boss mode on?
+		bne.s	Pow_NoMusic2	; if yes, branch		
+		cmpi.w	#$C,(v_air).w
+		bls.s	Pow_NoMusic2
+		sfx	sfx_Whistle,1,0,0	; play shield sound		
+		music	bgm_Invincible,1,0,0 ; play invincibility music
+		
+Pow_NoMusic2:
+		move.l   (MusicList).l,a1 ; load    music playlist
+		rts		
+		
 Pow_ChkEnd:
 		rts			; 'S' and goggles monitors do nothing
 ; ===========================================================================
-
 Pow_Delete:	; Routine 4
 		subq.w	#1,obTimeFrame(a0)
 		bmi.w	DeleteObject	; delete after half a second

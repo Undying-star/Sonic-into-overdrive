@@ -231,87 +231,87 @@ competition_FM2:
 ;	Panning	�	direction	amsfms
 	smpsPan		panCentre,	$00
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		nC3,	$30,	nRst,	$30
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		nE4,	$07,	nE4,	$05,	nRst,	$54
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		$03,	nC3,	$2D,	nRst,	$30
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		nE4,	$07,	nE4,	$05,	nRst,	$54
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 ;	Alter�Pitch	value
 	smpsAlterPitch	$F4
 	dc.b		nB0,	$30,	nRst,	$30
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		nE5,	$07,	nE5,	$05,	nRst,	$24,	nE5,	$07
 	dc.b		nE5,	$05,	nRst,	$24
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		nB0,	$30,	nRst,	$30
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		nE5,	$07,	nE5,	$05,	nRst,	$24,	nE5,	$07
 	dc.b		nE5,	$05,	nRst,	$24
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		nC4,	$30,	nRst,	$30
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		nE5,	$07,	nE5,	$05,	nRst,	$54
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		$03,	nC4,	$2D,	nRst,	$30
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		nE5,	$07,	nE5,	$05,	nRst,	$54
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		nC4,	$30,	nRst,	$30
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		nE5,	$07,	nE5,	$05,	nRst,	$54
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		$03,	nC4,	$2D,	nRst,	$30
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		nE5,	$07,	nE5,	$05,	nRst,	$54
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		nB0,	$30,	nRst,	$30
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		nE5,	$07,	nE5,	$05,	nRst,	$24,	nE5,	$07
 	dc.b		nE5,	$05,	nRst,	$24
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		nB0,	$30,	nRst,	$30
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		nE5,	$07,	nE5,	$05,	nRst,	$24,	nE5,	$07
 	dc.b		nE5,	$05,	nRst,	$24
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		nC4,	$30,	nRst,	$30
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		nE5,	$07,	nE5,	$05,	nRst,	$54
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		$03,	nC4,	$2D,	nRst,	$30
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	dc.b		nE5,	$07,	nE5,	$05,	nRst,	$54
 ;	Panning	�	direction	amsfms
 	smpsPan		panCentre,	$00
 ;	Set�FM�Voice	#
-	smpsFMvoice	$01
+	smpsFMvoice	$02
 	smpsStop
 
 ; FM3 Data
@@ -325,7 +325,7 @@ competition_FM3:
 	smpsFMvoice	$02
 	dc.b		smpsModOff,	nRst,	$12,	nA3,	$3C
 ;	Set�FM�Voice	#
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nG5,	$03,	nG5,	$03
 ;	Alter�Volume	value
 	smpsAlterVol	$10
@@ -345,7 +345,7 @@ competition_FM3:
 	smpsFMvoice	$02
 	dc.b		nRst,	$0F,	nA3,	$3C
 ;	Set�FM�Voice	#
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nG5,	$03,	nG5,	$03
 ;	Alter�Volume	value
 	smpsAlterVol	$10
@@ -365,7 +365,7 @@ competition_FM3:
 	smpsFMvoice	$02
 	dc.b		nRst,	$12,	nA3,	$3C
 ;	Set�FM�Voice	#
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nG5,	$03,	nG5,	$03
 ;	Alter�Volume	value
 	smpsAlterVol	$10
@@ -383,7 +383,7 @@ competition_FM3:
 	smpsFMvoice	$02
 	dc.b		nRst,	$0F,	nA3,	$3C
 ;	Set�FM�Voice	#
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nG5,	$03,	nG5,	$03
 ;	Alter�Volume	value
 	smpsAlterVol	$10
@@ -395,7 +395,7 @@ competition_FM3:
 	smpsFMvoice	$02
 	dc.b		nA3,	$60,	nRst,	$12,	nA3,	$3C
 ;	Set�FM�Voice	#
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nG5,	$03,	nG5,	$03
 ;	Alter�Volume	value
 	smpsAlterVol	$10
@@ -413,7 +413,7 @@ competition_FM3:
 	smpsFMvoice	$02
 	dc.b		nRst,	$0F,	nA3,	$3C
 ;	Set�FM�Voice	#
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nG5,	$03,	nG5,	$03
 ;	Alter�Volume	value
 	smpsAlterVol	$10
@@ -433,7 +433,7 @@ competition_FM3:
 	smpsFMvoice	$02
 	dc.b		nRst,	$12,	nA3,	$3C
 ;	Set�FM�Voice	#
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nG5,	$03,	nG5,	$03
 ;	Alter�Volume	value
 	smpsAlterVol	$10
@@ -451,7 +451,7 @@ competition_FM3:
 	smpsFMvoice	$02
 	dc.b		nRst,	$0F,	nA3,	$3C
 ;	Set�FM�Voice	#
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nG5,	$03,	nG5,	$03
 ;	Alter�Volume	value
 	smpsAlterVol	$10
@@ -475,10 +475,10 @@ competition_FM4:
 	smpsPan		panRight,	$00
 	dc.b		smpsModOff,	smpsModOff
 ;	Set�FM�Voice	#
-	smpsFMvoice	$02
+	smpsFMvoice	$03
 	dc.b		smpsModOff,	nRst,	$12,	nB3,	$3C
 ;	Set�FM�Voice	#
-	smpsFMvoice	$00
+	smpsFMvoice	$01
 	dc.b		nG4,	$03,	nG4,	$03
 ;	Alter�Volume	value
 	smpsAlterVol	$10
@@ -487,18 +487,18 @@ competition_FM4:
 	smpsAlterVol	$F0
 	dc.b		nA4,	$03,	nRst,	$03
 ;	Set�FM�Voice	#
-	smpsFMvoice	$02
+	smpsFMvoice	$03
 	dc.b		nB3,	$5A
 ;	Set�FM�Voice	#
-	smpsFMvoice	$02
+	smpsFMvoice	$05
 ;	Set�Modulation	wait	speed	change	step
 	smpsModSet	$00,	$01,	$02,	$04
 	dc.b		nG5,	$09,	smpsModOff
 ;	Set�FM�Voice	#
-	smpsFMvoice	$02
+	smpsFMvoice	$03
 	dc.b		nRst,	$0F,	nB3,	$3C
 ;	Set�FM�Voice	#
-	smpsFMvoice	$00
+	smpsFMvoice	$03
 	dc.b		nG4,	$03,	nG4,	$03
 ;	Alter�Volume	value
 	smpsAlterVol	$10
@@ -507,18 +507,18 @@ competition_FM4:
 	smpsAlterVol	$F0
 	dc.b		nA4,	$03,	nRst,	$03
 ;	Set�FM�Voice	#
-	smpsFMvoice	$02
+	smpsFMvoice	$03
 	dc.b		nB3,	$60
 ;	Set�FM�Voice	#
-	smpsFMvoice	$02
+	smpsFMvoice	$03
 	dc.b		nB3,	$30,	nE4,	$30,	nD4,	$30,	nD4,	$30
 	dc.b		nB3,	$30,	nE4,	$30,	nCs4,	$30,	nD4,	$24
 	dc.b		nE4,	$0C
 ;	Set�FM�Voice	#
-	smpsFMvoice	$02
+	smpsFMvoice	$03
 	dc.b		nRst,	$12,	nB3,	$3C
 ;	Set�FM�Voice	#
-	smpsFMvoice	$00
+	smpsFMvoice	$03
 	dc.b		nG4,	$03,	nG4,	$03
 ;	Alter�Volume	value
 	smpsAlterVol	$10
