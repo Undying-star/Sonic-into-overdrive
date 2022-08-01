@@ -1,33 +1,34 @@
 ; =============================================================================================
-; Project Name:		s3finalboss
-; Created:		20th July 2022
+; Project Name:		FinalBoss
+; Created:		21st May 2022
 ; ---------------------------------------------------------------------------------------------
 ; ASM'd using S1SMPS2ASM version 1.1 by Marc Gordon (AKA Cinossu)
 ; =============================================================================================
 
-s3finalboss_Header:
-	smpsHeaderVoice	s3finalboss_Voices
+FinalBoss_Header:
+	smpsHeaderVoice	FinalBoss_Voices
 	smpsHeaderChan	$06,	$02
 	smpsHeaderTempo	$01,	$02
 
-	smpsHeaderDAC	s3finalboss_DAC
-	smpsHeaderFM	s3finalboss_FM1,	smpsPitch00,	$0E
-	smpsHeaderFM	s3finalboss_FM2,	smpsPitch00,	$0C
-	smpsHeaderFM	s3finalboss_FM3,	smpsPitch00,	$0E
-	smpsHeaderFM	s3finalboss_FM4,	smpsPitch00,	$0E
-	smpsHeaderFM	s3finalboss_FM5,	smpsPitch00,	$12
-	smpsHeaderPSG	s3finalboss_PSG1,	smpsPitch00,	$02,	$00
-	smpsHeaderPSG	s3finalboss_PSG2,	smpsPitch00,	$03,	$00
+	smpsHeaderDAC	FinalBoss_DAC
+	smpsHeaderFM	FinalBoss_FM1,	smpsPitch00,	$0E
+	smpsHeaderFM	FinalBoss_FM2,	smpsPitch00,	$0C
+	smpsHeaderFM	FinalBoss_FM3,	smpsPitch00,	$0E
+	smpsHeaderFM	FinalBoss_FM4,	smpsPitch00,	$0E
+	smpsHeaderFM	FinalBoss_FM5,	smpsPitch00,	$12
+	smpsHeaderPSG	FinalBoss_PSG1,	smpsPitch00,	$02,	$00
+	smpsHeaderPSG	FinalBoss_PSG2,	smpsPitch00,	$03,	$00
 
 ; DAC Data
-s3finalboss_DAC:
+FinalBoss_DAC:
+	smpsSetTempoMod	$03
 	dc.b		nRst,	$7F,	$7F,	$22,	dKick,	$24,	dSnare,	$1B
 	dc.b		dKick,	$09,	dKick,	$24,	dSnare,	$1B,	dKick,	$09
 	dc.b		dKick,	$24,	dSnare,	$1B,	dKick,	$09,	dKick,	$1B
 	dc.b		dKick,	$09,	dSnare,	$09,	dKick,	$09,	dSnare,	$09
 	dc.b		dSnare,	$2D,	dSnare,	$03,	dSnare,	$03,	dSnare,	$03
 	dc.b		dSnare,	$03,	dKick,	$06,	dSnare,	$06
-s3finalboss_Jump01:
+FinalBoss_Jump01:
 	dc.b		dKick,	$0C,	dSnare,	$0C,	dKick,	$06,	dKick,	$06
 	dc.b		dSnare,	$0C,	dKick,	$0C,	dSnare,	$06,	dKick,	$0C
 	dc.b		dKick,	$06,	dSnare,	$0C,	dKick,	$0C,	dSnare,	$0C
@@ -74,13 +75,13 @@ s3finalboss_Jump01:
 	dc.b		dSnare,	$0C,	dKick,	$0C,	dSnare,	$06,	dKick,	$0C
 	dc.b		dKick,	$06,	dSnare,	$0C,	dKick,	$06,	dKick,	$06
 	dc.b		dSnare,	$48,	dSnare,	$0C
-	smpsJump	s3finalboss_Jump01
+	smpsJump	FinalBoss_Jump01
 
 ; FM1 Data
-s3finalboss_FM1:
+FinalBoss_FM1:
 	smpsModSet	$0D,	$01,	$02,	$06
 	dc.b		nRst,	$7F,	$59
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nE4,	$03,	nF4,	$03,	nG4,	$03,	nA4,	$03
 	dc.b		nF4,	$03,	nG4,	$03,	nA4,	$03,	nB4,	$03
 	dc.b		nG4,	$03,	nA4,	$03,	nB4,	$03,	nC5,	$03
@@ -94,29 +95,29 @@ s3finalboss_FM1:
 	dc.b		$03,	nC5,	$03,	nD5,	$03,	nB4,	$03,	nC5
 	dc.b		$03,	nD5,	$03,	nE5,	$03,	nC5,	$03,	nD5
 	dc.b		$03,	nE5,	$03,	nF5,	$03,	nG5,	$3C
-s3finalboss_Jump02:
-	smpsFMvoice	$00
+FinalBoss_Jump02:
+	smpsFMvoice	$02
 	dc.b		nE5,	$0C,	nB4,	$0C,	nG5,	$0C,	nD5,	$0C
 	dc.b		nFs5,	$0C,	nCs5,	$0C,	nF4,	$0C,	nF5,	$0C
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nE5,	$0C,	nB4,	$0C,	nG5,	$0C,	nD5,	$0C
 	dc.b		nFs5,	$0C,	nCs5,	$0C,	nF4,	$0C,	nF5,	$0C
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nE5,	$0C,	nB4,	$0C,	nG5,	$0C,	nD5,	$0C
 	dc.b		nFs5,	$0C,	nCs5,	$0C,	nF4,	$0C,	nF5,	$0C
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nE5,	$0C,	nB4,	$0C,	nG5,	$0C,	nD5,	$0C
 	dc.b		nFs5,	$0C,	nCs5,	$0C,	nF4,	$0C,	nF5,	$0C
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nE5,	$0C,	nB4,	$0C,	nG5,	$0C,	nD5,	$0C
 	dc.b		nFs5,	$0C,	nCs5,	$0C,	nF4,	$0C,	nF5,	$0C
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nE5,	$0C,	nB4,	$0C,	nG5,	$0C,	nD5,	$0C
 	dc.b		nFs5,	$0C,	nCs5,	$0C,	nF4,	$0C,	nF5,	$0C
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nE5,	$0C,	nB4,	$0C,	nG5,	$0C,	nD5,	$0C
 	dc.b		nFs5,	$0C,	nCs5,	$0C,	nF4,	$0C,	nF5,	$0C
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nE5,	$0C,	nB4,	$0C,	nG5,	$0C,	nD5,	$0C
 	dc.b		nFs5,	$0C,	nCs5,	$0C,	nF4,	$0C,	nF5,	$0C
 	dc.b		nRst,	$60,	nE3,	$02,	nF3,	$02,	nG3,	$02
@@ -138,17 +139,17 @@ s3finalboss_Jump02:
 	dc.b		nE4,	$0C,	nE3,	$02,	nF3,	$02,	nG3,	$02
 	dc.b		nA3,	$02,	nB3,	$02,	nC4,	$02,	nE4,	$0C
 	dc.b		nRst,	$3C
-	smpsFMvoice	$01
+	smpsFMvoice	$03
 	dc.b		nE4,	$12,	nB4,	$12,	nA4,	$0C,	nD5,	$12
 	dc.b		nC5,	$12,	nB4,	$0C,	nC5,	$12,	nD5,	$12
 	dc.b		nE5,	$0C,	nD5,	$12,	nA4,	$1E,	nE4,	$12
 	dc.b		nB4,	$12,	nA4,	$0C,	nD5,	$12,	nE5,	$12
 	dc.b		nFs5,	$0C,	nG5,	$12,	nA5,	$12,	nB5,	$0C
 	dc.b		nD6,	$12,	nA5,	$1E,	nRst,	$60
-	smpsJump	s3finalboss_Jump02
+	smpsJump	FinalBoss_Jump02
 
 ; FM2 Data
-s3finalboss_FM2:
+FinalBoss_FM2:
 	smpsFMvoice	$00
 	smpsModSet	$0D,	$01,	$02,	$06
 	smpsPan		panCentre,	$00
@@ -159,7 +160,7 @@ s3finalboss_FM2:
 	dc.b		nE2,	$63,	nE2,	$2D
 	smpsPan		panCentre,	$00
 	dc.b		nE2,	$63,	nE2,	$2D,	nE2,	$3C
-s3finalboss_Jump03:
+FinalBoss_Jump03:
 	dc.b		nE2,	$06,	nE2,	$06,	nB2,	$06,	nE2,	$06
 	dc.b		nE2,	$06,	nD3,	$06,	nE2,	$06,	nE2,	$06
 	dc.b		nCs3,	$06,	nE2,	$06,	nB2,	$06,	nE2,	$06
@@ -222,10 +223,10 @@ s3finalboss_Jump03:
 	dc.b		nA2,	$06,	nA2,	$06,	nE3,	$06,	nA2,	$06
 	dc.b		nA3,	$06,	nE3,	$06,	nA2,	$06,	nA3,	$06
 	dc.b		nRst,	$0C,	nBb2,	$48,	nRst,	$0C
-	smpsJump	s3finalboss_Jump03
+	smpsJump	FinalBoss_Jump03
 
 ; FM3 Data
-s3finalboss_FM3:
+FinalBoss_FM3:
 	smpsFMvoice	$01
 	smpsModSet	$0D,	$01,	$02,	$06
 	smpsPan		panRight,	$00
@@ -233,7 +234,7 @@ s3finalboss_FM3:
 	dc.b		nBb4,	$1B,	nA4,	$2D,	nG4,	$48,	nBb4,	$1B
 	dc.b		nA4,	$2D,	nG4,	$48,	nBb4,	$1B,	nA4,	$2D
 	dc.b		nG4,	$3C
-s3finalboss_Jump04:
+FinalBoss_Jump04:
 	smpsFMvoice	$01
 	dc.b		nG4,	$30,	nBb4,	$12,	nA4,	$12,	nA4,	$0C
 	smpsFMvoice	$01
@@ -259,14 +260,14 @@ s3finalboss_Jump04:
 	dc.b		nRst,	$0C,	nFs4,	$03,	nRst,	$03,	nFs4,	$03
 	dc.b		nRst,	$0F,	nE4,	$0C,	nRst,	$0C,	nE4,	$06
 	dc.b		nFs4,	$2A,	nRst,	$18
-	smpsFMvoice	$01
+	smpsFMvoice	$04
 	dc.b		nG4,	$30,	nFs4,	$30,	nE4,	$30,	nFs4,	$30
 	dc.b		nB4,	$30,	nD5,	$30,	nD5,	$30,	nFs5,	$30
 	dc.b		nRst,	$0C,	nD5,	$48,	nRst,	$0C
-	smpsJump	s3finalboss_Jump04
+	smpsJump	FinalBoss_Jump04
 
 ; FM4 Data
-s3finalboss_FM4:
+FinalBoss_FM4:
 	smpsFMvoice	$01
 	smpsModSet	$0D,	$01,	$02,	$06
 	smpsPan		panLeft,	$00
@@ -274,7 +275,7 @@ s3finalboss_FM4:
 	dc.b		nFs4,	$1B,	nF4,	$2D,	nD4,	$48,	nFs4,	$1B
 	dc.b		nF4,	$2D,	nD4,	$48,	nFs4,	$1B,	nF4,	$2D
 	dc.b		nD4,	$3C
-s3finalboss_Jump05:
+FinalBoss_Jump05:
 	smpsFMvoice	$01
 	dc.b		nD4,	$30,	nFs4,	$12,	nF4,	$12,	nF4,	$0C
 	smpsFMvoice	$01
@@ -300,18 +301,18 @@ s3finalboss_Jump05:
 	dc.b		nRst,	$0C,	nD4,	$03,	nRst,	$03,	nD4,	$03
 	dc.b		nRst,	$0F,	nC4,	$0C,	nRst,	$0C,	nC4,	$03
 	dc.b		nRst,	$03,	nD4,	$2A,	nRst,	$18
-	smpsFMvoice	$01
+	smpsFMvoice	$04
 	dc.b		nB4,	$30,	nA4,	$30,	nG4,	$30,	nA4,	$30
 	dc.b		nE5,	$30,	nFs5,	$30,	nG5,	$30,	nA5,	$30
 	dc.b		nRst,	$0C,	nE5,	$48,	nRst,	$0C
-	smpsJump	s3finalboss_Jump05
+	smpsJump	FinalBoss_Jump05
 
 ; FM5 Data
-s3finalboss_FM5:
+FinalBoss_FM5:
 	dc.b		nRst,	$09
 	smpsModSet	$0D,	$01,	$02,	$06
 	dc.b		$7F,	$59
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nE4,	$03,	nF4,	$03,	nG4,	$03,	nA4,	$03
 	dc.b		nF4,	$03,	nG4,	$03,	nA4,	$03,	nB4,	$03
 	dc.b		nG4,	$03,	nA4,	$03,	nB4,	$03,	nC5,	$03
@@ -325,29 +326,29 @@ s3finalboss_FM5:
 	dc.b		$03,	nC5,	$03,	nD5,	$03,	nB4,	$03,	nC5
 	dc.b		$03,	nD5,	$03,	nE5,	$03,	nC5,	$03,	nD5
 	dc.b		$03,	nE5,	$03,	nF5,	$03,	nG5,	$3C
-s3finalboss_Jump06:
-	smpsFMvoice	$00
+FinalBoss_Jump06:
+	smpsFMvoice	$02
 	dc.b		nE5,	$0C,	nB4,	$0C,	nG5,	$0C,	nD5,	$0C
 	dc.b		nFs5,	$0C,	nCs5,	$0C,	nF4,	$0C,	nF5,	$0C
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nE5,	$0C,	nB4,	$0C,	nG5,	$0C,	nD5,	$0C
 	dc.b		nFs5,	$0C,	nCs5,	$0C,	nF4,	$0C,	nF5,	$0C
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nE5,	$0C,	nB4,	$0C,	nG5,	$0C,	nD5,	$0C
 	dc.b		nFs5,	$0C,	nCs5,	$0C,	nF4,	$0C,	nF5,	$0C
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nE5,	$0C,	nB4,	$0C,	nG5,	$0C,	nD5,	$0C
 	dc.b		nFs5,	$0C,	nCs5,	$0C,	nF4,	$0C,	nF5,	$0C
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nE5,	$0C,	nB4,	$0C,	nG5,	$0C,	nD5,	$0C
 	dc.b		nFs5,	$0C,	nCs5,	$0C,	nF4,	$0C,	nF5,	$0C
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nE5,	$0C,	nB4,	$0C,	nG5,	$0C,	nD5,	$0C
 	dc.b		nFs5,	$0C,	nCs5,	$0C,	nF4,	$0C,	nF5,	$0C
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nE5,	$0C,	nB4,	$0C,	nG5,	$0C,	nD5,	$0C
 	dc.b		nFs5,	$0C,	nCs5,	$0C,	nF4,	$0C,	nF5,	$0C
-	smpsFMvoice	$00
+	smpsFMvoice	$02
 	dc.b		nE5,	$0C,	nB4,	$0C,	nG5,	$0C,	nD5,	$0C
 	dc.b		nFs5,	$0C,	nCs5,	$0C,	nF4,	$0C,	nF5,	$0C
 	dc.b		nRst,	$60,	nE3,	$02,	nF3,	$02,	nG3,	$02
@@ -369,23 +370,23 @@ s3finalboss_Jump06:
 	dc.b		nE4,	$0C,	nE3,	$02,	nF3,	$02,	nG3,	$02
 	dc.b		nA3,	$02,	nB3,	$02,	nC4,	$02,	nE4,	$0C
 	dc.b		nRst,	$3D
-	smpsFMvoice	$01
+	smpsFMvoice	$03
 	dc.b		nE4,	$12,	nB4,	$12,	nA4,	$0C,	nD5,	$12
 	dc.b		nC5,	$12,	nB4,	$0C,	nC5,	$12,	nD5,	$12
 	dc.b		nE5,	$0C,	nD5,	$12,	nA4,	$1E,	nE4,	$12
 	dc.b		nB4,	$12,	nA4,	$0C,	nD5,	$12,	nE5,	$12
 	dc.b		nFs5,	$0C,	nG5,	$12,	nA5,	$12,	nB5,	$0C
 	dc.b		nD6,	$12,	nA5,	$1E,	nRst,	$60
-	smpsJump	s3finalboss_Jump06
+	smpsJump	FinalBoss_Jump06
 
 ; PSG1 Data
-s3finalboss_PSG1:
+FinalBoss_PSG1:
 	smpsModSet	$0D,	$01,	$02,	$06
 	dc.b		nB0,	$48,	nCs1,	$1B,	nC1,	$2D,	nB0,	$48
 	dc.b		nCs1,	$1B,	nC1,	$2D,	nB0,	$48,	nCs1,	$1B
 	dc.b		nC1,	$2D,	nB0,	$48,	nCs1,	$1B,	nC1,	$2D
 	dc.b		nB0,	$3C
-s3finalboss_Jump07:
+FinalBoss_Jump07:
 	dc.b		nB0,	$30,	nCs1,	$12,	nC1,	$12,	nC1,	$0C
 	dc.b		nB0,	$30,	nCs1,	$12,	nC1,	$12,	nC1,	$0C
 	dc.b		nB0,	$30,	nCs1,	$12,	nC1,	$12,	nC1,	$0C
@@ -401,13 +402,13 @@ s3finalboss_Jump07:
 	dc.b		$03,	nRst,	$03,	nE2,	$03,	nRst,	$09,	nFs2
 	dc.b		$03,	nRst,	$09,	nA1,	$03,	nRst,	$7F,	$7F
 	dc.b		$49
-	smpsJump	s3finalboss_Jump07
+	smpsJump	FinalBoss_Jump07
 
 ; PSG2 Data
-s3finalboss_PSG2:
+FinalBoss_PSG2:
 	smpsModSet	$0D,	$01,	$02,	$06
 	dc.b		nRst,	$6A,	$6A,	$6A,	$6A,	$6A,	$6A
-s3finalboss_Jump08:
+FinalBoss_Jump08:
 	dc.b		nRst,	$7F,	$7F,	$7F,	$03,	nE1,	$06,	nB1
 	dc.b		$06,	nE2,	$06,	nG1,	$06,	nG2,	$06,	nFs2
 	dc.b		$06,	nD2,	$06,	nB1,	$06,	nRst,	$30,	nE1
@@ -459,34 +460,17 @@ s3finalboss_Jump08:
 	dc.b		$03,	nRst,	$03,	nFs2,	$03,	nRst,	$03,	nE2
 	dc.b		$03,	nRst,	$03,	nD2,	$03,	nRst,	$03,	nA1
 	dc.b		$03,	nRst,	$63
-	smpsJump	s3finalboss_Jump08
+	smpsJump	FinalBoss_Jump08
 
-s3finalboss_Voices:
-;	Voice 00
-	smpsVcAlgorithm		$03
-	smpsVcFeedback		$05
-	smpsVcDetune		$00,	$00,	$00,	$01
-	smpsVcCoarseFreq	$00,	$00,	$00,	$06
-	smpsVcRateScale		$00,	$00,	$00,	$00
-	smpsVcAttackRate	$00,	$00,	$00,	$00
-	smpsVcAmpMod		$00,	$00,	$00,	$00
-	smpsVcDecayRate1	$00,	$00,	$00,	$00
-	smpsVcDecayRate2	$00,	$00,	$00,	$00
-	smpsVcDecayLevel	$00,	$00,	$00,	$00
-	smpsVcReleaseRate	$00,	$00,	$00,	$00
-	smpsVcTotalLevel	$00,	$00,	$00,	$00
-
-;	Voice 01
-	smpsVcAlgorithm		$03
-	smpsVcFeedback		$05
-	smpsVcDetune		$00,	$00,	$00,	$01
-	smpsVcCoarseFreq	$00,	$00,	$00,	$06
-	smpsVcRateScale		$00,	$00,	$00,	$00
-	smpsVcAttackRate	$00,	$00,	$00,	$00
-	smpsVcAmpMod		$00,	$00,	$00,	$00
-	smpsVcDecayRate1	$00,	$00,	$00,	$00
-	smpsVcDecayRate2	$00,	$00,	$00,	$00
-	smpsVcDecayLevel	$00,	$00,	$00,	$00
-	smpsVcReleaseRate	$00,	$00,	$00,	$00
-	smpsVcTotalLevel	$00,	$00,	$00,	$00
+FinalBoss_Voices:
+	dc.b		$3A,$71,$0C,$33,$01,$1C,$16,$1D,$1F,$04,$06,$04,$08,$00,$01,$03
+	dc.b		$00,$16,$17,$16,$A6,$25,$2F,$25,$00;			Voice 00
+	dc.b		$04,$71,$41,$31,$31,$12,$12,$12,$12,$00,$00,$00,$00,$00,$00,$00
+	dc.b		$00,$0F,$0F,$0F,$0F,$23,$00,$23,$00;			Voice 01
+	dc.b		$3A,$71,$0C,$33,$01,$1C,$16,$1D,$1F,$04,$06,$04,$08,$00,$01,$03
+	dc.b		$00,$16,$17,$16,$A6,$25,$2F,$25,$00;			Voice 02
+	dc.b		$04,$71,$41,$31,$31,$12,$12,$12,$12,$00,$00,$00,$00,$00,$00,$00
+	dc.b		$00,$0F,$0F,$0F,$0F,$23,$00,$23,$00;			Voice 03
+	dc.b		$04,$71,$41,$31,$31,$12,$12,$12,$12,$00,$00,$00,$00,$00,$00,$00
+	dc.b		$00,$0F,$0F,$0F,$0F,$23,$00,$23,$00;			Voice 04
 	even

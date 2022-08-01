@@ -81,6 +81,8 @@ ptr_musend
 ptr_mus94:	dc.l Music94
 ptr_mus95:	dc.l Music95
 ptr_mus96:	dc.l Music96
+ptr_mus97:	dc.l Music97
+ptr_mus98:	dc.l Music98
 ; ---------------------------------------------------------------------------
 ; Priority of sound. New music or SFX must have a priority higher than or equal
 ; to what is stored in v_sndprio or it won't play. If bit 7 of new priority is
@@ -2462,7 +2464,7 @@ Music90:	incbin	"sound/music/Mus90 - Continue Screen.bin"
 		even
 Music91:	incbin	"sound/music/S3Credits.bin"
 		even
-Music92:	include	"sound/music/DrowningS1.asm"
+Music92:	include	"sound/music/Drowning.asm"
 		even
 Music93:	incbin	"sound/music/Mus93 - Get Emerald.bin"
 		even
@@ -2629,6 +2631,10 @@ Music95:	incbin	"sound/music/Menu.bin"						;incbin	"sound/music/nowaysk.bin"
 		even
 Music96:	include "sound/music/s3finalboss.asm"
 		even
+Music97:	incbin "sound/music/s3miniboss.bin"
+		even	
+Music98:	include "sound/music/competitionmenu.asm"
+		even			
 SegaPCM:
 SegaPCM_End
 		even
