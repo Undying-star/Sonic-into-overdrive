@@ -2444,13 +2444,13 @@ Music86:	incbin	"sound/music/LBZDrums.bin"
 		even
 Music87:	incbin	"sound/music/Mus87 - Invincibility.bin"
 		even
-Music88:	incbin	"sound/music/Mus88 - Extra Life.bin"
+Music88:	include	"sound/music/Mus88 - Extra Life.asm"
 		even
 Music89:	incbin	"sound/music/Mus89 - Special Stage.bin"
 		even
 Music8A:	include	"sound/music/Title.asm"
 		even
-Music8B:	incbin	"sound/music/Mus8B - Ending.bin"
+Music8B:	include	"sound/music/Mus8B - Ending.asm"
 		even
 Music8C:	incbin	"sound/music/Mus8C - Boss.bin"
 		even
@@ -2462,7 +2462,7 @@ Music8F:	incbin	"sound/music/Mus8F - Game Over.bin"
 		even
 Music90:	incbin	"sound/music/Mus90 - Continue Screen.bin"
 		even
-Music91:	incbin	"sound/music/S3Credits.bin"
+Music91:	include	"sound/music/S3Creditsnew.asm"
 		even
 Music92:	include	"sound/music/Drowning.asm"
 		even
@@ -2628,7 +2628,7 @@ SoundD0:	incbin	"sound/sfx/SndD0 - Waterfall.bin"
 		even
 SoundD1:	incbin	"sound/sfx/46.bin"
 		even
-Music94:	incbin	"sound/music/GHZ.bin"
+Music94:	include	"sound/music/GHZ.asm"
 		even
 Music95:	incbin	"sound/music/Menu.bin"						;incbin	"sound/music/nowaysk.bin"
 		even

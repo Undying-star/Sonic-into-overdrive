@@ -139,7 +139,7 @@ EndOfHeader:
 ; Crash/Freeze the 68000. Unlike Sonic 2, Sonic 1 uses the 68000 for playing music, so it stops too
 JmpToCrashRoutine:
 		move.b	#$20,(v_gamemode).w ; set Game Mode to Crash Screen
-                rts
+		rts
 ; ===========================================================================
 
 EntryPoint:
@@ -348,6 +348,7 @@ ptr_GM_Credits:	bra.w	GM_Credits	; Credits ($1C)
 
 ptr_GM_Crash:	bra.w	GM_Crash		; Sega Screen ($20)
 
+ptr_GM_LevelSel:	bra.w	GM_LevSel		; Sega Screen ($24)
 ; ===========================================================================
 
 Art_Text:	incbin	"artunc\menutext.bin" ; text used in level select and debug mode
@@ -2870,6 +2871,9 @@ Crash_GotoTitle:
 		move.b	#id_Sega,(v_gamemode).w ; go to title screen
 		rts
 
+GM_LevSel:
+	jmp	Level_Select_Menu
+	rts
 ; ---------------------------------------------------------------------------
 ; Collision index pointer loading subroutine
 ; ---------------------------------------------------------------------------
@@ -5317,9 +5321,6 @@ ExitPlatform:
 ExitPlatform2:
 		add.w	d2,d2
 		lea	(v_player).w,a1
-		bsr.s   @singleobjexit
-		lea     $200(a1),a1
- @singleobjexit:
 		btst	#1,obStatus(a1)
 		bne.s	loc_75E0
 		move.w	obX(a1),d0
@@ -5335,7 +5336,6 @@ loc_75E0:
 		bclr	#3,obStatus(a0)
 
 locret_75F2:
-		rts
 ; End of function ExitPlatform
 
 		include	"_incObj\11 Bridge (part 3).asm"
