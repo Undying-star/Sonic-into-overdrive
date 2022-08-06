@@ -18,13 +18,13 @@ GHZ3_Header:
 ;	FM1 Pointer	location	pitch		volume
 	smpsHeaderFM	GHZ3_FM1,	smpsPitch00,	$08
 ;	FM2 Pointer	location	pitch		volume
-	smpsHeaderFM	GHZ3_FM2,	smpsPitch00,	$07
+	smpsHeaderFM	GHZ3_FM2,	smpsPitch00,	$0F
 ;	FM3 Pointer	location	pitch		volume
 	smpsHeaderFM	GHZ3_FM3,	smpsPitch00,	$08
 ;	FM4 Pointer	location	pitch		volume
-	smpsHeaderFM	GHZ3_FM4,	smpsPitch00,	$09
+	smpsHeaderFM	GHZ3_FM4,	smpsPitch00,	$10
 ;	FM5 Pointer	location	pitch		volume
-	smpsHeaderFM	GHZ3_FM5,	smpsPitch00,	$09
+	smpsHeaderFM	GHZ3_FM5,	smpsPitch00,	$10
 ;	PSG1 Pointer	location	pitch		volume	instrument
 	smpsHeaderPSG	GHZ3_PSG1,	smpsPitch00,	$09,	$00
 ;	PSG2 Pointer	location	pitch		volume	instrument
