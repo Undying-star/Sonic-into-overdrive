@@ -30,7 +30,7 @@ Chop_ChgSpeed:	; Routine 2
 		lea	(Ani_Chop).l,a1
 		bsr.w	AnimateSprite
 		bsr.w	SpeedToPos
-		addi.w	#$18,obVelY(a0)	; reduce speed
+		;addi.w	#$18,obVelY(a0)	; reduce speed
 		move.w	chop_origY(a0),d0
 		cmp.w	obY(a0),d0	; has Chopper returned to its original position?
 		bcc.s	@chganimation	; if not, branch

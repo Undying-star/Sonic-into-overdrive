@@ -70,16 +70,21 @@ Sonic_Animate:
 ; ===========================================================================
 
 @walkrunroll:
-		subq.b	#1,obTimeFrame(a0) ; subtract 1 from frame duration
-		bpl.s	@delay		; if time remains, branch
-		addq.b	#1,d0		; is animation walking/running?
-		bne.w	@rolljump	; if not, branch
-		moveq	#0,d1
-		move.b	obAngle(a0),d0	; get Sonic's angle
-		move.b	obStatus(a0),d2
-		andi.b	#1,d2		; is Sonic mirrored horizontally?
-		bne.s	@flip		; if yes, branch
-		not.b	d0		; reverse angle
+        subq.b    #1,obTimeFrame(a0) ; subtract 1 from frame duration
+        bpl.s    @delay        ; if time remains, branch
+        addq.b    #1,d0        ; is animation walking/running?    
+        bne.w    @rolljump    ; if not, branch
+        moveq    #0,d1
+        move.b    obAngle(a0),d0    ; get Sonic's angle
+        bmi.s    @ble             ; better handling of angles
+        beq.s    @ble
+        subq.b    #1,d0
+		
+@ble:
+		move.b    obStatus(a0),d2
+        andi.b    #1,d2        ; is Sonic mirrored horizontally?
+        bne.s    @flip        ; if yes, branch
+        not.b    d0        ; reverse angle
 
 	@flip:
 		addi.b	#$10,d0		; add $10 to angle
